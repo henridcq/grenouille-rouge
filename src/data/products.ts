@@ -21,12 +21,27 @@ export type Product = {
   seo?: { title: string; description: string };
 };
 
+import { ph } from "./photos";
+const P = (n: string) => ph(n) ?? "";
 const p = (id: number) => `https://grenouillerouge.com/img/p/${String(id).split("").join("/")}/${id}.jpg`;
 export const cms = (f: string) => `https://grenouillerouge.com/img/cms/${f}`;
 export const LOGO = "https://grenouillerouge.com/img/grenouille-rouge-logo-1683816362.jpg";
 
 export const PHOTOS = {
   atelier: cms("Grenouille-Rouge-2.jpg"),
+  cuirs: P("atelier-cuirs-couleurs.jpg"),
+  etiquette: P("detail-etiquette-made-in-france.jpg"),
+  hero: P("ambiance-les-jouets-de-leo.jpg"),
+  princesse: P("ambiance-tresors-de-princesse.jpg"),
+  trio: P("ambiance-trio-canape.jpg"),
+  parisiennePortee: P("parisienne-kaki-portee-02.jpg"),
+  poele: P("ambiance-on-va-pas-s-peler-poele.jpg"),
+  printemps: P("ambiance-rangement-de-printemps.jpg"),
+  miniAmbiance: P("mini-vide-tes-poches-ambiance.jpg"),
+  musee: P("parisienne-moutarde-musee.jpg"),
+  trioRonds: P("trio-ronds-vierges-02.jpg"),
+  ronds: P("trois-ronds-empiles-01.jpg"),
+  peler: P("on-va-pas-s-peler-detail.jpg"),
   jute: cms("Qui-sommes-nous-2.jpg"),
   ambiance: cms("Grenouille-Rouge.jpg"),
 };
@@ -35,9 +50,9 @@ const persoBody =
   "En toile de jute tissée au Ronchay, doublé, surpiqué et peint au pochoir dans notre atelier de Grémonville. Il tient debout tout seul, même vide. Et il tiendra des années.";
 
 const perso = (
-  slug: string, format: FormatId, name: string, price: number, imgs: number[], accroche: string, dims: string, alt: string,
+  slug: string, format: FormatId, name: string, price: number, imgs: (number | string)[], accroche: string, dims: string, alt: string,
 ): Product => ({
-  slug, format, name, price, rayon: "personnalises", images: imgs.map(p), alt, accroche, body: persoBody, tech: dims, proof: "Peint à la main",
+  slug, format, name, price, rayon: "personnalises", images: imgs.map((i) => (typeof i === "number" ? p(i) : P(i))), alt, accroche, body: persoBody, tech: dims, proof: "Peint à la main",
 });
 
 const MINI_BODY =
@@ -50,15 +65,15 @@ const mini = (slug: string, name: string, imgs: number[]): Product => ({
 
 export const products: Product[] = [
   // Personnalisables
-  { ...perso("le-rond-xl", "rond-xl", "Le Rond XL", 56, [1390, 3051], "Notre préféré, et le vôtre. Jouets, linge, plaids, bûches : il avale tout.", "H 40 · Ø 40 cm", "Grand panier rond XL en jute, prêt à recevoir votre texte peint à la main"),
+  { ...perso("le-rond-xl", "rond-xl", "Le Rond XL", 56, ["ambiance-les-jouets-de-leo.jpg", "rond-xl-vierge-recto-01.jpg", "rond-xl-vierge-profil-01.jpg", 1390, 3051], "Notre préféré, et le vôtre. Jouets, linge, plaids, bûches : il avale tout.", "H 40 · Ø 40 cm", "Grand panier rond XL en jute, prêt à recevoir votre texte peint à la main"),
     body: "Quarante centimètres de haut, quarante de large : le Rond XL est notre panier le plus demandé, et de loin. Les jouets de Léo, les trésors de Solveig, le barda de Papa, le linge de toute la famille. En toile de jute tissée au Ronchay, doublé, surpiqué et peint au pochoir dans notre atelier de Grémonville. Il tient debout tout seul, même vide. Et il tiendra des années.",
     seo: { title: "Le Rond XL : grand panier en jute personnalisé à votre prénom", description: "Notre panier le plus demandé. 40 cm, jute normande, texte peint à la main. Jouets, linge, plaids. 56 €, livraison offerte en point relais." } },
-  perso("le-bb-rond", "bb-rond", "Le BB Rond", 43, [1452, 3053], "Pour les petites choses qui comptent : chaussettes, doudous, télécommandes.", "H 25 · Ø 25 cm", "Petit panier rond BB en jute, à personnaliser"),
-  perso("le-rond", "rond", "Le Rond", 49, [565, 3054], "Le format qui va partout : entrée, salle de bain, bureau.", "H 35 · Ø 35 cm", "Panier rond en jute, à personnaliser"),
-  perso("le-carre", "carre", "Le Carré", 59, [1478, 3055], "Des angles nets, des pompons, et de la place.", "35 × 35 cm", "Panier carré en jute à pompons, à personnaliser"),
-  perso("le-carre-xxl", "carre-xxl", "Le Carré XXL", 64, [464, 3050], "Le coffre à jouets qu'on n'a pas honte de laisser au salon.", "40 × 40 cm", "Grand panier carré XXL en jute, à personnaliser"),
-  perso("le-cabas-personnalisable", "cabas", "Le cabas personnalisable", 59, [2350, 3056], "Pour le marché, la plage, l'école. Avec votre mot dessus, et des anses en cuir assorties.", "30 × 40 cm", "Cabas en jute avec anses en cuir, à personnaliser"),
-  perso("le-petit-panier-vide-poches", "vide-poches", "Le petit panier vide-poches", 20, [3040, 3057], "Clés, lunettes, monnaie. Le petit cadeau qui reste.", "H 15 · Ø 16 cm", "Petit panier vide-poches en jute, à personnaliser"),
+  perso("le-bb-rond", "bb-rond", "Le BB Rond", 43, ["bb-rond-vierge-recto-01.jpg", "bb-rond-vierge-profil-01.jpg", 1452, 3053], "Pour les petites choses qui comptent : chaussettes, doudous, télécommandes.", "H 25 · Ø 25 cm", "Petit panier rond BB en jute, à personnaliser"),
+  perso("le-rond", "rond", "Le Rond", 49, ["rond-vierge-recto-01.jpg", "ambiance-tresors-de-princesse.jpg", "rond-vierge-profil-01.jpg", "rond-vierge-anses-01.jpg", 565, 3054], "Le format qui va partout : entrée, salle de bain, bureau.", "H 35 · Ø 35 cm", "Panier rond en jute, à personnaliser"),
+  perso("le-carre", "carre", "Le Carré", 59, ["carre-vierge-recto.jpg", "ambiance-carre-salon.jpg", "carre-vierge-profil.jpg", "carre-vierge-anses.jpg", 1478, 3055], "Des angles nets, des pompons, et de la place.", "35 × 35 cm", "Panier carré en jute à pompons, à personnaliser"),
+  perso("le-carre-xxl", "carre-xxl", "Le Carré XXL", 64, ["carre-xxl-vierge-recto.jpg", "carre-xxl-vierge-profil.jpg", 464, 3050], "Le coffre à jouets qu'on n'a pas honte de laisser au salon.", "40 × 40 cm", "Grand panier carré XXL en jute, à personnaliser"),
+  perso("le-cabas-personnalisable", "cabas", "Le cabas personnalisable", 59, ["config-cabas-vierge.jpg", 2350, 3056], "Pour le marché, la plage, l'école. Avec votre mot dessus, et des anses en cuir assorties.", "30 × 40 cm", "Cabas en jute avec anses en cuir, à personnaliser"),
+  perso("le-petit-panier-vide-poches", "vide-poches", "Le petit panier vide-poches", 20, [3040, 3057, "vide-poches-vierge-recto.jpg"], "Clés, lunettes, monnaie. Le petit cadeau qui reste.", "H 15 · Ø 16 cm", "Petit panier vide-poches en jute, à personnaliser"),
 
   // Sacs à main
   { slug: "loom", name: "Loom", price: 74, rayon: "sacs-a-main", images: [p(2949), p(2948)], alt: "Sac à main Loom en jute à chevrons gris et kaki, anses en cuir", stock: 3, proof: "Cousu à Grémonville",
@@ -66,7 +81,7 @@ export const products: Product[] = [
     body: "Jute naturelle, chevrons gris et kaki, anses en cuir au tannage végétal : le Loom se porte à l'épaule ou à la main, du bureau au marché, sans jamais détonner. Cousu dans notre atelier de Grémonville, en petite série. Il fait partie de ces sacs qu'on finit par porter tous les jours sans l'avoir décidé.",
     tech: "30 × 27 × 16 cm · jute, cuir · éponge humide.",
     seo: { title: "Loom : sac à main en jute et cuir, fabriqué en Normandie", description: "Jute naturelle, chevrons gris et kaki, anses en cuir végétal. Porté épaule ou main. Cousu à l'atelier en petite série. 74 €." } },
-  { slug: "la-parisienne", name: "La Parisienne", price: 149, rayon: "sacs-a-main", images: [p(1254), p(2056), p(1244), p(2057)], alt: "Grand cabas La Parisienne en lin enduit, anses en cuir chocolat", proof: "Cousue à Grémonville",
+  { slug: "la-parisienne", name: "La Parisienne", price: 149, rayon: "sacs-a-main", images: [P("parisienne-kaki-portee-03.jpg"), P("parisienne-kaki-portee-01.jpg"), P("parisienne-moutarde-musee.jpg"), P("parisienne-kaki-portee-02.jpg"), p(1254), p(2056), p(1244), p(2057)], alt: "Grand cabas La Parisienne en lin enduit, anses en cuir chocolat", proof: "Cousue à Grémonville",
     accroche: "Un grand cabas en lin enduit, réversible, cousu en Normandie. Le reste est une question d'allure.",
     body: "Quarante centimètres de haut, cinquante de large, et deux anses en cuir chocolat au tannage végétal, interchangeables. Lin enduit d'un côté, lin naturel de l'autre : retournez-le selon l'humeur. Fabriquée en série limitée à l'atelier. Elle va au travail, à la plage et en week-end, et elle y va longtemps.",
     tech: "40 × 50 × 11 cm · lin enduit, lin, cuir · éponge humide.",
@@ -79,6 +94,12 @@ export const products: Product[] = [
     accroche: "En hommage aux midinettes, ces couturières parisiennes du début du siècle. Le nôtre se porte en bandoulière.",
     body: "Lin enduit imperméable, fermeture à glissière, anse réglable de 70 à 116 cm. À l'intérieur, une poche zippée et deux poches plaquées. Existe en noir, bleu jean, cirque, danseuse, chien-chat. Cousu en Normandie.",
     tech: "35 × 30 cm · lin enduit, lin." },
+
+  { slug: "midinette-bleu-jean", name: "Midinette bleu jean", price: 94, rayon: "sacs-a-main", images: [P("midinette-bleu-jean-recto.jpg")], alt: "Sac bandoulière Midinette bleu jean, bandoulière rayée", proof: "Cousu en Normandie",
+    accroche: "En hommage aux midinettes, ces couturières parisiennes du début du siècle. Le nôtre se porte en bandoulière.",
+    body: "Lin enduit imperméable, fermeture à glissière, anse réglable de 70 à 116 cm. À l'intérieur, une poche zippée et deux poches plaquées. Existe en noir, bleu jean, cirque, danseuse, chien-chat. Cousu en Normandie.",
+    tech: "35 × 30 cm · lin enduit, lin." },
+  { slug: "sac-jute-bord-noir", name: "Sac en jute bordé de noir", price: 74, rayon: "sacs-a-main", images: ["sac-jute-bord-noir-porte-01.jpg", "sac-jute-bord-noir-jardin-01.jpg", "sac-jute-bord-noir-jardin-02.jpg", "sac-jute-bord-noir-porte-02.jpg", "sac-jute-bord-noir-porte-03.jpg", "sac-jute-bord-noir-porte-04.jpg"].map(P), alt: "Sac à main en jute bordé de noir, porté", proof: "Cousu à Grémonville" },
 
   // Cabas
   { slug: "multi-teckels", name: "Multi-Teckels", price: 59, rayon: "cabas", images: [p(2972), p(2971)], alt: "Petit cabas en jute couvert de teckels peints à la main", proof: "Peint à la main",
@@ -112,7 +133,7 @@ export const products: Product[] = [
     tech: "25 × 30 cm · jute, cuir." },
 
   // Rangement
-  { slug: "le-barda-de", name: "Le barda de…", price: 55, rayon: "rangement", images: [p(1149), p(1150), p(2128), p(2132)], alt: "Grand panier rond en jute « Barda de Papa » peint au pochoir", proof: "Peint à la main",
+  { slug: "le-barda-de", name: "Le barda de…", price: 55, rayon: "rangement", images: [P("barda-de-famille-orange-01.jpg"), P("barda-de-famille-gris-recto.jpg"), p(1149), p(1150), p(2128), p(2132)], alt: "Grand panier rond en jute « Barda de Papa » peint au pochoir", proof: "Peint à la main",
     accroche: "Barda de Papa, Barda de famille, Barda hippique : dites-nous de qui.",
     body: "Grand panier rond en jute doublée, anses en corde de chanvre, message peint au pochoir. Il range la chambre, l'entrée, le coffre de la voiture, et il y survit.",
     tech: "H 40 · Ø 40 cm · jute, chanvre." },
@@ -122,6 +143,10 @@ export const products: Product[] = [
   { slug: "wanted-socks", name: "Wanted socks", price: 39, rayon: "rangement", images: [p(1724), p(1727)], alt: "Panier en jute « Wanted socks » pour les chaussettes", proof: "Peint à la main" },
   { slug: "petits-souliers", name: "Petits souliers", price: 55, rayon: "rangement", images: [p(1836), p(2055)], alt: "Panier en jute « Petits souliers » pour les chaussures", proof: "Peint à la main" },
   { slug: "des-jouets-par-milliers", name: "Des jouets par milliers", price: 55, rayon: "rangement", images: [p(2115), p(2120)], alt: "Panier à jouets en jute « Des jouets par milliers »", proof: "Peint à la main" },
+
+  { slug: "bar-a-bazar", name: "Bar à bazar", price: 55, rayon: "rangement", images: [P("bar-a-bazar-recto.jpg"), P("bar-a-bazar-profil.jpg")], alt: "Grand panier en jute « Bar à bazar » peint au pochoir", proof: "Peint à la main" },
+  { slug: "bar-a-bouquins", name: "Bar à bouquins", price: 55, rayon: "rangement", images: [P("bar-a-bouquins-recto.jpg")], alt: "Grand panier en jute « Bar à bouquins » peint au pochoir", proof: "Peint à la main" },
+  { slug: "mon-fourbi-francais", name: "Mon fourbi français", price: 55, rayon: "rangement", images: [P("mon-fourbi-francais-recto.jpg")], alt: "Panier en jute « Mon fourbi français » peint au pochoir", proof: "Peint à la main" },
 
   // Bûches
   { slug: "chauffe-marcel", name: "Chauffe Marcel", price: 76, rayon: "buches", images: [p(1178), p(1176)], alt: "Sac à bûches en jute « Chauffe Marcel » peint au pochoir", proof: "Peint à la main",
@@ -133,7 +158,7 @@ export const products: Product[] = [
     accroche: "Le classique de l'atelier, celui que les boutiques nous redemandent chaque automne.",
     body: "Même toile, même sangle, même solidité que Chauffe Marcel, avec son message peint en orange, en blanc, en vert ou en violet. Il transporte les bûches, puis les plaids, les jouets, les magazines. Un sac pour la cheminée, qui finit souvent dans le salon.",
     tech: "H 40 · fond 40 × 60 cm · jute, sangle, ficelle." },
-  { slug: "on-va-pas-s-peler", name: "On va pas s'peler", price: 59, rayon: "buches", images: [p(2101), p(2105)], alt: "Grand panier rond à granulés « On va pas s'peler » en jute", proof: "Peint à la main",
+  { slug: "on-va-pas-s-peler", name: "On va pas s'peler", price: 59, rayon: "buches", images: [P("ambiance-on-va-pas-s-peler-poele.jpg"), P("on-va-pas-s-peler-recto.jpg"), P("on-va-pas-s-peler-detail.jpg"), P("on-va-pas-s-peler-anse.jpg"), P("on-va-pas-s-peler-profil.jpg"), p(2101), p(2105)], alt: "Grand panier rond à granulés « On va pas s'peler » en jute", proof: "Peint à la main",
     accroche: "Le sac à granulés qui dit tout haut ce que vous pensez en décembre.",
     body: "Un grand rond en jute doublée, anses en cuir noir, message peint au pochoir. Il avale un sac de granulés entier et reste beau à côté du poêle.",
     tech: "jute, cuir · éponge humide." },
@@ -142,7 +167,7 @@ export const products: Product[] = [
 
   // Minis
   mini("peace-meme", "Peace mémé", [3095]),
-  mini("vide-tes-poches", "Vide tes poches", [3100]),
+  { ...mini("vide-tes-poches", "Vide tes poches", [3100]), images: [P("mini-vide-tes-poches-ambiance.jpg"), p(3100)] },
   mini("le-gras", "Le gras c'est la vie", [3065]),
   mini("chargeurs", "Chargeurs and co", [3124]),
   mini("medocs", "Médocs", [3094]),

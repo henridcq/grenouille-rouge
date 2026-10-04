@@ -6,7 +6,7 @@ import { ProductImage } from "@/components/shop/ProductImage";
 import { Pictos } from "@/components/shop/Reassurance";
 import { Reveal } from "@/components/shop/Reveal";
 
-const HERO = "https://grenouillerouge.com/img/p/1/3/9/0/1390.jpg";
+const HERO = PHOTOS.hero;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -15,8 +15,6 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Paniers de rangement, cabas et sacs à main cousus et peints au pochoir à Grémonville. Personnalisables à votre prénom. Livraison offerte en point relais dès 39 €." },
       { property: "og:title", content: "Grenouille Rouge · Sacs et paniers en jute peints à la main en Normandie" },
       { property: "og:description", content: "Paniers de rangement, cabas et sacs à main cousus et peints au pochoir à Grémonville. Personnalisables à votre prénom." },
-      { property: "og:image", content: HERO },
-      { name: "twitter:image", content: HERO },
     ],
   }),
   component: Index,
@@ -30,10 +28,10 @@ const reviews = [
 ];
 
 function season(m: number) {
-  if (m >= 9) return { title: "Chauffe Marcel, et les autres.", text: "Sacs à bûches et paniers à granulés en jute, pour que le coin du feu ait du chien.", rayon: "buches", img: bySlug("chauffe-marcel")!.images[0] };
-  if (m <= 2) return { title: "Rangement de printemps.", text: "Le bazar a enfin un endroit où aller.", rayon: "rangement", img: bySlug("le-barda-de")!.images[0] };
-  if (m <= 5) return { title: "Pour une mère d'exception.", text: "Un panier à son prénom, peint à la main. Elle le gardera.", rayon: "personnalises", img: HERO };
-  return { title: "Marché, plage, et retour.", text: "Cabas en jute et toile de parasol recyclée.", rayon: "cabas", img: bySlug("multi-homards")!.images[0] };
+  if (m >= 9) return { title: "Chauffe Marcel, et les autres.", text: "Sacs à bûches et paniers à granulés en jute, pour que le coin du feu ait du chien.", rayon: "buches", img: PHOTOS.poele, alt: "Sac à granulés « On va pas s'peler » à côté d'un poêle" };
+  if (m <= 2) return { title: "Rangement de printemps.", text: "Le bazar a enfin un endroit où aller.", rayon: "rangement", img: PHOTOS.printemps, alt: "Panier « Rangement de printemps » dans un jardin" };
+  if (m <= 5) return { title: "Pour une mère d'exception.", text: "Un panier à son prénom, peint à la main. Elle le gardera.", rayon: "personnalises", img: HERO, alt: "Panier personnalisé à un prénom" };
+  return { title: "Marché, plage, et retour.", text: "Cabas en jute et toile de parasol recyclée.", rayon: "cabas", img: bySlug("multi-homards")!.images[0], alt: "Cabas en jute Multi homards" };
 }
 
 function Index() {
@@ -45,7 +43,7 @@ function Index() {
   return (
     <>
       <section className="mx-auto grid max-w-6xl items-center gap-6 px-4 pt-5 md:grid-cols-2 md:gap-12 md:pt-12">
-        <ProductImage src={HERO} name="Le Rond XL" alt="Grand panier Rond XL en jute, prêt à recevoir un prénom peint à la main" className="aspect-square w-full rounded-3xl md:order-2" />
+        <ProductImage src={HERO} name="Le Rond XL" alt="Panier Rond XL « Les jouets de Léo » peint à la main, dans un salon" className="aspect-square w-full rounded-3xl md:order-2" />
         <div>
           <h1 className="text-[2.4rem] font-bold leading-[1.05] md:text-6xl">Des paniers en jute qui ont des choses à dire.</h1>
           <p className="mt-4 text-lg text-muted-foreground md:text-xl">
@@ -60,7 +58,7 @@ function Index() {
 
       <Reveal className="mx-auto max-w-6xl px-4 pt-16">
         <div className="grid overflow-hidden rounded-3xl bg-card md:grid-cols-2">
-          <ProductImage src={bySlug("le-rond")!.images[0]} name="Le Rond" alt="Panier rond en jute personnalisable" className="aspect-square w-full" />
+          <ProductImage src={PHOTOS.princesse} name="Trésors de princesse" alt="Panier rond « Trésors de princesse » dans une chambre d'enfant" className="aspect-square w-full" />
           <div className="flex flex-col justify-center gap-4 p-6 md:p-10">
             <h2 className="text-3xl font-bold md:text-4xl">À votre prénom, à votre mot, à votre idée.</h2>
             <p className="text-lg">Choisissez la forme, l'anse, la couleur, et écrivez ce que vous voulez. On le peint au pochoir, à la main, et on vous l'expédie sous 8 jours. « Les trésors de Maëlle », « Le bazar de Papa », « Doudous & Cie » : à vous de jouer.</p>
@@ -74,6 +72,7 @@ function Index() {
         <div id="best" className="scroll-mt-32">
           <h2 className="text-3xl font-bold md:text-4xl">Ceux qu'on nous redemande.</h2>
           <p className="mt-2 text-lg text-muted-foreground">Les paniers, cabas et sacs que nos clientes offrent, puis rachètent pour elles.</p>
+          <ProductImage src={PHOTOS.trio} name="Paniers à message" alt="Trois paniers à message (Bar à bazar, Pause littéraire, Barda de famille) sur un canapé vert" className="mt-6 aspect-[16/9] w-full rounded-3xl" />
           <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-5 lg:grid-cols-4">
             {best.map((p) => <ProductCard key={p.slug} product={p} />)}
           </div>
@@ -81,7 +80,7 @@ function Index() {
       </Reveal>
 
       <Reveal className="mx-auto grid max-w-6xl items-center gap-6 px-4 pt-20 md:grid-cols-2 md:gap-12">
-        <ProductImage src={PHOTOS.jute} name="Le travail de la toile de jute" alt="Mains qui travaillent la toile de jute à l'atelier" className="aspect-square w-full rounded-3xl" />
+        <ProductImage src={PHOTOS.cuirs} name="Les cuirs de l'atelier" alt="Lanières de cuir bleu, rose, vert et cognac posées sur la toile de jute" className="aspect-square w-full rounded-3xl" />
         <div>
           <h2 className="text-3xl font-bold md:text-4xl">Ici, rien n'est laissé au hasard.</h2>
           <p className="mt-4 text-lg">La toile de jute vient du Tissage du Ronchay, à vingt minutes de l'atelier. Les anses sont en cuir au tannage végétal. Chaque lettre est posée au pochoir et peinte à la main. Deux mains, parfois quatre, et beaucoup d'audace.</p>
@@ -90,7 +89,7 @@ function Index() {
       </Reveal>
 
       <Reveal className="mx-auto grid max-w-6xl items-center gap-6 px-4 pt-20 md:grid-cols-2 md:gap-12">
-        <ProductImage src={bySlug("loom")!.images[0]} name="Loom" alt="Sac à main Loom en jute et cuir" className="aspect-square w-full rounded-3xl md:order-2" />
+        <ProductImage src={PHOTOS.parisiennePortee} name="La Parisienne" alt="La Parisienne kaki portée à l'épaule devant une porte bleue" className="aspect-square w-full rounded-3xl md:order-2" />
         <div>
           <h2 className="text-3xl font-bold md:text-4xl">Le lin, le cuir, et des lignes qu'on ne voit nulle part ailleurs.</h2>
           <p className="mt-4 text-lg">Loom, Parisienne, Titi, Midinette : des sacs en série limitée, cousus à Grémonville, pensés pour durer et se patiner avec vous.</p>
@@ -100,7 +99,7 @@ function Index() {
 
       <Reveal className="mx-auto max-w-6xl px-4 pt-20">
         <Link to={s.rayon === "personnalises" ? "/personnalises" : "/rayon/$rayon"} params={{ rayon: s.rayon }} className="group grid overflow-hidden rounded-3xl bg-sage-soft md:grid-cols-2">
-          <ProductImage src={s.img} name={s.title} alt="Sac à bûches en jute peint à la main" className="aspect-square w-full" />
+          <ProductImage src={s.img} name={s.title} alt={s.alt} className="aspect-square w-full" />
           <div className="flex flex-col justify-center gap-3 p-6 md:p-10">
             <h2 className="text-3xl font-bold md:text-4xl">{s.title}</h2>
             <p className="text-lg">{s.text}</p>
@@ -112,7 +111,8 @@ function Index() {
       <Reveal className="mx-auto max-w-6xl px-4 pt-20">
         <h2 className="text-3xl font-bold md:text-4xl">Petits par la taille. Pas par le caractère.</h2>
         <p className="mt-3 text-lg">Minis à messages, trousses, pochettes : à glisser dans le colis. Et à partir de 39 €, la livraison en point relais est offerte.</p>
-        <div className="mt-5 grid grid-cols-4 gap-2 sm:gap-4">
+        <ProductImage src={PHOTOS.miniAmbiance} name="Vide tes poches" alt="Mini « Vide tes poches » dans une entrée, une main y pose des clés" className="mt-5 aspect-[4/3] w-full rounded-3xl md:aspect-[16/9]" />
+        <div className="mt-3 grid grid-cols-4 gap-2 sm:gap-4">
           {["mini-peace-meme", "mini-le-gras", "mini-vide-tes-poches", "trousse-soco"].map((sl) => {
             const pr = bySlug(sl)!;
             return (
