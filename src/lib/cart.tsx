@@ -1,60 +1,66 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
 import { toast } from "sonner";
-import { useNavigate } from "@tanstack/react-router";
-import { byId, type Product } from "@/data/products";
+import { bySlug, type Product } from "@/data/products";
+import type { CustomConfig } from "@/data/custom";
 
-type Line = { id: string; qty: number };
+type Line = { key: string; slug: string; qty: number; custom?: CustomConfig };
+export type CartLine = Line & { product: Product };
 type Ctx = {
-  lines: (Line & { product: Product })[];
+  lines: CartLine[];
   count: number;
   total: number;
   open: boolean;
   setOpen: (o: boolean) => void;
   bump: number;
-  add: (ids: string | string[]) => void;
-  setQty: (id: string, qty: number) => void;
+  gift: boolean;
+  setGift: (g: boolean) => void;
+  note: string;
+  setNote: (n: string) => void;
+  add: (slug: string, custom?: CustomConfig) => void;
+  setQty: (key: string, qty: number) => void;
   clear: () => void;
 };
 
 const CartCtx = createContext<Ctx | null>(null);
+let n = 0;
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [raw, setRaw] = useState<Line[]>([]);
   const [open, setOpen] = useState(false);
   const [bump, setBump] = useState(0);
-  const navigate = useNavigate();
+  const [gift, setGift] = useState(false);
+  const [note, setNote] = useState("");
 
   const value = useMemo<Ctx>(() => {
-    const lines = raw.map((l) => ({ ...l, product: byId(l.id) }));
+    const lines = raw.flatMap((l) => {
+      const product = bySlug(l.slug);
+      return product ? [{ ...l, product }] : [];
+    });
     return {
       lines,
       count: lines.reduce((s, l) => s + l.qty, 0),
       total: lines.reduce((s, l) => s + l.qty * l.product.price, 0),
-      open,
-      setOpen,
-      bump,
-      add: (ids) => {
-        const list = Array.isArray(ids) ? ids : [ids];
+      open, setOpen, bump, gift, setGift, note, setNote,
+      add: (slug, custom) => {
         setRaw((prev) => {
-          const next = [...prev];
-          for (const id of list) {
-            const f = next.find((l) => l.id === id);
-            if (f) f.qty += 1;
-            else next.push({ id, qty: 1 });
+          if (!custom) {
+            const f = prev.find((l) => l.slug === slug && !l.custom);
+            if (f) return prev.map((l) => (l === f ? { ...l, qty: l.qty + 1 } : l));
           }
-          return next.map((l) => ({ ...l }));
+          return [...prev, { key: `${slug}-${++n}`, slug, qty: 1, custom }];
         });
         setBump((b) => b + 1);
-        toast.success(list.length > 1 ? "Le lot est dans votre panier" : "Ajouté au panier", {
-          duration: 2000,
-          action: { label: "Commander", onClick: () => navigate({ to: "/commande" }) },
+        toast("Ajouté !", {
+          duration: 3000,
+          action: { label: "Voir le panier", onClick: () => setOpen(true) },
+          cancel: { label: "Continuer", onClick: () => {} },
         });
       },
-      setQty: (id, qty) =>
-        setRaw((prev) => (qty <= 0 ? prev.filter((l) => l.id !== id) : prev.map((l) => (l.id === id ? { ...l, qty } : l)))),
-      clear: () => setRaw([]),
+      setQty: (key, qty) =>
+        setRaw((prev) => (qty <= 0 ? prev.filter((l) => l.key !== key) : prev.map((l) => (l.key === key ? { ...l, qty } : l)))),
+      clear: () => { setRaw([]); setGift(false); setNote(""); },
     };
-  }, [raw, open, bump, navigate]);
+  }, [raw, open, bump, gift, note]);
 
   return <CartCtx.Provider value={value}>{children}</CartCtx.Provider>;
 }
