@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
 import { toast } from "sonner";
+import { useNavigate } from "@tanstack/react-router";
 import { byId, type Product } from "@/data/products";
 
 type Line = { id: string; qty: number };
@@ -21,6 +22,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [raw, setRaw] = useState<Line[]>([]);
   const [open, setOpen] = useState(false);
   const [bump, setBump] = useState(0);
+  const navigate = useNavigate();
 
   const value = useMemo<Ctx>(() => {
     const lines = raw.map((l) => ({ ...l, product: byId(l.id) }));
@@ -45,14 +47,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
         setBump((b) => b + 1);
         toast.success(list.length > 1 ? "Le lot est dans votre panier" : "Ajouté au panier", {
           duration: 2000,
-          action: { label: "Commander", onClick: () => setOpen(true) },
+          action: { label: "Commander", onClick: () => navigate({ to: "/commande" }) },
         });
       },
       setQty: (id, qty) =>
         setRaw((prev) => (qty <= 0 ? prev.filter((l) => l.id !== id) : prev.map((l) => (l.id === id ? { ...l, qty } : l)))),
       clear: () => setRaw([]),
     };
-  }, [raw, open, bump]);
+  }, [raw, open, bump, navigate]);
 
   return <CartCtx.Provider value={value}>{children}</CartCtx.Provider>;
 }
