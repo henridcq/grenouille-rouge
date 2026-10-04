@@ -10,7 +10,16 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AtelierRouteImport } from './routes/atelier'
+import { Route as CabasPersonnaliseRouteImport } from './routes/cabas-personnalise'
 import { Route as CommandeRouteImport } from './routes/commande'
+import { Route as ComposerRouteImport } from './routes/composer'
+import { Route as EspaceProRouteImport } from './routes/espace-pro'
+import { Route as LivraisonRouteImport } from './routes/livraison'
+import { Route as PersonnalisesRouteImport } from './routes/personnalises'
+import { Route as RechercheRouteImport } from './routes/recherche'
+import { Route as LegalPageRouteImport } from './routes/legal.$page'
+import { Route as ProduitSlugRouteImport } from './routes/produit.$slug'
 import { Route as RayonRayonRouteImport } from './routes/rayon.$rayon'
 
 const IndexRoute = IndexRouteImport.update({
@@ -18,9 +27,54 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AtelierRoute = AtelierRouteImport.update({
+  id: '/atelier',
+  path: '/atelier',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CabasPersonnaliseRoute = CabasPersonnaliseRouteImport.update({
+  id: '/cabas-personnalise',
+  path: '/cabas-personnalise',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CommandeRoute = CommandeRouteImport.update({
   id: '/commande',
   path: '/commande',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComposerRoute = ComposerRouteImport.update({
+  id: '/composer',
+  path: '/composer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EspaceProRoute = EspaceProRouteImport.update({
+  id: '/espace-pro',
+  path: '/espace-pro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LivraisonRoute = LivraisonRouteImport.update({
+  id: '/livraison',
+  path: '/livraison',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PersonnalisesRoute = PersonnalisesRouteImport.update({
+  id: '/personnalises',
+  path: '/personnalises',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RechercheRoute = RechercheRouteImport.update({
+  id: '/recherche',
+  path: '/recherche',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalPageRoute = LegalPageRouteImport.update({
+  id: '/legal/$page',
+  path: '/legal/$page',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProduitSlugRoute = ProduitSlugRouteImport.update({
+  id: '/produit/$slug',
+  path: '/produit/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RayonRayonRoute = RayonRayonRouteImport.update({
@@ -31,31 +85,104 @@ const RayonRayonRoute = RayonRayonRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/atelier': typeof AtelierRoute
+  '/cabas-personnalise': typeof CabasPersonnaliseRoute
   '/commande': typeof CommandeRoute
+  '/composer': typeof ComposerRoute
+  '/espace-pro': typeof EspaceProRoute
+  '/livraison': typeof LivraisonRoute
+  '/personnalises': typeof PersonnalisesRoute
+  '/recherche': typeof RechercheRoute
+  '/legal/$page': typeof LegalPageRoute
+  '/produit/$slug': typeof ProduitSlugRoute
   '/rayon/$rayon': typeof RayonRayonRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/atelier': typeof AtelierRoute
+  '/cabas-personnalise': typeof CabasPersonnaliseRoute
   '/commande': typeof CommandeRoute
+  '/composer': typeof ComposerRoute
+  '/espace-pro': typeof EspaceProRoute
+  '/livraison': typeof LivraisonRoute
+  '/personnalises': typeof PersonnalisesRoute
+  '/recherche': typeof RechercheRoute
+  '/legal/$page': typeof LegalPageRoute
+  '/produit/$slug': typeof ProduitSlugRoute
   '/rayon/$rayon': typeof RayonRayonRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/atelier': typeof AtelierRoute
+  '/cabas-personnalise': typeof CabasPersonnaliseRoute
   '/commande': typeof CommandeRoute
+  '/composer': typeof ComposerRoute
+  '/espace-pro': typeof EspaceProRoute
+  '/livraison': typeof LivraisonRoute
+  '/personnalises': typeof PersonnalisesRoute
+  '/recherche': typeof RechercheRoute
+  '/legal/$page': typeof LegalPageRoute
+  '/produit/$slug': typeof ProduitSlugRoute
   '/rayon/$rayon': typeof RayonRayonRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/commande' | '/rayon/$rayon'
+  fullPaths:
+    | '/'
+    | '/atelier'
+    | '/cabas-personnalise'
+    | '/commande'
+    | '/composer'
+    | '/espace-pro'
+    | '/livraison'
+    | '/personnalises'
+    | '/recherche'
+    | '/legal/$page'
+    | '/produit/$slug'
+    | '/rayon/$rayon'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/commande' | '/rayon/$rayon'
-  id: '__root__' | '/' | '/commande' | '/rayon/$rayon'
+  to:
+    | '/'
+    | '/atelier'
+    | '/cabas-personnalise'
+    | '/commande'
+    | '/composer'
+    | '/espace-pro'
+    | '/livraison'
+    | '/personnalises'
+    | '/recherche'
+    | '/legal/$page'
+    | '/produit/$slug'
+    | '/rayon/$rayon'
+  id:
+    | '__root__'
+    | '/'
+    | '/atelier'
+    | '/cabas-personnalise'
+    | '/commande'
+    | '/composer'
+    | '/espace-pro'
+    | '/livraison'
+    | '/personnalises'
+    | '/recherche'
+    | '/legal/$page'
+    | '/produit/$slug'
+    | '/rayon/$rayon'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AtelierRoute: typeof AtelierRoute
+  CabasPersonnaliseRoute: typeof CabasPersonnaliseRoute
   CommandeRoute: typeof CommandeRoute
+  ComposerRoute: typeof ComposerRoute
+  EspaceProRoute: typeof EspaceProRoute
+  LivraisonRoute: typeof LivraisonRoute
+  PersonnalisesRoute: typeof PersonnalisesRoute
+  RechercheRoute: typeof RechercheRoute
+  LegalPageRoute: typeof LegalPageRoute
+  ProduitSlugRoute: typeof ProduitSlugRoute
   RayonRayonRoute: typeof RayonRayonRoute
 }
 
@@ -68,11 +195,74 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/atelier': {
+      id: '/atelier'
+      path: '/atelier'
+      fullPath: '/atelier'
+      preLoaderRoute: typeof AtelierRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cabas-personnalise': {
+      id: '/cabas-personnalise'
+      path: '/cabas-personnalise'
+      fullPath: '/cabas-personnalise'
+      preLoaderRoute: typeof CabasPersonnaliseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/commande': {
       id: '/commande'
       path: '/commande'
       fullPath: '/commande'
       preLoaderRoute: typeof CommandeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/composer': {
+      id: '/composer'
+      path: '/composer'
+      fullPath: '/composer'
+      preLoaderRoute: typeof ComposerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/espace-pro': {
+      id: '/espace-pro'
+      path: '/espace-pro'
+      fullPath: '/espace-pro'
+      preLoaderRoute: typeof EspaceProRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/livraison': {
+      id: '/livraison'
+      path: '/livraison'
+      fullPath: '/livraison'
+      preLoaderRoute: typeof LivraisonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/personnalises': {
+      id: '/personnalises'
+      path: '/personnalises'
+      fullPath: '/personnalises'
+      preLoaderRoute: typeof PersonnalisesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recherche': {
+      id: '/recherche'
+      path: '/recherche'
+      fullPath: '/recherche'
+      preLoaderRoute: typeof RechercheRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/$page': {
+      id: '/legal/$page'
+      path: '/legal/$page'
+      fullPath: '/legal/$page'
+      preLoaderRoute: typeof LegalPageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/produit/$slug': {
+      id: '/produit/$slug'
+      path: '/produit/$slug'
+      fullPath: '/produit/$slug'
+      preLoaderRoute: typeof ProduitSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/rayon/$rayon': {
@@ -87,7 +277,16 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AtelierRoute: AtelierRoute,
+  CabasPersonnaliseRoute: CabasPersonnaliseRoute,
   CommandeRoute: CommandeRoute,
+  ComposerRoute: ComposerRoute,
+  EspaceProRoute: EspaceProRoute,
+  LivraisonRoute: LivraisonRoute,
+  PersonnalisesRoute: PersonnalisesRoute,
+  RechercheRoute: RechercheRoute,
+  LegalPageRoute: LegalPageRoute,
+  ProduitSlugRoute: ProduitSlugRoute,
   RayonRayonRoute: RayonRayonRoute,
 }
 export const routeTree = rootRouteImport
