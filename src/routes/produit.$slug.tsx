@@ -5,6 +5,7 @@ import { formatOf } from "@/data/custom";
 import { useCart } from "@/lib/cart";
 import { ProductImage } from "@/components/shop/ProductImage";
 import { ProductCard } from "@/components/shop/ProductCard";
+import { PersoLink } from "@/components/shop/PersoLink";
 import { Pictos, Faq } from "@/components/shop/Reassurance";
 
 export const Route = createFileRoute("/produit/$slug")({
@@ -44,9 +45,9 @@ function Fiche() {
   const title = custom ? `${p.name}, à votre prénom` : p.name;
 
   const cta = custom ? (
-    <Link to={p.format === "cabas" ? "/cabas-personnalise" : "/composer"} search={p.format === "cabas" ? undefined : { forme: p.format }} className="btn-buy w-full text-lg">
+    <PersoLink format={p.format} className="btn-buy w-full text-lg">
       Ajouter mon {short} · {p.price} €
-    </Link>
+    </PersoLink>
   ) : out ? (
     <span className="btn-buy w-full cursor-not-allowed text-lg opacity-40">Bientôt de retour</span>
   ) : (

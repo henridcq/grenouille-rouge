@@ -5,12 +5,17 @@ import { LOGO } from "@/data/products";
 
 const BANNER = "Cousu et peint à la main en Normandie · Livraison offerte en point relais dès 39 € · Expédié sous 48 h";
 
-const nav = [
-  { label: "Personnalisés", to: "/personnalises" as const },
-  { label: "Paniers", to: "/rayon/$rayon" as const, rayon: "rangement" },
-  { label: "Cabas et sacs", to: "/rayon/$rayon" as const, rayon: "cabas" },
-  { label: "L'atelier", to: "/atelier" as const },
-];
+function NavLinks({ className, active }: { className: string; active: string }) {
+  const a = { className: active };
+  return (
+    <>
+      <Link to="/personnalises" className={className} activeProps={a}>Personnalisés</Link>
+      <Link to="/rayon/$rayon" params={{ rayon: "rangement" }} className={className} activeProps={a}>Paniers</Link>
+      <Link to="/rayon/$rayon" params={{ rayon: "cabas" }} className={className} activeProps={a}>Cabas et sacs</Link>
+      <Link to="/atelier" className={className} activeProps={a}>L'atelier</Link>
+    </>
+  );
+}
 
 export function SiteHeader() {
   const { count, setOpen, bump } = useCart();
@@ -30,11 +35,7 @@ export function SiteHeader() {
           <img src={LOGO} alt="Grenouille Rouge" className="h-10 w-auto mix-blend-multiply sm:h-12" />
         </Link>
         <nav className="ml-6 hidden gap-6 md:flex">
-          {nav.map((n) => (
-            <Link key={n.label} to={n.to} params={n.rayon ? { rayon: n.rayon } : undefined} className="font-medium hover:text-primary" activeProps={{ className: "underline underline-offset-8" }}>
-              {n.label}
-            </Link>
-          ))}
+          <NavLinks className="font-medium hover:text-primary" active="underline underline-offset-8" />
         </nav>
         <div className="ml-auto flex items-center gap-2">
           <Link to="/recherche" aria-label="Rechercher" className="grid h-11 w-11 place-items-center rounded-full hover:bg-muted">
@@ -49,11 +50,7 @@ export function SiteHeader() {
         </div>
       </div>
       <nav className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 pb-2.5 text-[0.95rem] md:hidden">
-        {nav.map((n) => (
-          <Link key={n.label} to={n.to} params={n.rayon ? { rayon: n.rayon } : undefined} className="shrink-0 rounded-full border px-4 py-1.5 font-medium" activeProps={{ className: "bg-foreground text-background border-foreground" }}>
-            {n.label}
-          </Link>
-        ))}
+        <NavLinks className="shrink-0 rounded-full border px-4 py-1.5 font-medium" active="bg-foreground text-background border-foreground" />
       </nav>
     </header>
   );

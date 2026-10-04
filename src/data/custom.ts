@@ -35,12 +35,12 @@ export const paletteCabas: Color[] = [
 
 export type CustomConfig = {
   format: FormatId;
-  handle?: Handle;
-  handleColor?: Color;
+  handle?: Handle | undefined;
+  handleColor?: Color | undefined;
   textColor: Color;
   festonColor: Color;
   /** cabas : couleur unique */
-  single?: boolean;
+  single?: boolean | undefined;
   lines: string[];
 };
 

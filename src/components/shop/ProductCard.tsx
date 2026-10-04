@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import type { Product } from "@/data/products";
 import { useCart } from "@/lib/cart";
 import { ProductImage } from "./ProductImage";
+import { PersoLink } from "./PersoLink";
 
 export function ProductCard({ product }: { product: Product }) {
   const { add } = useCart();
@@ -21,7 +22,7 @@ export function ProductCard({ product }: { product: Product }) {
         <p className="font-semibold text-primary">{custom ? `À partir de ${product.price} €` : `${product.price} €`}</p>
         <div className="mt-auto pt-2">
           {custom ? (
-            <Link to="/composer" search={{ forme: product.format }} className="btn-soft w-full text-[0.95rem]">Personnaliser</Link>
+            <PersoLink format={product.format} className="btn-soft w-full text-[0.95rem]">Personnaliser</PersoLink>
           ) : product.stock === "out" ? (
             <span className="btn-soft w-full cursor-not-allowed text-[0.95rem] opacity-50">Bientôt de retour</span>
           ) : (

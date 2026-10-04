@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { bySlug, type Product } from "@/data/products";
 import type { CustomConfig } from "@/data/custom";
 
-type Line = { key: string; slug: string; qty: number; custom?: CustomConfig };
+type Line = { key: string; slug: string; qty: number; custom?: CustomConfig | undefined };
 export type CartLine = Line & { product: Product };
 type Ctx = {
   lines: CartLine[];

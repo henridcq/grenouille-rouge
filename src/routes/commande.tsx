@@ -30,7 +30,7 @@ function Recap({ lines, shipPrice, grand, gift, note }: { lines: CartLine[]; shi
           </li>
         ))}
       </ul>
-      {gift && <p className="mt-2 text-sm">Cadeau : emballé, prix non imprimé{note ? ` · « ${note} »` : ""}</p>}
+      {gift && <p className="mt-2 text-sm">Cadeau : emballé, prix retiré{note ? ` · « ${note} »` : ""}</p>}
       <div className="mt-3 flex justify-between border-t pt-3"><span>Livraison</span><span>{shipPrice === 0 ? "Offerte" : euro(shipPrice)}</span></div>
       <div className="mt-1 flex justify-between text-xl font-bold"><span>Total</span><span className="text-primary">{euro(grand)}</span></div>
     </>

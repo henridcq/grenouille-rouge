@@ -3,6 +3,7 @@ import { products } from "@/data/products";
 import { ProductImage } from "@/components/shop/ProductImage";
 import { Faq } from "@/components/shop/Reassurance";
 import { Reveal } from "@/components/shop/Reveal";
+import { PersoLink } from "@/components/shop/PersoLink";
 
 export const Route = createFileRoute("/personnalises")({
   head: () => ({
@@ -39,7 +40,7 @@ function Perso() {
               <p className="mt-1 text-[0.95rem]">{p.accroche}</p>
               <p className="mt-1 text-sm text-muted-foreground">{p.tech}</p>
               <p className="mt-2 text-lg font-semibold text-primary">{p.price} €</p>
-              <Link to={p.format === "cabas" ? "/cabas-personnalise" : "/composer"} search={p.format === "cabas" ? undefined : { forme: p.format }} className="btn-soft mt-3">Personnaliser</Link>
+              <PersoLink format={p.format} className="btn-soft mt-3">Personnaliser</PersoLink>
             </article>
           </Reveal>
         ))}
