@@ -1,62 +1,196 @@
-export type Rayon = "minis" | "personnalisables" | "cabas" | "cadeaux";
-export type Tag = "Cuisine" | "Animaux" | "Humour" | "Enfants";
+// Données de la maquette : tout est ici, facile à modifier.
+// Photos : https://grenouillerouge.com/img/p/… (originaux du site actuel). Remplacer une adresse suffit.
+
+export type RayonId = "personnalises" | "sacs-a-main" | "cabas" | "rangement" | "buches" | "minis" | "trousses";
+export type FormatId = "bb-rond" | "rond" | "rond-xl" | "carre" | "carre-xxl" | "cabas" | "vide-poches";
 
 export type Product = {
-  id: string;
+  slug: string;
   name: string;
   price: number;
-  rayon: Rayon;
-  tag?: Tag;
+  rayon: RayonId;
   images: string[];
+  alt: string;
+  accroche?: string;
+  body?: string;
+  tech?: string;
+  proof?: string;
+  /** "out" = Bientôt de retour ; nombre = il en reste X */
+  stock?: "out" | number;
+  format?: FormatId;
+  seo?: { title: string; description: string };
 };
 
-const u = (p: string) => `https://grenouillerouge.com/${p}`;
-const mini = (id: string, name: string, tag: Tag, img: string): Product => ({
-  id, name, price: 19, rayon: "minis", tag, images: [u(img)],
+const p = (id: number) => `https://grenouillerouge.com/img/p/${String(id).split("").join("/")}/${id}.jpg`;
+export const cms = (f: string) => `https://grenouillerouge.com/img/cms/${f}`;
+export const LOGO = "https://grenouillerouge.com/img/grenouille-rouge-logo-1683816362.jpg";
+
+export const PHOTOS = {
+  atelier: cms("Grenouille-Rouge-2.jpg"),
+  jute: cms("Qui-sommes-nous-2.jpg"),
+  ambiance: cms("Grenouille-Rouge.jpg"),
+};
+
+const persoBody =
+  "En toile de jute tissée au Ronchay, doublé, surpiqué et peint au pochoir dans notre atelier de Grémonville. Il tient debout tout seul, même vide. Et il tiendra des années.";
+
+const perso = (
+  slug: string, format: FormatId, name: string, price: number, imgs: number[], accroche: string, dims: string, alt: string,
+): Product => ({
+  slug, format, name, price, rayon: "personnalises", images: imgs.map(p), alt, accroche, body: persoBody, tech: dims, proof: "Peint à la main",
+});
+
+const MINI_BODY =
+  "Quinze centimètres de jute doublée et surpiquée, une languette en cuir, et un message peint à la main : Peace mémé, Vide tes poches, Le gras c'est la vie, Chargeurs & Co, Médocs, Belle et rebelle… À poser dans l'entrée, la cuisine, la salle de bain. À offrir… ou pas.";
+const mini = (slug: string, name: string, imgs: number[]): Product => ({
+  slug: `mini-${slug}`, name, price: 19, rayon: "minis", images: imgs.map(p),
+  alt: `Mini panier en jute « ${name} » peint à la main`,
+  accroche: "Petits par la taille. Pas par le caractère.", body: MINI_BODY, tech: "H 15 · Ø 16 cm · jute, cuir.", proof: "Peint à la main",
 });
 
 export const products: Product[] = [
-  mini("peace-meme", "Peace mémé", "Humour", "3095-large_default/vide-poche-bazar.jpg"),
-  mini("le-gras", "Le gras c'est la vie", "Cuisine", "3065-large_default/petit-panier-le-gras-c-est-la-vie.jpg"),
-  mini("the-cafe", "Thé café", "Cuisine", "3064-large_default/petit-panier-the-et-cafe.jpg"),
-  mini("oignons", "Oignons échalotes", "Cuisine", "3066-large_default/mini-panier-oignons-echalotes.jpg"),
-  mini("epices", "Bar à épices", "Cuisine", "3069-large_default/vide-poche-bar-a-epices.jpg"),
-  mini("medocs", "Médocs", "Humour", "3094-large_default/vide-poche-bazar.jpg"),
-  mini("belle-rebelle", "Belle et rebelle", "Humour", "3104-large_default/vide-poche-bazar.jpg"),
-  mini("vide-poches", "Vide tes poches", "Humour", "3100-large_default/vide-poche-bazar.jpg"),
-  mini("chargeurs", "Chargeurs and co", "Humour", "3124-large_default/vide-poche-bazar.jpg"),
-  mini("chat-noir", "Chat noir", "Animaux", "3134-large_default/vide-poche-bazar.jpg"),
-  mini("labrador", "Labrador", "Animaux", "3175-large_default/vide-poche-bazar.jpg"),
-  mini("coccinelle", "Coccinelle", "Enfants", "3181-large_default/vide-poche-bazar.jpg"),
+  // Personnalisables
+  { ...perso("le-rond-xl", "rond-xl", "Le Rond XL", 56, [1390, 3051], "Notre préféré, et le vôtre. Jouets, linge, plaids, bûches : il avale tout.", "H 40 · Ø 40 cm", "Grand panier rond XL en jute, prêt à recevoir votre texte peint à la main"),
+    body: "Quarante centimètres de haut, quarante de large : le Rond XL est notre panier le plus demandé, et de loin. Les jouets de Léo, les trésors de Solveig, le barda de Papa, le linge de toute la famille. En toile de jute tissée au Ronchay, doublé, surpiqué et peint au pochoir dans notre atelier de Grémonville. Il tient debout tout seul, même vide. Et il tiendra des années.",
+    seo: { title: "Le Rond XL : grand panier en jute personnalisé à votre prénom", description: "Notre panier le plus demandé. 40 cm, jute normande, texte peint à la main. Jouets, linge, plaids. 56 €, livraison offerte en point relais." } },
+  perso("le-bb-rond", "bb-rond", "Le BB Rond", 43, [1452, 3053], "Pour les petites choses qui comptent : chaussettes, doudous, télécommandes.", "H 25 · Ø 25 cm", "Petit panier rond BB en jute, à personnaliser"),
+  perso("le-rond", "rond", "Le Rond", 49, [565, 3054], "Le format qui va partout : entrée, salle de bain, bureau.", "H 35 · Ø 35 cm", "Panier rond en jute, à personnaliser"),
+  perso("le-carre", "carre", "Le Carré", 59, [1478, 3055], "Des angles nets, des pompons, et de la place.", "35 × 35 cm", "Panier carré en jute à pompons, à personnaliser"),
+  perso("le-carre-xxl", "carre-xxl", "Le Carré XXL", 64, [464, 3050], "Le coffre à jouets qu'on n'a pas honte de laisser au salon.", "40 × 40 cm", "Grand panier carré XXL en jute, à personnaliser"),
+  perso("le-cabas-personnalisable", "cabas", "Le cabas personnalisable", 59, [2350, 3056], "Pour le marché, la plage, l'école. Avec votre mot dessus, et des anses en cuir assorties.", "30 × 40 cm", "Cabas en jute avec anses en cuir, à personnaliser"),
+  perso("le-petit-panier-vide-poches", "vide-poches", "Le petit panier vide-poches", 20, [3040, 3057], "Clés, lunettes, monnaie. Le petit cadeau qui reste.", "H 15 · Ø 16 cm", "Petit panier vide-poches en jute, à personnaliser"),
 
-  { id: "le-rond", name: "Le Rond", price: 49, rayon: "personnalisables", images: [u("565-large_default/sac-personnalisable-rond.jpg"), u("3054-large_default/sac-personnalisable-rond.jpg")] },
-  { id: "bb-rond", name: "Le BB Rond", price: 43, rayon: "personnalisables", images: [u("1452-large_default/sac-bb-rond.jpg")] },
-  { id: "carre", name: "Le Carré", price: 59, rayon: "personnalisables", images: [u("1478-large_default/sac-carre.jpg")] },
-  { id: "cabas-perso", name: "Le cabas personnalisable", price: 59, rayon: "personnalisables", images: [u("2350-large_default/cabas-personnalisable.jpg")] },
-  { id: "petit-prenom", name: "Le petit panier à votre prénom", price: 20, rayon: "personnalisables", images: [u("3040-large_default/petit-panier-vide-poches.jpg")] },
+  // Sacs à main
+  { slug: "loom", name: "Loom", price: 74, rayon: "sacs-a-main", images: [p(2949), p(2948)], alt: "Sac à main Loom en jute à chevrons gris et kaki, anses en cuir", stock: 3, proof: "Cousu à Grémonville",
+    accroche: "Le sac à main qui n'a pas besoin d'en faire trop.",
+    body: "Jute naturelle, chevrons gris et kaki, anses en cuir au tannage végétal : le Loom se porte à l'épaule ou à la main, du bureau au marché, sans jamais détonner. Cousu dans notre atelier de Grémonville, en petite série. Il fait partie de ces sacs qu'on finit par porter tous les jours sans l'avoir décidé.",
+    tech: "30 × 27 × 16 cm · jute, cuir · éponge humide.",
+    seo: { title: "Loom : sac à main en jute et cuir, fabriqué en Normandie", description: "Jute naturelle, chevrons gris et kaki, anses en cuir végétal. Porté épaule ou main. Cousu à l'atelier en petite série. 74 €." } },
+  { slug: "la-parisienne", name: "La Parisienne", price: 149, rayon: "sacs-a-main", images: [p(1254), p(2056), p(1244), p(2057)], alt: "Grand cabas La Parisienne en lin enduit, anses en cuir chocolat", proof: "Cousue à Grémonville",
+    accroche: "Un grand cabas en lin enduit, réversible, cousu en Normandie. Le reste est une question d'allure.",
+    body: "Quarante centimètres de haut, cinquante de large, et deux anses en cuir chocolat au tannage végétal, interchangeables. Lin enduit d'un côté, lin naturel de l'autre : retournez-le selon l'humeur. Fabriquée en série limitée à l'atelier. Elle va au travail, à la plage et en week-end, et elle y va longtemps.",
+    tech: "40 × 50 × 11 cm · lin enduit, lin, cuir · éponge humide.",
+    seo: { title: "La Parisienne : grand cabas en lin enduit réversible, 149 €", description: "Un sac à main en lin français, réversible, anses en cuir interchangeables. Série limitée cousue en Normandie." } },
+  { slug: "titi", name: "Titi", price: 142, rayon: "sacs-a-main", images: [p(1232), p(2411), p(2417), p(1239)], alt: "Sac à main Titi en lin enduit noir, anses en cuir orange", proof: "Cousu à Grémonville",
+    accroche: "Le lin enduit noir, les anses orange, et une poche zippée pour ce qu'on ne veut pas perdre.",
+    body: "Un sac à main en lin enduit, doublé de lin naturel, avec deux anses en cuir au tannage végétal qu'on change à volonté. Une poche plaquée, une poche fermée. Cousu à Grémonville. Sobre dehors, bien rangé dedans.",
+    tech: "40 × 35 × 12 cm · lin enduit, lin, cuir." },
+  { slug: "midinette", name: "Midinette", price: 94, rayon: "sacs-a-main", images: [p(2196), p(2200), p(2194), p(2202), p(2208)], alt: "Sac bandoulière Midinette en lin enduit noir", proof: "Cousu en Normandie",
+    accroche: "En hommage aux midinettes, ces couturières parisiennes du début du siècle. Le nôtre se porte en bandoulière.",
+    body: "Lin enduit imperméable, fermeture à glissière, anse réglable de 70 à 116 cm. À l'intérieur, une poche zippée et deux poches plaquées. Existe en noir, bleu jean, cirque, danseuse, chien-chat. Cousu en Normandie.",
+    tech: "35 × 30 cm · lin enduit, lin." },
 
-  { id: "homards", name: "Cabas Multi homards rouge", price: 54, rayon: "cabas", images: [u("2144-large_default/le-multi-homards-rouge.jpg")] },
-  { id: "mon-coeur", name: "Cabas Mon cœur", price: 54, rayon: "cabas", images: [u("1218-large_default/mon-coeur.jpg")] },
-  { id: "petit-classique", name: "Petit classique rouge", price: 44, rayon: "cabas", images: [u("1318-large_default/le-petit-classique-rouge.jpg")] },
-  { id: "courses", name: "Cabas de courses anses courtes", price: 24, rayon: "cabas", images: [u("866-large_default/cabas-de-courses-anses-courtes.jpg")] },
-  { id: "tresors", name: "Panier Les trésors de Maman", price: 55, rayon: "cabas", tag: "Enfants", images: [u("1134-large_default/sac-de-rangement-les-tresors-de-maman.jpg")] },
-  { id: "panier-chien", name: "Panier pour chien", price: 44, rayon: "cabas", tag: "Animaux", images: [u("2932-large_default/panier-pour-chien.jpg")] },
-  { id: "marcel", name: "Sac à bûches Chauffe Marcel", price: 76, rayon: "cabas", tag: "Humour", images: [u("1178-large_default/chauffe-marcel.jpg")] },
+  // Cabas
+  { slug: "multi-teckels", name: "Multi-Teckels", price: 59, rayon: "cabas", images: [p(2972), p(2971)], alt: "Petit cabas en jute couvert de teckels peints à la main", proof: "Peint à la main",
+    accroche: "Des teckels peints un par un. Aucun ne ressemble à son voisin.",
+    body: "Petit cabas en jute tissée en Normandie, entièrement doublé, anses en cuir rivées. Chaque teckel est peint à la main à la peinture textile, fixée à chaud. Le format idéal pour le marché, ou pour le bureau quand on a un teckel à la maison.",
+    tech: "27 × 30 cm · jute, cuir." },
+  { slug: "multi-homards", name: "Multi homards", price: 54, rayon: "cabas", images: [p(2144), p(2150), p(1339), p(2147)], alt: "Petit cabas en jute à homards rouges peints à la main", proof: "Peint à la main",
+    accroche: "Rouge, rose ou bleu : les homards de l'été, peints à la main.",
+    body: "Un petit cabas en jute doublé, anses en cuir français au tannage végétal. Chaque homard est peint un par un dans l'atelier. Il va à la plage, au marché, et il fait parler.",
+    tech: "25 × 30 cm · jute, cuir." },
+  { slug: "le-petit-classique", name: "Le Petit classique", price: 44, rayon: "cabas", images: [p(1318), p(1319), p(1321), p(1315), p(1306), p(1309), p(1303), p(1300), p(1297)], alt: "Cabas Petit classique en jute, anses en cuir rouge", proof: "Cousu à Grémonville",
+    accroche: "Le cabas en jute de tous les jours. Choisissez la couleur des anses, le reste est déjà parfait.",
+    body: "Toile de jute, anses en cuir au tannage végétal en rouge, cognac, orange, bleu, noir, fuchsia, jaune ou chocolat. Pour les courses, la ville, la plage, et toutes les fois où on ne sait pas quel sac prendre.",
+    tech: "30 × 40 cm · jute, cuir.",
+    seo: { title: "Le Petit classique : cabas en jute et cuir, 8 couleurs d'anses", description: "Le cabas en jute de tous les jours, cousu en Normandie, anses en cuir au tannage végétal. 30 × 40 cm. 44 €." } },
+  { slug: "etoile-ou-coeur", name: "Étoile ou cœur", price: 54, rayon: "cabas", images: [p(2582)], alt: "Panier-cabas en jute avec un appliqué en cuir doré en forme d'étoile", proof: "Cousu main",
+    accroche: "Un appliqué en cuir doré, cousu à la main. Une étoile, ou un cœur : à vous de dire.",
+    body: "Panier-cabas en jute tissée en Normandie, anses en cuir au tannage végétal. L'appliqué est découpé et posé à la main : chaque pièce est unique. Notre quatrième meilleure vente, et le cadeau le plus sûr qu'on connaisse.",
+    tech: "30 × 40 cm · anses 42 cm · jute, cuir." },
+  { slug: "mille-pois", name: "Mille pois", price: 59, rayon: "cabas", images: [], alt: "Cabas Mille pois en jute à pois peints à la main", proof: "Peint à la main",
+    accroche: "Un cabas normand jusque dans la doublure : de la bâche recyclée.",
+    body: "Toile de jute tissée en Normandie, pois peints à la main, doublure en bâche récupérée, anses en cuir au tannage végétal. Marché, plage, quotidien.",
+    tech: "30 × 50 cm à plat · anses 42 cm · jute, bâche, cuir." },
+  { slug: "le-paillete", name: "Le Pailleté", price: 59, rayon: "cabas", images: [], alt: "Cabas Le Pailleté en jute et lurex, anses en cuir noir", stock: "out", proof: "Cousu à l'atelier",
+    accroche: "De la jute, du lurex, et des anses en cuir noir. Le cabas des soirs d'été.",
+    body: "Tissé en Normandie, cousu à l'atelier. Les paillettes sont dans le fil, pas collées dessus : elles ne partiront pas.",
+    tech: "30 × 40 cm · jute et lurex, cuir." },
+  { slug: "mon-coeur", name: "Mon cœur", price: 54, rayon: "cabas", images: [p(1218), p(2316)], alt: "Petit cabas en jute à petits cœurs rouges peints à la main", proof: "Peint à la main",
+    accroche: "Des petits cœurs peints à la main. Rouge ou bleu. Pas deux pareils.",
+    body: "Petit cabas en jute doublé, anses en cuir français au tannage végétal, cousu à Grémonville.",
+    tech: "25 × 30 cm · jute, cuir." },
 
-  { id: "soco", name: "Trousse Soco rouge", price: 20, rayon: "cadeaux", images: [u("2380-large_default/trousse-soco-rouge.jpg")] },
-  { id: "bouteille", name: "Sac bouteille Chic", price: 19, rayon: "cadeaux", tag: "Cuisine", images: [u("614-large_default/sac-bouteille-chic.jpg")] },
-  { id: "medailles", name: "Porte-médailles rouge", price: 19, rayon: "cadeaux", tag: "Enfants", images: [u("323-large_default/porte-medailles-rouge.jpg")] },
-  { id: "midinette", name: "Sac à main Midinette noir", price: 94, rayon: "cadeaux", images: [u("2196-large_default/midinette-noir.jpg")] },
+  // Rangement
+  { slug: "le-barda-de", name: "Le barda de…", price: 55, rayon: "rangement", images: [p(1149), p(1150), p(2128), p(2132)], alt: "Grand panier rond en jute « Barda de Papa » peint au pochoir", proof: "Peint à la main",
+    accroche: "Barda de Papa, Barda de famille, Barda hippique : dites-nous de qui.",
+    body: "Grand panier rond en jute doublée, anses en corde de chanvre, message peint au pochoir. Il range la chambre, l'entrée, le coffre de la voiture, et il y survit.",
+    tech: "H 40 · Ø 40 cm · jute, chanvre." },
+  { slug: "les-tresors-de-maman", name: "Les trésors de Maman", price: 55, rayon: "rangement", images: [p(1134), p(1133)], alt: "Grand panier en jute « Les trésors de Maman » peint au pochoir", proof: "Peint à la main" },
+  { slug: "pause-litteraire", name: "Pause littéraire", price: 54, rayon: "rangement", images: [p(2466), p(2465)], alt: "Panier en jute « Pause littéraire » pour ranger les livres", proof: "Peint à la main" },
+  { slug: "panier-pour-chien", name: "Panier pour chien", price: 44, rayon: "rangement", images: [p(2932), p(2931)], alt: "Panier en jute pour les affaires du chien", proof: "Peint à la main" },
+  { slug: "wanted-socks", name: "Wanted socks", price: 39, rayon: "rangement", images: [p(1724), p(1727)], alt: "Panier en jute « Wanted socks » pour les chaussettes", proof: "Peint à la main" },
+  { slug: "petits-souliers", name: "Petits souliers", price: 55, rayon: "rangement", images: [p(1836), p(2055)], alt: "Panier en jute « Petits souliers » pour les chaussures", proof: "Peint à la main" },
+  { slug: "des-jouets-par-milliers", name: "Des jouets par milliers", price: 55, rayon: "rangement", images: [p(2115), p(2120)], alt: "Panier à jouets en jute « Des jouets par milliers »", proof: "Peint à la main" },
+
+  // Bûches
+  { slug: "chauffe-marcel", name: "Chauffe Marcel", price: 76, rayon: "buches", images: [p(1178), p(1176)], alt: "Sac à bûches en jute « Chauffe Marcel » peint au pochoir", proof: "Peint à la main",
+    accroche: "Un sac à bûches qui a du chien.",
+    body: "Toile de jute épaisse, doublée, surpiquée à la ficelle, une sangle de tapissier qui fait tout le tour pour porter lourd sans broncher. « Chauffe Marcel » peint au pochoir, à la main. Il porte le bois, il reste près du poêle, et il fait sourire tout l'hiver.",
+    tech: "H 40 · fond 40 × 60 cm · jute, sangle, ficelle · pas de traitement anti-feu : on le tient à distance des flammes.",
+    seo: { title: "Chauffe Marcel : le sac à bûches en jute qui a du chien", description: "Sac à bois en jute épaisse, doublé et surpiqué, message peint au pochoir. Fabriqué à Grémonville. 76 €, expédié sous 48 h." } },
+  { slug: "au-coin-du-feu", name: "Au coin du feu", price: 76, rayon: "buches", images: [p(1170), p(2139), p(2174), p(2178)], alt: "Sac à bûches en jute « Au coin du feu » peint au pochoir", proof: "Peint à la main",
+    accroche: "Le classique de l'atelier, celui que les boutiques nous redemandent chaque automne.",
+    body: "Même toile, même sangle, même solidité que Chauffe Marcel, avec son message peint en orange, en blanc, en vert ou en violet. Il transporte les bûches, puis les plaids, les jouets, les magazines. Un sac pour la cheminée, qui finit souvent dans le salon.",
+    tech: "H 40 · fond 40 × 60 cm · jute, sangle, ficelle." },
+  { slug: "on-va-pas-s-peler", name: "On va pas s'peler", price: 59, rayon: "buches", images: [p(2101), p(2105)], alt: "Grand panier rond à granulés « On va pas s'peler » en jute", proof: "Peint à la main",
+    accroche: "Le sac à granulés qui dit tout haut ce que vous pensez en décembre.",
+    body: "Un grand rond en jute doublée, anses en cuir noir, message peint au pochoir. Il avale un sac de granulés entier et reste beau à côté du poêle.",
+    tech: "jute, cuir · éponge humide." },
+  { slug: "chauffe-marcel-rond", name: "Chauffe Marcel Rond", price: 59, rayon: "buches", images: [p(2107), p(2460)], alt: "Panier rond à bûches « Chauffe Marcel » en jute", proof: "Peint à la main" },
+  { slug: "au-coin-du-feu-rond", name: "Au coin du feu Rond", price: 55, rayon: "buches", images: [p(2158), p(2157)], alt: "Panier rond à bûches « Au coin du feu » en jute", proof: "Peint à la main" },
+
+  // Minis
+  mini("peace-meme", "Peace mémé", [3095]),
+  mini("vide-tes-poches", "Vide tes poches", [3100]),
+  mini("le-gras", "Le gras c'est la vie", [3065]),
+  mini("chargeurs", "Chargeurs and co", [3124]),
+  mini("medocs", "Médocs", [3094]),
+  mini("belle-et-rebelle", "Belle et rebelle", [3104]),
+  mini("bazar", "Bazar", [2713, 3063]),
+  mini("the-cafe", "Thé café", [3064]),
+  mini("oignons", "Oignons échalotes", [3066]),
+  mini("epices", "Bar à épices", [2715, 3069]),
+  mini("moche", "Moche et remoche", [3108]),
+  mini("clefs", "Clefs du bonheur", [3112]),
+  mini("miam", "Miam", [3120]),
+  mini("fourzytout", "Fourzytout", [3128]),
+  mini("chat-noir", "Chat noir", [3134]),
+  mini("labrador", "Labrador", [3175]),
+  mini("coccinelle", "Coccinelle", [3181, 3182]),
+  mini("leopard", "Léopard", [3185]),
+
+  // Trousses
+  { slug: "trousse-soco", name: "Trousse Soco", price: 20, rayon: "trousses", images: [p(2380), p(2379), p(2383), p(2386), p(2449)], alt: "Trousse Soco rouge en toile d'ombrage recyclée, languette en cuir", proof: "Cousue à Grémonville",
+    accroche: "Cousue dans les chutes de toile d'ombrage de Socotex, à Honfleur. Rien ne se perd.",
+    body: "Rouge, bleu, jaune ou noir. Trousse de toilette ou trousse d'école, lavable d'un coup d'éponge. La languette est taillée dans les chutes de cuir de nos anses.",
+    tech: "23 × 7 × 7 cm · toile technique, cuir." },
 ];
 
-export const byId = (id: string) => products.find((p) => p.id === id)!;
+export const bySlug = (slug: string) => products.find((x) => x.slug === slug);
 
-export const rayons: Record<Rayon, { label: string; title: string; intro: string }> = {
-  minis: { label: "Les Minis 19 €", title: "Les Minis à messages", intro: "Petits paniers en jute qui disent tout haut ce que l'on pense tout bas. 19 € chacun." },
-  personnalisables: { label: "Personnalisables", title: "Personnalisables", intro: "Votre prénom, votre mot, votre phrase : brodé dans notre atelier sous 8 jours." },
-  cabas: { label: "Cabas & paniers", title: "Cabas & paniers", intro: "Pour le marché, les bûches, les jouets ou le chien : solides, cousus pour durer." },
-  cadeaux: { label: "Cadeaux", title: "Cadeaux", intro: "De petites attentions en jute, emballage cadeau offert sur chaque commande." },
+export const rayons: Record<RayonId, { label: string; title: string; intro: string; seoTitle: string }> = {
+  personnalises: { label: "Personnalisés", title: "Paniers et sacs personnalisés", intro: "", seoTitle: "Panier personnalisé prénom, peint à la main · Grenouille Rouge" },
+  "sacs-a-main": { label: "Sacs à main", title: "Sacs à main", intro: "Loom, Parisienne, Titi, Midinette : des sacs en série limitée, cousus à Grémonville, pensés pour durer et se patiner avec vous.", seoTitle: "Sacs à main en lin et jute, cousus en Normandie · Grenouille Rouge" },
+  cabas: { label: "Cabas en jute", title: "Cabas en jute", intro: "Petit classique, Multi-Teckels, homards, mille pois : des cabas en jute tissée en Normandie, anses en cuir, motifs peints à la main. Dès 44 €.", seoTitle: "Cabas en toile de jute fabriqués en France · Grenouille Rouge" },
+  rangement: { label: "Paniers de rangement", title: "Paniers de rangement", intro: "Grands paniers en toile de jute doublée, messages peints à la main. Pour la chambre, l'entrée, le linge. Fabriqués en Normandie, dès 39 €.", seoTitle: "Paniers de rangement en jute à message · Barda, Socks, Souliers" },
+  buches: { label: "Sacs à bûches", title: "Sacs à bûches", intro: "Chauffe Marcel, Au coin du feu : des sacs à bois en toile de jute doublée, sangle de tapissier, message peint à la main. 55 à 76 €.", seoTitle: "Sac à bûches en jute, cousu main en Normandie · Grenouille Rouge" },
+  minis: { label: "Minis à messages", title: "Minis à messages", intro: "Petits par la taille. Pas par le caractère. À poser partout, à offrir, à collectionner !", seoTitle: "Minis : petits paniers en jute à message, 19 € · Grenouille Rouge" },
+  trousses: { label: "Trousses et pochettes", title: "Trousses et pochettes", intro: "Trousses Soco cousues dans des chutes de toile d'ombrage, trousses de toilette, pochettes. Fabriquées à Grémonville.", seoTitle: "Trousses made in France en toile recyclée · Grenouille Rouge" },
 };
 
-export const FREE_SHIPPING = 70;
+export const shopRayons: RayonId[] = ["sacs-a-main", "cabas", "rangement", "buches", "minis", "trousses"];
+
+// Frais de port simulés
+export const RELAIS_FREE = 39;
+export const DOMICILE_FREE = 90;
+export const shippingOptions = [
+  { id: "relais", label: "Point relais", help: "offert dès 39 €", price: (t: number) => (t >= RELAIS_FREE ? 0 : 3.9) },
+  { id: "domicile", label: "À domicile", help: "6,90 €", price: (t: number) => (t >= DOMICILE_FREE ? 0 : 6.9) },
+  { id: "atelier", label: "Retrait à l'atelier de Grémonville, sur rendez-vous", help: "gratuit, on vous appelle quand c'est prêt", price: () => 0 },
+] as const;
+
 export const euro = (n: number) => n.toFixed(2).replace(".", ",") + " €";
+
+export const delayOf = (pr: Product) =>
+  pr.rayon === "personnalises" ? "Expédié sous 8 jours" : "Expédié sous 48 h";

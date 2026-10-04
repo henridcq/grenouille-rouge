@@ -1,25 +1,34 @@
+import { Link } from "@tanstack/react-router";
 import type { Product } from "@/data/products";
 import { useCart } from "@/lib/cart";
 import { ProductImage } from "./ProductImage";
+import { PersoLink } from "./PersoLink";
 
 export function ProductCard({ product }: { product: Product }) {
   const { add } = useCart();
+  const custom = product.rayon === "personnalises";
   return (
-    <article className="flex flex-col overflow-hidden rounded-2xl border bg-card">
-      <div className="relative">
-        <ProductImage src={product.images[0]} name={product.name} className="aspect-square w-full" />
-        {product.tag && (
-          <span className="absolute left-2 top-2 rounded-full bg-primary px-2.5 py-0.5 text-xs font-semibold text-primary-foreground">
-            {product.tag}
-          </span>
+    <article className="group flex flex-col">
+      <Link to="/produit/$slug" params={{ slug: product.slug }} className="relative block overflow-hidden rounded-2xl">
+        <ProductImage src={product.images[0]} name={product.name} alt={product.alt} className="aspect-square w-full transition-transform duration-500 group-hover:scale-[1.03]" />
+        {product.stock === "out" && (
+          <span className="absolute left-2 top-2 rounded-full bg-background px-2.5 py-0.5 text-xs font-semibold">Bientôt de retour</span>
         )}
-      </div>
-      <div className="flex flex-1 flex-col gap-3 p-3 sm:p-4">
-        <h3 className="font-display text-lg font-semibold leading-tight sm:text-xl">« {product.name} »</h3>
-        <p className="mt-auto text-lg font-semibold">{product.price} €</p>
-        <button onClick={() => add(product.id)} className="btn-buy w-full px-2 text-[0.95rem]">
-          Ajouter au panier
-        </button>
+      </Link>
+      <div className="flex flex-1 flex-col gap-1 pt-3">
+        <Link to="/produit/$slug" params={{ slug: product.slug }} className="font-display text-lg font-semibold leading-tight">
+          {product.name}
+        </Link>
+        <p className="font-semibold text-primary">{custom ? `À partir de ${product.price} €` : `${product.price} €`}</p>
+        <div className="mt-auto pt-2">
+          {custom ? (
+            <PersoLink format={product.format} className="btn-soft w-full text-[0.95rem]">Personnaliser</PersoLink>
+          ) : product.stock === "out" ? (
+            <span className="btn-soft w-full cursor-not-allowed text-[0.95rem] opacity-50">Bientôt de retour</span>
+          ) : (
+            <button onClick={() => add(product.slug)} className="btn-soft w-full text-[0.95rem]">Ajouter</button>
+          )}
+        </div>
       </div>
     </article>
   );

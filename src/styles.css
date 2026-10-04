@@ -7,6 +7,8 @@
 @theme inline {
   --font-display: "Fraunces", Georgia, serif;
   --font-sans: "Inter", system-ui, sans-serif;
+  /* Police pochoir provisoire : remplacer par la police de l atelier */
+  --font-stencil: "Allerta Stencil", "Stardos Stencil", sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -58,7 +60,7 @@
   --border: oklch(0.86 0.03 75);
   --input: oklch(0.82 0.03 75);
   --ring: oklch(0.535 0.205 22);
-  --sage: oklch(0.55 0.05 145);
+  --sage: oklch(0.62 0.055 128); /* #7D8F6A */
   --sage-soft: oklch(0.91 0.03 140);
   --jute: oklch(0.83 0.055 75);
   --jute-deep: oklch(0.66 0.07 65);
@@ -104,3 +106,12 @@
 
 @keyframes bump { 0%,100% { transform: scale(1);} 40% { transform: scale(1.45);} }
 @utility animate-bump { animation: bump .45s ease; }
+
+@utility font-stencil { font-family: var(--font-stencil); letter-spacing: 0.02em; }
+
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+.reveal-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (max-width: 767px) { .marquee { animation: marquee 22s linear infinite; } }
