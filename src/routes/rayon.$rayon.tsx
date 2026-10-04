@@ -1,59 +1,48 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
-import { useState } from "react";
-import { products, rayons, type Rayon, type Tag } from "@/data/products";
+import { createFileRoute, notFound, Link } from "@tanstack/react-router";
+import { products, rayons, shopRayons, type RayonId } from "@/data/products";
 import { ProductCard } from "@/components/shop/ProductCard";
+import { Reveal } from "@/components/shop/Reveal";
 
 export const Route = createFileRoute("/rayon/$rayon")({
   loader: ({ params }) => {
-    if (!(params.rayon in rayons)) throw notFound();
-    return { rayon: params.rayon as Rayon };
+    if (!shopRayons.includes(params.rayon as RayonId)) throw notFound();
+    return { rayon: params.rayon as RayonId };
   },
   head: ({ loaderData }) => {
-    const r = loaderData ? rayons[loaderData.rayon] : null;
-    const title = r ? `${r.title} — Grenouille Rouge` : "Rayon introuvable";
+    const r = loaderData ? rayons[loaderData.rayon] : undefined;
     return {
       meta: [
-        { title },
+        { title: r?.seoTitle ?? "Rayon · Grenouille Rouge" },
         { name: "description", content: r?.intro ?? "" },
-        { property: "og:title", content: title },
+        { property: "og:title", content: r?.seoTitle ?? "Rayon · Grenouille Rouge" },
         { property: "og:description", content: r?.intro ?? "" },
       ],
     };
   },
-  component: RayonPage,
+  component: Rayon,
 });
 
-const filters: ("Tous" | Tag)[] = ["Tous", "Cuisine", "Animaux", "Humour", "Enfants"];
-
-function RayonPage() {
+function Rayon() {
   const { rayon } = Route.useLoaderData();
-  const [f, setF] = useState<"Tous" | Tag>("Tous");
-  const [all, setAll] = useState(false);
-  const list = products.filter((p) => p.rayon === rayon && (f === "Tous" || p.tag === f));
-  const shown = all ? list : list.slice(0, 12);
+  const r = rayons[rayon];
+  const list = products.filter((p) => p.rayon === rayon);
+  const extra = rayon === "cabas" ? products.find((p) => p.slug === "le-cabas-personnalisable") : undefined;
 
   return (
-    <section className="mx-auto max-w-6xl px-4 pt-8">
-      <h1 className="text-4xl font-bold md:text-5xl">{rayons[rayon].title}</h1>
-      <p className="mt-2 text-lg text-muted-foreground">{rayons[rayon].intro}</p>
-      <div className="mt-5 flex gap-2 overflow-x-auto pb-1">
-        {filters.map((x) => (
-          <button
-            key={x}
-            onClick={() => setF(x)}
-            className={`shrink-0 rounded-full border px-4 py-2 font-medium ${f === x ? "border-foreground bg-foreground text-background" : ""}`}
-          >
-            {x}
-          </button>
+    <div className="mx-auto max-w-6xl px-4 pt-8">
+      <nav className="mb-6 flex gap-2 overflow-x-auto pb-1 text-[0.95rem]">
+        {shopRayons.map((id) => (
+          <Link key={id} to="/rayon/$rayon" params={{ rayon: id }} className="shrink-0 rounded-full border px-4 py-1.5" activeProps={{ className: "bg-foreground text-background border-foreground" }}>
+            {rayons[id].label}
+          </Link>
         ))}
-      </div>
-      <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
-        {shown.map((p) => <ProductCard key={p.id} product={p} />)}
-      </div>
-      {list.length === 0 && <p className="py-10 text-center text-muted-foreground">Rien dans ce rayon pour ce thème, pour l'instant.</p>}
-      {!all && list.length > 12 && (
-        <div className="mt-6 text-center"><button onClick={() => setAll(true)} className="btn-soft">Voir plus</button></div>
-      )}
-    </section>
+      </nav>
+      <h1 className="text-4xl font-bold md:text-5xl">{r.title}</h1>
+      <p className="mt-3 max-w-2xl text-lg text-muted-foreground">{r.intro}</p>
+      <Reveal className="mt-8 grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-5 lg:grid-cols-4">
+        {extra && <ProductCard product={extra} />}
+        {list.map((p) => <ProductCard key={p.slug} product={p} />)}
+      </Reveal>
+    </div>
   );
 }
