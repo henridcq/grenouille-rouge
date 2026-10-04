@@ -43,7 +43,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
           return next.map((l) => ({ ...l }));
         });
         setBump((b) => b + 1);
-        toast.success(list.length > 1 ? "Le lot est dans votre panier" : "Ajouté au panier", { duration: 2000 });
+        toast.success(list.length > 1 ? "Le lot est dans votre panier" : "Ajouté au panier", {
+          duration: 2000,
+          action: { label: "Commander", onClick: () => setOpen(true) },
+        });
       },
       setQty: (id, qty) =>
         setRaw((prev) => (qty <= 0 ? prev.filter((l) => l.id !== id) : prev.map((l) => (l.id === id ? { ...l, qty } : l)))),
