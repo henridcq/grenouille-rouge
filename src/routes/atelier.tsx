@@ -40,6 +40,8 @@ function Atelier() {
           <h2 className="text-3xl font-bold">{t}</h2>
           <p className="mt-3 text-lg">{b}</p>
           {i === 2 && <ProductImage src={imgs[1]} name="Le travail de la toile de jute" alt="Toile de jute travaillée à l'atelier" className="mt-6 aspect-[4/3] w-full rounded-3xl" />}
+          {i === 3 && <ProductImage src={PHOTOS.cuirs} name="Les cuirs de l'atelier" alt="Lanières de cuir bleu, rose, vert et cognac sur la toile de jute" className="mt-6 aspect-[4/3] w-full rounded-3xl" />}
+          {i === 5 && <ProductImage src={PHOTOS.etiquette} name="Étiquette Made in France" alt="Étiquette Grenouille Rouge fabriqué en France cousue sur un panier" className="mt-6 aspect-[4/3] w-full rounded-3xl" />}
           {i === 4 && <ProductImage src={imgs[2]} name="Sacs et cabas de l'atelier" alt="Sacs et cabas Grenouille Rouge à l'atelier" className="mt-6 aspect-[4/3] w-full rounded-3xl" />}
         </Reveal>
       ))}

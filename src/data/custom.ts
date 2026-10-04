@@ -1,24 +1,25 @@
+import { ph } from "./photos";
 import type { FormatId } from "./products";
 
 export type Handle = "pois" | "etoiles" | "corde";
 export type Color = { name: string; hex: string };
 
 export const formats: { id: FormatId; label: string; price: number; slug: string; image: string }[] = [
-  { id: "bb-rond", label: "BB Rond", price: 43, slug: "le-bb-rond", image: "https://grenouillerouge.com/img/p/1/4/5/2/1452.jpg" },
-  { id: "rond", label: "Rond", price: 49, slug: "le-rond", image: "https://grenouillerouge.com/img/p/5/6/5/565.jpg" },
-  { id: "rond-xl", label: "Rond XL", price: 56, slug: "le-rond-xl", image: "https://grenouillerouge.com/img/p/1/3/9/0/1390.jpg" },
-  { id: "carre", label: "Carré", price: 59, slug: "le-carre", image: "https://grenouillerouge.com/img/p/1/4/7/8/1478.jpg" },
-  { id: "carre-xxl", label: "Carré XXL", price: 64, slug: "le-carre-xxl", image: "https://grenouillerouge.com/img/p/4/6/4/464.jpg" },
-  { id: "cabas", label: "Cabas", price: 59, slug: "le-cabas-personnalisable", image: "https://grenouillerouge.com/img/p/2/3/5/0/2350.jpg" },
-  { id: "vide-poches", label: "Petit panier vide-poches", price: 20, slug: "le-petit-panier-vide-poches", image: "https://grenouillerouge.com/img/p/3/0/4/0/3040.jpg" },
+  { id: "bb-rond", label: "BB Rond", price: 43, slug: "le-bb-rond", image: ph("bb-rond-vierge-recto-01.jpg") ?? "" },
+  { id: "rond", label: "Rond", price: 49, slug: "le-rond", image: ph("rond-vierge-recto-01.jpg") ?? "" },
+  { id: "rond-xl", label: "Rond XL", price: 56, slug: "le-rond-xl", image: ph("rond-xl-vierge-recto-01.jpg") ?? "" },
+  { id: "carre", label: "Carré", price: 59, slug: "le-carre", image: ph("carre-vierge-recto.jpg") ?? "" },
+  { id: "carre-xxl", label: "Carré XXL", price: 64, slug: "le-carre-xxl", image: ph("carre-xxl-vierge-recto.jpg") ?? "" },
+  { id: "cabas", label: "Cabas", price: 59, slug: "le-cabas-personnalisable", image: ph("config-cabas-vierge.jpg") ?? "" },
+  { id: "vide-poches", label: "Petit panier vide-poches", price: 20, slug: "le-petit-panier-vide-poches", image: ph("vide-poches-vierge-recto.jpg") ?? "" },
 ];
 export const formatOf = (id: FormatId) => formats.find((f) => f.id === id)!;
 
 // Photos des anses : à remplacer (lot 2). Vide = bloc beige avec le nom.
-export const handles: { id: Handle; label: string; short: string; photo?: string }[] = [
-  { id: "pois", label: "À pois", short: "anse à pois" },
-  { id: "corde", label: "En corde de chanvre", short: "anse en corde de chanvre" },
-  { id: "etoiles", label: "À étoiles", short: "anse à étoiles" },
+export const handles: { id: Handle; label: string; short: string; photo?: string | undefined }[] = [
+  { id: "pois", label: "À pois", short: "anse à pois", photo: ph("config-anse-pois.jpg") },
+  { id: "corde", label: "En corde de chanvre", short: "anse en corde de chanvre", photo: ph("config-anse-corde.jpg") },
+  { id: "etoiles", label: "À étoiles", short: "anse à étoiles", photo: ph("config-anse-etoiles.jpg") },
 ];
 
 export const palette: Color[] = [
