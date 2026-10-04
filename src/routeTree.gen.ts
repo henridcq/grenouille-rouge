@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CommandeRouteImport } from './routes/commande'
+import { Route as RayonRayonRouteImport } from './routes/rayon.$rayon'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CommandeRoute = CommandeRouteImport.update({
+  id: '/commande',
+  path: '/commande',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RayonRayonRoute = RayonRayonRouteImport.update({
+  id: '/rayon/$rayon',
+  path: '/rayon/$rayon',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/commande': typeof CommandeRoute
+  '/rayon/$rayon': typeof RayonRayonRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/commande': typeof CommandeRoute
+  '/rayon/$rayon': typeof RayonRayonRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/commande': typeof CommandeRoute
+  '/rayon/$rayon': typeof RayonRayonRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/commande' | '/rayon/$rayon'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/commande' | '/rayon/$rayon'
+  id: '__root__' | '/' | '/commande' | '/rayon/$rayon'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CommandeRoute: typeof CommandeRoute
+  RayonRayonRoute: typeof RayonRayonRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/commande': {
+      id: '/commande'
+      path: '/commande'
+      fullPath: '/commande'
+      preLoaderRoute: typeof CommandeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rayon/$rayon': {
+      id: '/rayon/$rayon'
+      path: '/rayon/$rayon'
+      fullPath: '/rayon/$rayon'
+      preLoaderRoute: typeof RayonRayonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CommandeRoute: CommandeRoute,
+  RayonRayonRoute: RayonRayonRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
