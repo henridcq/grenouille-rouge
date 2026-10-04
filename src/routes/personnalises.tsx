@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { products } from "@/data/products";
+import { PHOTOS, products } from "@/data/products";
 import { ProductImage } from "@/components/shop/ProductImage";
 import { Faq } from "@/components/shop/Reassurance";
 import { Reveal } from "@/components/shop/Reveal";
@@ -23,6 +23,7 @@ function Perso() {
   const formats = order.map((s) => products.find((p) => p.slug === s)!);
   return (
     <div className="mx-auto max-w-6xl px-4 pt-8">
+      <ProductImage src={PHOTOS.trioRonds} name="Nos paniers personnalisables" alt="Trois paniers ronds vierges de tailles différentes : BB Rond, Rond et Rond XL" className="mb-6 aspect-[16/9] w-full rounded-3xl md:aspect-[3/1]" />
       <h1 className="max-w-3xl text-4xl font-bold leading-tight md:text-5xl">Un prénom, un mot, une phrase. Peints à la main sur de la jute normande.</h1>
       <div className="mt-4 max-w-3xl space-y-3 text-lg">
         <p>À vous de jouer : choisissez la forme, l'anse et la couleur, puis écrivez ce qui vous ressemble. Nous posons le pochoir, nous peignons, nous cousons. Huit jours plus tard, c'est dans votre boîte aux lettres. Ou dans celle de la personne qui a de la chance.</p>
@@ -46,6 +47,7 @@ function Perso() {
         ))}
       </div>
 
+      <ProductImage src={PHOTOS.ronds} name="Trois Ronds empilés" alt="Trois paniers ronds en jute empilés" className="mt-16 aspect-[16/9] w-full rounded-3xl md:aspect-[3/1]" />
       <section className="mt-16 max-w-3xl">
         <h2 className="mb-4 text-3xl font-bold">Questions fréquentes</h2>
         <Faq />
