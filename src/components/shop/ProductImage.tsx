@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function ProductImage({ src, name, className = "" }: { src?: string; name: string; className?: string }) {
+export function ProductImage({ src, name, className = "" }: { src?: string | undefined; name: string; className?: string }) {
   const [failed, setFailed] = useState(false);
   if (failed || !src)
     return (
