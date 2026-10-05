@@ -43,24 +43,24 @@ const QUESTIONS: Q[] = [
     { id: "q1_dim", label: "Dimensions (H × L × P en cm)", type: "text", help: "ex. 30 × 40 × 12" },
     { id: "q1_couleurs", label: "Couleurs disponibles", type: "text" },
     { id: "q1_stock", label: "En stock ?", type: "choice", options: ["Oui", "Non, je le fais à la commande", "Il n'existe plus"] },
-    { id: "q1_combien", label: "Combien ?", type: "number", show: (a) => a.q1_stock === "Oui" },
+    { id: "q1_combien", label: "Combien ?", type: "number", show: (a) => a["q1_stock"] === "Oui" },
   ] },
   { n: 2, title: "Le BB Carré.", photos: [ph("bb-carre-vierge-recto.jpg")], fields: [
     { id: "q2_vend", label: "Tu le vends ?", type: "choice", options: ["Je le vends toujours", "Je ne le vends plus"] },
-    { id: "q2_prix", label: "Prix (€)", type: "number", show: (a) => a.q2_vend === "Je le vends toujours" },
-    { id: "q2_dim", label: "Dimensions (H × L × P en cm)", type: "text", show: (a) => a.q2_vend === "Je le vends toujours" },
-    { id: "q2_perso", label: "Personnalisable comme les autres ?", type: "choice", options: ["Oui", "Non"], show: (a) => a.q2_vend === "Je le vends toujours" },
+    { id: "q2_prix", label: "Prix (€)", type: "number", show: (a) => a["q2_vend"] === "Je le vends toujours" },
+    { id: "q2_dim", label: "Dimensions (H × L × P en cm)", type: "text", show: (a) => a["q2_vend"] === "Je le vends toujours" },
+    { id: "q2_perso", label: "Personnalisable comme les autres ?", type: "choice", options: ["Oui", "Non"], show: (a) => a["q2_vend"] === "Je le vends toujours" },
   ] },
   { n: 3, title: "Ta gamme Luxe (Luxe BB Rond 64 €, Luxe Rond 78 €, Luxe Super Rond 94 €).", photos: ["https://grenouillerouge.com/img/p/2/4/3/5/2435.jpg"], fields: [
     { id: "q3_diff", label: "En quoi elle est différente des personnalisés ?", type: "long", minWords: 15, help: "matière, finitions, anses, doublure…" },
     { id: "q3_garde", label: "On la garde ?", type: "choice", options: ["Oui, telle quelle", "Oui, mais à changer", "Non"] },
-    { id: "q3_quoi", label: "Quoi changer ?", type: "long", show: (a) => a.q3_garde === "Oui, mais à changer" },
+    { id: "q3_quoi", label: "Quoi changer ?", type: "long", show: (a) => a["q3_garde"] === "Oui, mais à changer" },
   ] },
   { n: 4, title: "La trousse en lin personnalisable (21 €) est encore en ligne.", photos: ["https://grenouillerouge.com/img/p/2/6/9/7/2697.jpg"], fields: [
     { id: "q4_fait", label: "Tu la fais ?", type: "choice", options: ["Je la fais toujours", "Je ne la fais plus"] },
-    { id: "q4_prix", label: "Prix (€)", type: "number", show: (a) => a.q4_fait === "Je la fais toujours" },
-    { id: "q4_lettres", label: "Nombre de lettres maximum", type: "number", show: (a) => a.q4_fait === "Je la fais toujours" },
-    { id: "q4_couleurs", label: "Couleurs de peinture possibles", type: "text", show: (a) => a.q4_fait === "Je la fais toujours" },
+    { id: "q4_prix", label: "Prix (€)", type: "number", show: (a) => a["q4_fait"] === "Je la fais toujours" },
+    { id: "q4_lettres", label: "Nombre de lettres maximum", type: "number", show: (a) => a["q4_fait"] === "Je la fais toujours" },
+    { id: "q4_couleurs", label: "Couleurs de peinture possibles", type: "text", show: (a) => a["q4_fait"] === "Je la fais toujours" },
   ] },
   { n: 5, title: "Les dimensions de tes formats, en centimètres.", photos: [ph("trio-ronds-vierges-02.jpg")], fields: [
     ...dims("q5_bbrond", "BB Rond", ["hauteur", "diamètre"]),
@@ -76,7 +76,7 @@ const QUESTIONS: Q[] = [
     { id: "q6_achat", label: "Où tu achètes tes pochoirs", type: "text" },
     { id: "q6_casse", label: "Majuscules seulement, ou aussi minuscules ?", type: "choice", options: ["Majuscules seulement", "Aussi minuscules"] },
     { id: "q6_chiffres", label: "Les chiffres et les accents existent ?", type: "choice", options: ["Oui", "Non", "Certains"] },
-    { id: "q6_lesquels", label: "Lesquels ?", type: "text", show: (a) => a.q6_chiffres === "Certains" },
+    { id: "q6_lesquels", label: "Lesquels ?", type: "text", show: (a) => a["q6_chiffres"] === "Certains" },
   ] },
   { n: 7, title: "Ces deux grands paniers.", photos: [ph("mon-fourbi-francais-recto.jpg"), ph("bar-a-bouquins-recto.jpg")], fields: [
     { id: "q7a_prix", label: "Mon fourbi français · Prix (€)", type: "number" },
@@ -89,9 +89,9 @@ const QUESTIONS: Q[] = [
   { n: 8, title: "Tes 13 coussins (Carte de France, Corse, chiens, chats).", photos: ["https://grenouillerouge.com/img/p/2/2/5/2/2252.jpg"], fields: [
     { id: "q8_vend", label: "Lesquels tu vends encore ?", type: "checks", options: COUSSINS },
     { id: "q8_stock", label: "En stock ?", type: "choice", options: ["Oui", "Non, à la commande"] },
-    { id: "q8_combien", label: "Combien à peu près ?", type: "number", show: (a) => a.q8_stock === "Oui" },
+    { id: "q8_combien", label: "Combien à peu près ?", type: "number", show: (a) => a["q8_stock"] === "Oui" },
     { id: "q8_atelier", label: "Faits à l'atelier ?", type: "choice", options: ["Oui", "Non, achetés", "Les deux"] },
-    { id: "q8_precise", label: "Précise", type: "text", show: (a) => a.q8_atelier === "Les deux" },
+    { id: "q8_precise", label: "Précise", type: "text", show: (a) => a["q8_atelier"] === "Les deux" },
   ] },
 ];
 
