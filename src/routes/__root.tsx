@@ -87,8 +87,8 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  // /tri : page privée de l'atelier, sans menu ni pied de page
-  const bare = useRouterState({ select: (s) => s.location.pathname }) === "/tri";
+  // /tri et /tri/resultats : pages privées de l'atelier, sans menu ni pied de page
+  const bare = useRouterState({ select: (s) => s.location.pathname }).startsWith("/tri");
   return (
     <QueryClientProvider client={queryClient}>
       <CartProvider>
