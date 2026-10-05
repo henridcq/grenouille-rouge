@@ -25,6 +25,7 @@ import { Route as QuestionsResultatsRouteImport } from './routes/questions/resul
 import { Route as RayonRayonRouteImport } from './routes/rayon.$rayon'
 import { Route as StyleIndexRouteImport } from './routes/style/index'
 import { Route as StyleResultatsRouteImport } from './routes/style/resultats'
+import { Route as TextesResultatsRouteImport } from './routes/textes/resultats'
 import { Route as TriIndexRouteImport } from './routes/tri/index'
 import { Route as TriResultatsRouteImport } from './routes/tri/resultats'
 
@@ -108,6 +109,11 @@ const StyleResultatsRoute = StyleResultatsRouteImport.update({
   path: '/style/resultats',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TextesResultatsRoute = TextesResultatsRouteImport.update({
+  id: '/textes/resultats',
+  path: '/textes/resultats',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TriIndexRoute = TriIndexRouteImport.update({
   id: '/tri/',
   path: '/tri/',
@@ -134,6 +140,7 @@ export interface FileRoutesByFullPath {
   '/questions/resultats': typeof QuestionsResultatsRoute
   '/rayon/$rayon': typeof RayonRayonRoute
   '/style/resultats': typeof StyleResultatsRoute
+  '/textes/resultats': typeof TextesResultatsRoute
   '/tri/resultats': typeof TriResultatsRoute
   '/questions/': typeof QuestionsIndexRoute
   '/style/': typeof StyleIndexRoute
@@ -154,6 +161,7 @@ export interface FileRoutesByTo {
   '/questions/resultats': typeof QuestionsResultatsRoute
   '/rayon/$rayon': typeof RayonRayonRoute
   '/style/resultats': typeof StyleResultatsRoute
+  '/textes/resultats': typeof TextesResultatsRoute
   '/tri/resultats': typeof TriResultatsRoute
   '/questions': typeof QuestionsIndexRoute
   '/style': typeof StyleIndexRoute
@@ -175,6 +183,7 @@ export interface FileRoutesById {
   '/questions/resultats': typeof QuestionsResultatsRoute
   '/rayon/$rayon': typeof RayonRayonRoute
   '/style/resultats': typeof StyleResultatsRoute
+  '/textes/resultats': typeof TextesResultatsRoute
   '/tri/resultats': typeof TriResultatsRoute
   '/questions/': typeof QuestionsIndexRoute
   '/style/': typeof StyleIndexRoute
@@ -197,6 +206,7 @@ export interface FileRouteTypes {
     | '/questions/resultats'
     | '/rayon/$rayon'
     | '/style/resultats'
+    | '/textes/resultats'
     | '/tri/resultats'
     | '/questions/'
     | '/style/'
@@ -217,6 +227,7 @@ export interface FileRouteTypes {
     | '/questions/resultats'
     | '/rayon/$rayon'
     | '/style/resultats'
+    | '/textes/resultats'
     | '/tri/resultats'
     | '/questions'
     | '/style'
@@ -237,6 +248,7 @@ export interface FileRouteTypes {
     | '/questions/resultats'
     | '/rayon/$rayon'
     | '/style/resultats'
+    | '/textes/resultats'
     | '/tri/resultats'
     | '/questions/'
     | '/style/'
@@ -258,6 +270,7 @@ export interface RootRouteChildren {
   QuestionsResultatsRoute: typeof QuestionsResultatsRoute
   RayonRayonRoute: typeof RayonRayonRoute
   StyleResultatsRoute: typeof StyleResultatsRoute
+  TextesResultatsRoute: typeof TextesResultatsRoute
   TriResultatsRoute: typeof TriResultatsRoute
   QuestionsIndexRoute: typeof QuestionsIndexRoute
   StyleIndexRoute: typeof StyleIndexRoute
@@ -378,6 +391,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StyleResultatsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/textes/resultats': {
+      id: '/textes/resultats'
+      path: '/textes/resultats'
+      fullPath: '/textes/resultats'
+      preLoaderRoute: typeof TextesResultatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tri/': {
       id: '/tri/'
       path: '/tri'
@@ -410,6 +430,7 @@ const rootRouteChildren: RootRouteChildren = {
   QuestionsResultatsRoute: QuestionsResultatsRoute,
   RayonRayonRoute: RayonRayonRoute,
   StyleResultatsRoute: StyleResultatsRoute,
+  TextesResultatsRoute: TextesResultatsRoute,
   TriResultatsRoute: TriResultatsRoute,
   QuestionsIndexRoute: QuestionsIndexRoute,
   StyleIndexRoute: StyleIndexRoute,
