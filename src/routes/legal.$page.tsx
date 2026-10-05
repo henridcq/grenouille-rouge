@@ -24,7 +24,7 @@ export const Route = createFileRoute("/legal/$page")({
     const { title } = Route.useLoaderData();
     return (
       <div className="mx-auto max-w-2xl px-4 pt-12">
-        <h1 className="text-4xl font-bold">{title}</h1>
+        <h1 className="text-3xl font-medium">{title}</h1>
         <p className="mt-4 text-lg text-muted-foreground">En cours de rédaction.</p>
       </div>
     );

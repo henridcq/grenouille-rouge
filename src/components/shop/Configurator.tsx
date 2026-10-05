@@ -34,7 +34,7 @@ function Swatches({ colors, value, onChange, label }: { colors: Color[]; value: 
 function Step({ n, title, help, children }: { n: number; title: string; help?: string; children: React.ReactNode }) {
   return (
     <section className="space-y-3 border-t pt-6">
-      <h2 className="flex items-baseline gap-3 text-2xl font-bold">
+      <h2 className="flex items-baseline gap-3 text-2xl font-medium">
         <span className="font-sans text-base font-semibold text-muted-foreground">{n}</span>{title}
       </h2>
       {children}
@@ -92,7 +92,7 @@ export function Configurator({ initial = "rond-xl", lockCabas = false, prenom, c
 
       <div className="space-y-6 pb-10 pt-6 md:pt-0">
         <header>
-          <h1 className="text-4xl font-bold md:text-5xl">{lockCabas ? "Cabas personnalisé" : "Composez le vôtre."}</h1>
+          <h1 className="text-3xl font-medium md:text-4xl">{lockCabas ? "Cabas personnalisé" : "Composez le vôtre."}</h1>
           <p className="mt-2 text-lg text-muted-foreground">
             {lockCabas
               ? "Un cabas en jute à votre mot, peint à la main en Normandie. Pour le marché, la plage, l'école, la vie."
@@ -144,7 +144,7 @@ export function Configurator({ initial = "rond-xl", lockCabas = false, prenom, c
         <Step n={isCabas ? (lockCabas ? 2 : 3) : 4} title="Qu'est-ce qu'on écrit ?" help="En majuscules, accents compris. On respecte votre orthographe, même créative.">
           <div className="flex flex-wrap gap-2">
             {models.map((m) => (
-              <button key={m.label} type="button" onClick={() => { setChecked(false); setLines(m.lines.map((l) => l.toUpperCase())); }} className="rounded-full border bg-card px-3 py-1.5 text-[0.95rem] font-medium hover:border-foreground">
+              <button key={m.label} type="button" onClick={() => { setChecked(false); setLines(m.lines.map((l) => l.toUpperCase())); }} className="rounded-none border bg-card px-3 py-1.5 text-[0.95rem] font-medium hover:border-foreground">
                 {m.label}
               </button>
             ))}
@@ -157,7 +157,7 @@ export function Configurator({ initial = "rond-xl", lockCabas = false, prenom, c
                   <input value={l} onChange={(e) => setLine(i, e.target.value)} aria-label={`Ligne ${i + 1}`}
                     className={`font-stencil h-13 w-full rounded-none border bg-card px-4 text-xl uppercase ${l.length > MAX ? "border-primary" : ""}`} />
                 </div>
-                <span className={`mt-0.5 block text-sm ${l.length > MAX ? "font-semibold text-primary" : "text-muted-foreground"}`}>Ligne {i + 1} : {l.length}/{MAX}</span>
+                <span className={`mt-0.5 block text-sm ${l.length > MAX ? "font-semibold text-foreground underline" : "text-muted-foreground"}`}>Ligne {i + 1} : {l.length}/{MAX}</span>
               </label>
             ))}
           </div>

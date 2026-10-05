@@ -57,7 +57,7 @@ function Index() {
       <section>
         <ProductImage src={PHOTOS.musee} name="La Parisienne" alt="La Parisienne moutarde portée dans un musée" className="aspect-[4/3] max-h-[70vh] w-full md:aspect-[21/9]" />
         <div className="mx-auto max-w-6xl px-5 pt-6 md:pt-10">
-          <h1 className="text-[1.75rem] leading-[1.15] md:text-5xl">Des paniers en jute qui ont des choses à dire.</h1>
+          <h1 className="text-[1.75rem] leading-[1.15] md:text-4xl">Des paniers en jute qui ont des choses à dire.</h1>
           <p className="mt-2 text-muted-foreground md:text-lg">Peint à la main à Grémonville · Expédié sous 8 jours · Livraison offerte dès 39 €</p>
           <div className="mt-5 grid grid-cols-2 gap-3 md:flex">
             <Link to="/composer" className="btn-buy px-3">Créer le vôtre</Link>

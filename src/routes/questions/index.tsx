@@ -106,7 +106,7 @@ function QuestionsPage() {
 
       {st.pos === 0 && (
         <div className="flex min-h-[70vh] flex-col justify-center gap-6 text-center">
-          <h1 className="text-4xl font-bold leading-tight">6 petites questions, 2 minutes, et ton catalogue est fini !</h1>
+          <h1 className="text-3xl font-medium leading-tight">6 petites questions, 2 minutes, et ton catalogue est fini !</h1>
           <button type="button" onClick={() => goTo(1)} className={`${big} bg-foreground text-background`}>C'est parti</button>
         </div>
       )}
@@ -116,7 +116,7 @@ function QuestionsPage() {
           <div className={`grid gap-2 ${q.photos.length > 1 ? "grid-cols-2" : ""}`}>
             {q.photos.map((p, i) => <ProductImage key={i} src={p} name={q.title} alt={q.title} className="aspect-square w-full rounded-3xl" />)}
           </div>
-          <h1 className="text-3xl font-bold leading-tight">{q.title}</h1>
+          <h1 className="text-2xl font-medium leading-tight">{q.title}</h1>
           <div className="space-y-3">
             {q.options.map((o) => (
               <button key={o.label} type="button" onClick={() => pick(o)} className={`${big} border-2 text-left ${a?.choice === o.label ? "border-foreground bg-foreground text-background" : "bg-card"}`}>{o.label}</button>
@@ -137,7 +137,7 @@ function QuestionsPage() {
 
       {st.pos === FINAL && !st.sent && (
         <div className="space-y-5 pt-4">
-          <h1 className="text-3xl font-bold">Tes 6 réponses</h1>
+          <h1 className="text-2xl font-medium">Tes 6 réponses</h1>
           <ul className="space-y-3">
             {QS.map((x, i) => (
               <li key={x.id} className="rounded-2xl border-2 bg-card p-4">
@@ -157,7 +157,7 @@ function QuestionsPage() {
 
       {st.pos === FINAL && st.sent && (
         <div className="flex min-h-[70vh] flex-col justify-center text-center">
-          <h1 className="text-5xl font-bold">Merci Maman ! ❤️</h1>
+          <h1 className="text-4xl font-medium">Merci Maman ! ❤️</h1>
         </div>
       )}
     </div>

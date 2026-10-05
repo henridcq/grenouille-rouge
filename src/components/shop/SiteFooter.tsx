@@ -5,7 +5,7 @@ export function SiteFooter() {
     <footer className="mt-20 border-t bg-card">
       <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 text-[0.95rem] sm:grid-cols-2">
         <div className="space-y-1">
-          <p className="font-display text-xl font-bold">Grenouille Rouge</p>
+          <p className="font-display text-xl font-medium">Grenouille Rouge</p>
           <p>Atelier à Grémonville, Normandie</p>
           <p><a href="mailto:contact@grenouillerouge.com" className="underline">contact@grenouillerouge.com</a></p>
           <p>Instagram @grenouille.rouge</p>

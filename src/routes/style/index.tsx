@@ -627,7 +627,7 @@ function StylePage() {
         type="button"
         onClick={onNext ?? next}
         disabled={nextDisabled ?? blocked}
-        className="min-h-14 flex-1 rounded-2xl bg-foreground px-5 text-lg font-bold text-background disabled:opacity-40"
+        className="min-h-14 flex-1 rounded-2xl bg-foreground px-5 text-lg font-medium text-background disabled:opacity-40"
       >
         {nextLabel}
       </button>
@@ -665,7 +665,7 @@ function StylePage() {
     const choice = st.duelChoices[plan.d];
     body = (
       <div>
-        <h2 className="text-2xl font-bold">Duel {plan.d + 1}/7 · {d.titre}</h2>
+        <h2 className="text-2xl font-medium">Duel {plan.d + 1}/7 · {d.titre}</h2>
         <p className="mt-1 text-lg text-muted-foreground">Touche une maquette pour la voir en grand.</p>
         <div className="mt-4 grid grid-cols-2 gap-3">
           {(["A", "B"] as const).map((v) => (
@@ -673,7 +673,7 @@ function StylePage() {
               <Phone label={`Maquette ${v} en grand`} onClick={() => setZoom(sideFor(d, v))}>
                 {sideFor(d, v)}
               </Phone>
-              <p className="mt-1 text-center text-lg font-bold">{v}</p>
+              <p className="mt-1 text-center text-lg font-medium">{v}</p>
             </div>
           ))}
         </div>
@@ -683,7 +683,7 @@ function StylePage() {
               key={v}
               type="button"
               onClick={() => setSt((p) => ({ ...p, duelChoices: { ...p.duelChoices, [plan.d]: v } }))}
-              className={`min-h-14 rounded-2xl text-lg font-bold ${choice === v ? "bg-foreground text-background" : "border-2"}`}
+              className={`min-h-14 rounded-2xl text-lg font-medium ${choice === v ? "bg-foreground text-background" : "border-2"}`}
             >
               J'achète sur {v}
             </button>
@@ -697,10 +697,10 @@ function StylePage() {
     const good = st.duelChoices[plan.d] === d.good;
     body = (
       <div>
-        <p className={`text-2xl font-bold ${good ? "text-[#7D8F6A]" : ""}`}>{good ? "Bien vu !" : "Presque !"}</p>
-        <h2 className="mt-2 text-2xl font-bold">Ce que ta cliente fait</h2>
+        <p className={`text-2xl font-medium ${good ? "text-[#7D8F6A]" : ""}`}>{good ? "Bien vu !" : "Presque !"}</p>
+        <h2 className="mt-2 text-2xl font-medium">Ce que ta cliente fait</h2>
         <p className="mt-3 text-xl leading-relaxed">{d.expl}</p>
-        <p className="mt-4 rounded-2xl border-2 border-foreground px-4 py-3 text-center text-xl font-bold">{d.regle}</p>
+        <p className="mt-4 rounded-2xl border-2 border-foreground px-4 py-3 text-center text-xl font-medium">{d.regle}</p>
         <Nav />
       </div>
     );
@@ -717,7 +717,7 @@ function StylePage() {
   } else if (plan.k === "regles") {
     body = (
       <div>
-        <h2 className="text-2xl font-bold">Les 5 règles qu'on garde quoi qu'il arrive</h2>
+        <h2 className="text-2xl font-medium">Les 5 règles qu'on garde quoi qu'il arrive</h2>
         <ul className="mt-4 space-y-4">
           {REGLES.map((r, i) => {
             const v = st.regles[i];
@@ -728,14 +728,14 @@ function StylePage() {
                   <button
                     type="button"
                     onClick={() => setSt((p) => ({ ...p, regles: { ...p.regles, [i]: { accord: true } } }))}
-                    className={`min-h-14 rounded-2xl text-lg font-bold ${v?.accord ? "bg-[#7D8F6A] text-white" : "border-2"}`}
+                    className={`min-h-14 rounded-2xl text-lg font-medium ${v?.accord ? "bg-[#7D8F6A] text-white" : "border-2"}`}
                   >
                     D'accord
                   </button>
                   <button
                     type="button"
                     onClick={() => setSt((p) => ({ ...p, regles: { ...p.regles, [i]: { accord: false, doute: v?.doute ?? "" } } }))}
-                    className={`min-h-14 rounded-2xl text-lg font-bold ${v && !v.accord ? "bg-foreground text-background" : "border-2"}`}
+                    className={`min-h-14 rounded-2xl text-lg font-medium ${v && !v.accord ? "bg-foreground text-background" : "border-2"}`}
                   >
                     J'ai un doute
                   </button>
@@ -760,7 +760,7 @@ function StylePage() {
     const screen = STYLE_SCREENS[plan.s]!;
     body = (
       <div>
-        <h2 className="text-2xl font-bold">{screen.titre}</h2>
+        <h2 className="text-2xl font-medium">{screen.titre}</h2>
         {/* Aperçu permanent */}
         <div className="mx-auto mt-3 w-full max-w-[260px]">
           <div className="overflow-hidden rounded-2xl border-4 border-foreground/80 shadow-lg" style={{ height: "46vh", minHeight: 340 }}>
@@ -870,7 +870,7 @@ function StylePage() {
   } else if (plan.k === "voila") {
     body = (
       <div>
-        <h2 className="text-2xl font-bold">Voilà ton site</h2>
+        <h2 className="text-2xl font-medium">Voilà ton site</h2>
         <div className="mx-auto mt-3 w-full max-w-[300px]">
           <div className="overflow-hidden rounded-2xl border-4 border-foreground/80 shadow-lg" style={{ height: "52vh", minHeight: 380 }}>
             <div className="h-full overflow-y-auto">
@@ -880,7 +880,7 @@ function StylePage() {
           </div>
         </div>
         <details className="mt-4 rounded-2xl border-2 p-4">
-          <summary className="min-h-12 cursor-pointer text-lg font-bold">Je veux changer un truc</summary>
+          <summary className="min-h-12 cursor-pointer text-lg font-medium">Je veux changer un truc</summary>
           <ul className="mt-2 space-y-2">
             {STYLE_SCREENS.map((s, i) => (
               <li key={s.key}>
@@ -921,7 +921,7 @@ function StylePage() {
     const setRef = (k: keyof State["refs"], v: string) => setSt((p) => ({ ...p, refs: { ...p.refs, [k]: v } }));
     body = (
       <div>
-        <h2 className="text-2xl font-bold">Tes références</h2>
+        <h2 className="text-2xl font-medium">Tes références</h2>
         <label className="mt-4 block text-lg font-semibold">Un site ou une boutique (en ligne ou en vrai) que tu trouves beau. Lequel, et qu'est-ce qui te plaît dedans ?</label>
         <textarea value={st.refs.beau} onChange={(e) => setRef("beau", e.target.value)} className="mt-2 min-h-24 w-full rounded-xl border-2 p-3 text-lg" placeholder="Obligatoire, au moins 10 mots" />
         <label className="mt-4 block text-lg font-semibold">Un autre, si tu en as un (facultatif)</label>
@@ -936,20 +936,20 @@ function StylePage() {
   } else if (plan.k === "envoi") {
     body = (
       <div className="text-center">
-        <h2 className="text-3xl font-bold">C'est prêt !</h2>
+        <h2 className="text-2xl font-medium">C'est prêt !</h2>
         <p className="mt-3 text-xl">Un appui, et tout ton récap part directement à Henri. Rien à copier, rien à envoyer toi-même.</p>
         <button
           type="button"
           onClick={send}
           disabled={sendState === "sending"}
-          className="mt-6 min-h-16 w-full rounded-2xl bg-[#C8102E] px-6 text-2xl font-bold text-white disabled:opacity-50"
+          className="mt-6 min-h-16 w-full rounded-2xl bg-[#C8102E] px-6 text-2xl font-medium text-white disabled:opacity-50"
         >
           {sendState === "sending" ? "Envoi en cours…" : "J'ai fini, envoyer à Henri 🎉"}
         </button>
         {sendState === "error" && (
           <div className="mt-4 rounded-2xl bg-muted p-4">
             <p className="text-lg font-semibold">Ça n'est pas parti, réessaie.</p>
-            <button type="button" onClick={send} className="mt-3 min-h-14 w-full rounded-2xl border-2 text-lg font-bold">Réessayer</button>
+            <button type="button" onClick={send} className="mt-3 min-h-14 w-full rounded-2xl border-2 text-lg font-medium">Réessayer</button>
           </div>
         )}
         <Nav nextLabel="Pas encore, je relis" hideBack={false} onNext={back} />
@@ -958,7 +958,7 @@ function StylePage() {
   } else if (plan.k === "merci") {
     body = (
       <div className="text-center">
-        <h2 className="text-3xl font-bold">Merci Maman !</h2>
+        <h2 className="text-2xl font-medium">Merci Maman !</h2>
         <p className="mt-2 text-xl">Henri s'occupe du reste.</p>
         <div className="mx-auto mt-4 w-full max-w-[300px]">
           <div className="overflow-hidden rounded-2xl border-4 border-foreground/80 shadow-lg" style={{ height: "52vh", minHeight: 380 }}>
