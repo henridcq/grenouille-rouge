@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import raw from "@/data/tri-produits.json";
 import { ph } from "@/data/photos";
 import { ProductImage } from "@/components/shop/ProductImage";
-import { sendTriReport } from "@/lib/tri.functions";
+import { saveTriReport } from "@/lib/tri.functions";
 
 export const Route = createFileRoute("/tri")({
   head: () => ({
@@ -232,7 +232,7 @@ function TriPage() {
   const [warn, setWarn] = useState(false);
   const [sending, setSending] = useState<"idle" | "busy" | "fail">("idle");
   const [copied, setCopied] = useState(false);
-  const send = useServerFn(sendTriReport);
+  const send = useServerFn(saveTriReport);
   const touch = useRef<number | null>(null);
 
   useEffect(() => {
@@ -358,7 +358,7 @@ function TriPage() {
             <div className="space-y-3 print:hidden">
               <h1 className="text-3xl font-bold">Tu as tout fini, bravo !</h1>
               <button type="button" disabled={sending === "busy"} onClick={doSend} className={`${big} bg-primary text-primary-foreground disabled:opacity-60`}>
-                {sending === "busy" ? "Envoi en cours…" : sending === "fail" ? "Réessayer" : "J'ai fini, envoyer à Henri"}
+                {sending === "busy" ? "Envoi en cours…" : sending === "fail" ? "Réessayer" : "Ça y est, mission accomplie ! 🎉"}
               </button>
               {sending === "fail" && (
                 <div className="space-y-3 rounded-2xl bg-muted p-4">
