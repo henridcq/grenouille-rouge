@@ -1,13 +1,39 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { createClient } from "@supabase/supabase-js";
+import type { Database } from "@/integrations/supabase/types";
 
-/**
- * Envoi du récap de tri à Henri.
- * Pas encore branché : il faut d'abord un domaine d'envoi d'emails vérifié.
- * Tant que ce n'est pas fait, la page propose « Copier » et « Ma messagerie ».
- */
-export const sendTriReport = createServerFn({ method: "POST" })
-  .inputValidator((d) => z.object({ subject: z.string().max(200), body: z.string().max(400_000) }).parse(d))
-  .handler(async () => {
-    return { ok: false as const, reason: "email_not_configured" };
+/** Client public (clé publishable) pour la page privée /tri : dépôt et lecture des récaps. */
+function publicClient() {
+  const key = process.env["SUPABASE_PUBLISHABLE_KEY"]!;
+  return createClient<Database>(process.env["SUPABASE_URL"]!, key, {
+    auth: { persistSession: false },
+    global: {
+      fetch: (input, init) => {
+        const h = new Headers(init?.headers);
+        if (key.startsWith("sb_") && h.get("Authorization") === `Bearer ${key}`) h.delete("Authorization");
+        h.set("apikey", key);
+        return fetch(input, { ...init, headers: h });
+      },
+    },
   });
+}
+
+/** Enregistre le récap de tri dans la base (bouton « Mission accomplie »). */
+export const saveTriReport = createServerFn({ method: "POST" })
+  .inputValidator((d) => z.object({ subject: z.string().max(200), body: z.string().max(400_000) }).parse(d))
+  .handler(async ({ data }) => {
+    const { error } = await publicClient().from("tri_reports").insert({ subject: data.subject, body: data.body });
+    if (error) return { ok: false as const, reason: error.message };
+    return { ok: true as const };
+  });
+
+/** Liste les récaps enregistrés, du plus récent au plus ancien. */
+export const listTriReports = createServerFn({ method: "GET" }).handler(async () => {
+  const { data, error } = await publicClient()
+    .from("tri_reports")
+    .select("id, created_at, subject, body")
+    .order("created_at", { ascending: false });
+  if (error) throw new Error(error.message);
+  return data;
+});
