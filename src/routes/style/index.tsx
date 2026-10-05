@@ -152,7 +152,7 @@ function MiniSite({ s, compact = false }: { s: Style; compact?: boolean }) {
       </div>
       {/* Héro */}
       <div style={{ padding: pad }}>
-        <div className="relative">
+        <div>
           {heroImg && (
             <img
               src={heroImg}
@@ -161,9 +161,6 @@ function MiniSite({ s, compact = false }: { s: Style; compact?: boolean }) {
               style={{ aspectRatio: heroRatio }}
             />
           )}
-          <span className="font-stencil absolute inset-x-3 top-[48%] text-center font-bold uppercase" style={{ color: "#214E9A", fontSize: 11 }}>
-            LES JOUETS DE LÉO
-          </span>
         </div>
         <h3 className="mt-2" style={titleStyle}>{rondXL?.name ?? "Le Rond XL"}</h3>
         <p className="mt-0.5" style={{ ...bodyStyle, fontSize: 8, opacity: 0.75 }}>Le Rond XL · peint au pochoir à Grémonville</p>
