@@ -56,6 +56,27 @@ export type Database = {
         }
         Relationships: []
       }
+      textes_reports: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          subject: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          subject: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          subject?: string
+        }
+        Relationships: []
+      }
       tri_reports: {
         Row: {
           body: string
