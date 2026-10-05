@@ -20,6 +20,7 @@ import { Route as PersonnalisesRouteImport } from './routes/personnalises'
 import { Route as RechercheRouteImport } from './routes/recherche'
 import { Route as LegalPageRouteImport } from './routes/legal.$page'
 import { Route as ProduitSlugRouteImport } from './routes/produit.$slug'
+import { Route as QuestionsResultatsRouteImport } from './routes/questions/resultats'
 import { Route as RayonRayonRouteImport } from './routes/rayon.$rayon'
 import { Route as StyleIndexRouteImport } from './routes/style/index'
 import { Route as StyleResultatsRouteImport } from './routes/style/resultats'
@@ -81,6 +82,11 @@ const ProduitSlugRoute = ProduitSlugRouteImport.update({
   path: '/produit/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QuestionsResultatsRoute = QuestionsResultatsRouteImport.update({
+  id: '/questions/resultats',
+  path: '/questions/resultats',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RayonRayonRoute = RayonRayonRouteImport.update({
   id: '/rayon/$rayon',
   path: '/rayon/$rayon',
@@ -119,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/recherche': typeof RechercheRoute
   '/legal/$page': typeof LegalPageRoute
   '/produit/$slug': typeof ProduitSlugRoute
+  '/questions/resultats': typeof QuestionsResultatsRoute
   '/rayon/$rayon': typeof RayonRayonRoute
   '/style/resultats': typeof StyleResultatsRoute
   '/tri/resultats': typeof TriResultatsRoute
@@ -137,6 +144,7 @@ export interface FileRoutesByTo {
   '/recherche': typeof RechercheRoute
   '/legal/$page': typeof LegalPageRoute
   '/produit/$slug': typeof ProduitSlugRoute
+  '/questions/resultats': typeof QuestionsResultatsRoute
   '/rayon/$rayon': typeof RayonRayonRoute
   '/style/resultats': typeof StyleResultatsRoute
   '/tri/resultats': typeof TriResultatsRoute
@@ -156,6 +164,7 @@ export interface FileRoutesById {
   '/recherche': typeof RechercheRoute
   '/legal/$page': typeof LegalPageRoute
   '/produit/$slug': typeof ProduitSlugRoute
+  '/questions/resultats': typeof QuestionsResultatsRoute
   '/rayon/$rayon': typeof RayonRayonRoute
   '/style/resultats': typeof StyleResultatsRoute
   '/tri/resultats': typeof TriResultatsRoute
@@ -176,6 +185,7 @@ export interface FileRouteTypes {
     | '/recherche'
     | '/legal/$page'
     | '/produit/$slug'
+    | '/questions/resultats'
     | '/rayon/$rayon'
     | '/style/resultats'
     | '/tri/resultats'
@@ -194,6 +204,7 @@ export interface FileRouteTypes {
     | '/recherche'
     | '/legal/$page'
     | '/produit/$slug'
+    | '/questions/resultats'
     | '/rayon/$rayon'
     | '/style/resultats'
     | '/tri/resultats'
@@ -212,6 +223,7 @@ export interface FileRouteTypes {
     | '/recherche'
     | '/legal/$page'
     | '/produit/$slug'
+    | '/questions/resultats'
     | '/rayon/$rayon'
     | '/style/resultats'
     | '/tri/resultats'
@@ -231,6 +243,7 @@ export interface RootRouteChildren {
   RechercheRoute: typeof RechercheRoute
   LegalPageRoute: typeof LegalPageRoute
   ProduitSlugRoute: typeof ProduitSlugRoute
+  QuestionsResultatsRoute: typeof QuestionsResultatsRoute
   RayonRayonRoute: typeof RayonRayonRoute
   StyleResultatsRoute: typeof StyleResultatsRoute
   TriResultatsRoute: typeof TriResultatsRoute
@@ -317,6 +330,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProduitSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/questions/resultats': {
+      id: '/questions/resultats'
+      path: '/questions/resultats'
+      fullPath: '/questions/resultats'
+      preLoaderRoute: typeof QuestionsResultatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/rayon/$rayon': {
       id: '/rayon/$rayon'
       path: '/rayon/$rayon'
@@ -367,6 +387,7 @@ const rootRouteChildren: RootRouteChildren = {
   RechercheRoute: RechercheRoute,
   LegalPageRoute: LegalPageRoute,
   ProduitSlugRoute: ProduitSlugRoute,
+  QuestionsResultatsRoute: QuestionsResultatsRoute,
   RayonRayonRoute: RayonRayonRoute,
   StyleResultatsRoute: StyleResultatsRoute,
   TriResultatsRoute: TriResultatsRoute,
