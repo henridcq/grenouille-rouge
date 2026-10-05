@@ -89,7 +89,7 @@ const PREFIX = /^(Cabas (personnalisable )?en jute|Sac de rangement|Panier de ra
 
 function cleanName(r: Raw) {
   let n = r.nom.replace(/\s+/g, " ").trim();
-  if (NAMES[n]) return NAMES[n];
+  if (NAMES[n]) return NAMES[n]!;
   if (r.onglet === "Personnalisés") n = n.split(",")[0]!;
   n = n.replace(PREFIX, "").replace(/\.$/, "").trim();
   return NAMES[n] ?? n;
@@ -174,7 +174,7 @@ const EXTRA: Record<string, Extra> = {
 
 const seen = new Set<string>();
 export const products: Product[] = (raw as Raw[]).map((r) => {
-  const name = cleanName(r);
+  const name: string = cleanName(r);
   let slug = slugify(name);
   while (seen.has(slug)) slug += "-2";
   seen.add(slug);
