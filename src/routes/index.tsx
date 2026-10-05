@@ -5,6 +5,7 @@ import { ProductCard } from "@/components/shop/ProductCard";
 import { ProductImage } from "@/components/shop/ProductImage";
 import { Pictos } from "@/components/shop/Reassurance";
 import { Reveal } from "@/components/shop/Reveal";
+import { HeroConfigurator } from "@/components/shop/HeroConfigurator";
 
 const HERO = PHOTOS.hero;
 
@@ -42,23 +43,11 @@ function Index() {
 
   return (
     <>
-      <section className="mx-auto grid max-w-6xl items-center gap-6 px-4 pt-5 md:grid-cols-2 md:gap-12 md:pt-12">
-        <ProductImage src={HERO} name="Le Rond XL" alt="Panier Rond XL « Les jouets de Léo » peint à la main, dans un salon" className="aspect-square w-full rounded-3xl md:order-2" />
-        <div>
-          <h1 className="text-[2.4rem] font-bold leading-[1.05] md:text-6xl">Des paniers en jute qui ont des choses à dire.</h1>
-          <p className="mt-4 text-lg text-muted-foreground md:text-xl">
-            Cousus, peints au pochoir et personnalisés à votre prénom, dans notre atelier de Grémonville, en Normandie. Depuis 2000.
-          </p>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Link to="/composer" search={{ forme: "rond-xl" }} className="btn-buy text-lg sm:px-8">Créer le mien</Link>
-            <a href="#best" className="btn-soft">Voir la collection</a>
-          </div>
-        </div>
-      </section>
+      <HeroConfigurator />
 
       <Reveal className="mx-auto max-w-6xl px-4 pt-16">
         <div className="grid overflow-hidden rounded-3xl bg-card md:grid-cols-2">
-          <ProductImage src={PHOTOS.princesse} name="Trésors de princesse" alt="Panier rond « Trésors de princesse » dans une chambre d'enfant" className="aspect-square w-full" />
+          <ProductImage src={HERO} name="Les jouets de Léo" alt="Panier Rond XL « Les jouets de Léo » peint à la main, dans un salon" className="aspect-square w-full" />
           <div className="flex flex-col justify-center gap-4 p-6 md:p-10">
             <h2 className="text-3xl font-bold md:text-4xl">À votre prénom, à votre mot, à votre idée.</h2>
             <p className="text-lg">Choisissez la forme, l'anse, la couleur, et écrivez ce que vous voulez. On le peint au pochoir, à la main, et on vous l'expédie sous 8 jours. « Les trésors de Maëlle », « Le bazar de Papa », « Doudous & Cie » : à vous de jouer.</p>
