@@ -87,7 +87,7 @@ const NAMES: Record<string, string> = {
 };
 const PREFIX = /^(Cabas (personnalisable )?en jute|Sac de rangement|Panier de rangement|Sac à bois en jute|Sac à bûches en jute|Sac à granulés de bois|Panier à jouets)\s*-\s*/i;
 
-function cleanName(r: Raw) {
+function cleanName(r: Raw): string {
   let n = r.nom.replace(/\s+/g, " ").trim();
   if (NAMES[n]) return NAMES[n]!;
   if (r.onglet === "Personnalisés") n = n.split(",")[0]!;
