@@ -14,6 +14,7 @@ import { CartProvider } from "@/lib/cart";
 import { SiteHeader } from "@/components/shop/SiteHeader";
 import { SiteFooter } from "@/components/shop/SiteFooter";
 import { CartDrawer } from "@/components/shop/CartDrawer";
+import { useRouterState } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -86,14 +87,16 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  // /tri : page privée de l'atelier, sans menu ni pied de page
+  const bare = useRouterState({ select: (s) => s.location.pathname }) === "/tri";
   return (
     <QueryClientProvider client={queryClient}>
       <CartProvider>
-        <SiteHeader />
+        {!bare && <SiteHeader />}
         <main>
           <Outlet />
         </main>
-        <SiteFooter />
+        {!bare && <SiteFooter />}
         <CartDrawer />
         <Toaster position="top-center" />
       </CartProvider>

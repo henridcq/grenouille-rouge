@@ -4,3 +4,4 @@
 - [x] Lot 3 galeries
 - [x] Lot 4 sacs à main
 - [x] Lot 5 paniers à message
+- [ ] Page /tri : envoi auto de l'email à Henri — attend un domaine d'envoi vérifié

@@ -264,8 +264,8 @@ function TriPage() {
   const progress = Math.round((st.pos / (SCREENS.length - 1)) * 100);
   const nav = (label = "Suivant →") => (
     <div className="sticky bottom-0 -mx-4 mt-8 flex gap-3 border-t bg-background/95 px-4 py-3 backdrop-blur">
-      <button type="button" onClick={() => go(-1)} className={`${big} w-auto border-2 bg-card`}>← Retour</button>
-      <button type="button" onClick={next} className={`${big} flex-1 bg-foreground text-background`}>{label}</button>
+      <button type="button" onClick={() => go(-1)} className="min-h-14 shrink-0 rounded-2xl border-2 bg-card px-4 text-lg font-semibold">← Retour</button>
+      <button type="button" onClick={next} className="min-h-14 flex-1 rounded-2xl bg-foreground px-4 text-lg font-semibold text-background">{label}</button>
     </div>
   );
 
