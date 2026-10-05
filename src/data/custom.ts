@@ -8,6 +8,7 @@ export const formats: { id: FormatId; label: string; price: number; slug: string
   { id: "bb-rond", label: "BB Rond", price: 43, slug: "le-bb-rond", image: ph("bb-rond-vierge-recto-01.jpg") ?? "" },
   { id: "rond", label: "Rond", price: 49, slug: "le-rond", image: ph("rond-vierge-recto-01.jpg") ?? "" },
   { id: "rond-xl", label: "Rond XL", price: 56, slug: "le-rond-xl", image: ph("rond-xl-vierge-recto-01.jpg") ?? "" },
+  { id: "bb-carre", label: "BB Carré", price: 54, slug: "le-bb-carre", image: ph("bb-carre-vierge-recto.jpg") ?? "" },
   { id: "carre", label: "Carré", price: 59, slug: "le-carre", image: ph("carre-vierge-recto.jpg") ?? "" },
   { id: "carre-xxl", label: "Carré XXL", price: 64, slug: "le-carre-xxl", image: ph("carre-xxl-vierge-recto.jpg") ?? "" },
   { id: "cabas", label: "Cabas", price: 59, slug: "le-cabas-personnalisable", image: ph("config-cabas-vierge.jpg") ?? "" },

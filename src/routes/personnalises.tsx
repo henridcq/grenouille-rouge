@@ -17,7 +17,7 @@ export const Route = createFileRoute("/personnalises")({
   component: Perso,
 });
 
-const order = ["le-bb-rond", "le-rond", "le-rond-xl", "le-carre", "le-carre-xxl", "le-cabas-personnalisable", "le-petit-panier-vide-poches"];
+const order = ["le-bb-rond", "le-rond", "le-rond-xl", "le-bb-carre", "le-carre", "le-carre-xxl", "le-cabas-personnalisable", "le-petit-panier-vide-poches"];
 
 function Perso() {
   const formats = order.map((s) => products.find((p) => p.slug === s)!);
@@ -47,7 +47,7 @@ function Perso() {
         ))}
       </div>
 
-      <ProductImage src={PHOTOS.ronds} name="Trois Ronds empilés" alt="Trois paniers ronds en jute empilés" className="mt-16 aspect-[16/9] w-full rounded-3xl md:aspect-[3/1]" />
+      <ProductImage src={PHOTOS.princesse} name="Les trésors de princesse" alt="Panier Rond « Les trésors de princesse » peint à la main dans une chambre" className="mt-16 aspect-[16/9] w-full rounded-3xl md:aspect-[3/1]" />
       <section className="mt-16 max-w-3xl">
         <h2 className="mb-4 text-3xl font-bold">Questions fréquentes</h2>
         <Faq />

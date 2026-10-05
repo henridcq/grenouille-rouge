@@ -3,7 +3,7 @@ import { z } from "zod";
 import { Configurator } from "@/components/shop/Configurator";
 import type { FormatId } from "@/data/products";
 
-const ids = ["bb-rond", "rond", "rond-xl", "carre", "carre-xxl", "cabas", "vide-poches"] as const;
+const ids = ["bb-rond", "rond", "rond-xl", "bb-carre", "carre", "carre-xxl", "cabas", "vide-poches"] as const;
 
 export const Route = createFileRoute("/composer")({
   validateSearch: z.object({ forme: z.enum(ids).optional(), prenom: z.string().max(40).optional(), couleur: z.string().max(40).optional() }),

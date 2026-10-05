@@ -27,7 +27,7 @@ export const faq: [string, string][] = [
   ["Combien de lettres je peux mettre ?", "Jusqu'à trois lignes de 13 caractères, espaces compris. Le configurateur vous le montre en direct."],
   ["C'est quoi, le feston ?", "Le point cousu à la main qui borde le haut du panier. Vous choisissez sa couleur, comme celle du texte et des motifs de l'anse."],
   ["Je peux choisir la police ?", "Non : une seule police de pochoir, celle de l'atelier. C'est elle qui fait qu'on reconnaît un panier Grenouille Rouge."],
-  ["Je peux écrire ce que je veux ?", "Prénoms, surnoms, phrases, blagues, noms de chien : oui. Majuscules et accents compris. On respecte votre orthographe."],
+  ["Je peux écrire ce que je veux ?", "Prénoms, surnoms, phrases, blagues, noms de chien : oui. En majuscules, accents compris. On respecte votre orthographe."],
   ["Le panier tient-il debout ?", "Oui, même vide. La toile est doublée et surpiquée : il garde sa forme."],
   ["D'où vient la jute ?", "Du Tissage du Ronchay, à Luneray, le dernier tissage de jute de France, à vingt minutes de l'atelier."],
   ["Et le cuir ?", "Un cuir français au tannage végétal, sans chrome. Il se patine, il vit avec vous."],

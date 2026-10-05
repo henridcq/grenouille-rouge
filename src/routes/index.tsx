@@ -29,17 +29,18 @@ const reviews = [
 ];
 
 function season(m: number) {
-  if (m >= 9) return { title: "Chauffe Marcel, et les autres.", text: "Sacs à bûches et paniers à granulés en jute, pour que le coin du feu ait du chien.", rayon: "buches", img: PHOTOS.poele, alt: "Sac à granulés « On va pas s'peler » à côté d'un poêle" };
-  if (m <= 2) return { title: "Rangement de printemps.", text: "Le bazar a enfin un endroit où aller.", rayon: "rangement", img: PHOTOS.printemps, alt: "Panier « Rangement de printemps » dans un jardin" };
+  if (m >= 9) return { title: "Chauffe Marcel, et les autres.", text: "Sacs à bûches et paniers à granulés en jute, pour que le coin du feu ait du chien.", rayon: "maison", img: PHOTOS.poele, alt: "Sac à granulés « On va pas s'peler » à côté d'un poêle" };
+  if (m <= 2) return { title: "Rangement de printemps.", text: "Le bazar a enfin un endroit où aller.", rayon: "maison", img: PHOTOS.printemps, alt: "Panier « Rangement de printemps » dans un jardin" };
   if (m <= 5) return { title: "Pour une mère d'exception.", text: "Un panier à son prénom, peint à la main. Elle le gardera.", rayon: "personnalises", img: HERO, alt: "Panier personnalisé à un prénom" };
-  return { title: "Marché, plage, et retour.", text: "Cabas en jute et toile de parasol recyclée.", rayon: "cabas", img: bySlug("multi-homards")!.images[0], alt: "Cabas en jute Multi homards" };
+  return { title: "Marché, plage, et retour.", text: "Cabas en jute et toile de parasol recyclée.", rayon: "cabas-sacs", img: bySlug("multi-homards")!.images[0], alt: "Cabas en jute Multi homards" };
 }
 
 function Index() {
   const month = new Date().getMonth();
   const s = season(month);
-  const best = ["le-rond-xl", "le-cabas-personnalisable", "loom", "etoile-ou-coeur", "multi-teckels", "le-petit-classique", ...(month >= 9 || month === 0 ? ["chauffe-marcel"] : []), "la-parisienne"]
-    .map(bySlug).filter(Boolean) as Product[];
+  // Uniquement des produits bien photographiés (photo_a_refaire = false).
+  const best = ["le-rond-xl", "le-cabas-personnalisable", "multi-homards", "le-loom", "cabas-leopard", ...(month >= 9 || month === 0 ? ["au-coin-du-feu"] : []), "la-parisienne", "on-va-pas-s-peler"]
+    .map(bySlug).filter((p): p is Product => !!p && !p.weakPhoto);
 
   return (
     <>
@@ -81,8 +82,8 @@ function Index() {
         <ProductImage src={PHOTOS.parisiennePortee} name="La Parisienne" alt="La Parisienne kaki portée à l'épaule devant une porte bleue" className="aspect-square w-full rounded-3xl md:order-2" />
         <div>
           <h2 className="text-3xl font-bold md:text-4xl">Le lin, le cuir, et des lignes qu'on ne voit nulle part ailleurs.</h2>
-          <p className="mt-4 text-lg">Loom, Parisienne, Titi, Midinette : des sacs en série limitée, cousus à Grémonville, pensés pour durer et se patiner avec vous.</p>
-          <Link to="/rayon/$rayon" params={{ rayon: "sacs-a-main" }} className="btn-soft mt-6">Voir les sacs à main</Link>
+          <p className="mt-4 text-lg">Le Loom, la Parisienne, Titi, Midinette : des sacs en série limitée, cousus à Grémonville, pensés pour durer et se patiner avec vous.</p>
+          <Link to="/rayon/$rayon" params={{ rayon: "cabas-sacs" }} className="btn-soft mt-6">Voir les cabas & sacs</Link>
         </div>
       </Reveal>
 
@@ -99,10 +100,9 @@ function Index() {
 
       <Reveal className="mx-auto max-w-6xl px-4 pt-20">
         <h2 className="text-3xl font-bold md:text-4xl">Petits par la taille. Pas par le caractère.</h2>
-        <p className="mt-3 text-lg">Minis à messages, trousses, pochettes : à glisser dans le colis. Et à partir de 39 €, la livraison en point relais est offerte.</p>
-        <ProductImage src={PHOTOS.miniAmbiance} name="Vide tes poches" alt="Mini « Vide tes poches » dans une entrée, une main y pose des clés" className="mt-5 aspect-[4/3] w-full rounded-3xl md:aspect-[16/9]" />
+        <p className="mt-3 text-lg">Trousses, porte-médailles, vide-poches : à glisser dans le colis. Et à partir de 39 €, la livraison en point relais est offerte.</p>
         <div className="mt-3 grid grid-cols-4 gap-2 sm:gap-4">
-          {["mini-peace-meme", "mini-le-gras", "mini-vide-tes-poches", "trousse-soco"].map((sl) => {
+          {["trousse-soco", "trousse-en-lin-personnalisable", "blason-porte-medailles-personnalisable", "trousse-de-toilette-ciree-jaune"].map((sl) => {
             const pr = bySlug(sl)!;
             return (
               <Link key={sl} to="/produit/$slug" params={{ slug: sl }}>
@@ -111,7 +111,7 @@ function Index() {
             );
           })}
         </div>
-        <Link to="/rayon/$rayon" params={{ rayon: "minis" }} className="btn-soft mt-6">Voir les petits cadeaux</Link>
+        <Link to="/rayon/$rayon" params={{ rayon: "petits-cadeaux" }} className="btn-soft mt-6">Voir les petits cadeaux</Link>
       </Reveal>
 
       <Reveal className="mx-auto max-w-6xl px-4 pt-20">

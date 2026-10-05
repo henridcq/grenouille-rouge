@@ -45,7 +45,7 @@ function Atelier() {
           {i === 4 && <ProductImage src={imgs[2]} name="Sacs et cabas de l'atelier" alt="Sacs et cabas Grenouille Rouge à l'atelier" className="mt-6 aspect-[4/3] w-full rounded-3xl" />}
         </Reveal>
       ))}
-      <Link to="/rayon/$rayon" params={{ rayon: "cabas" }} className="btn-soft mt-10">Voir la collection</Link>
+      <Link to="/rayon/$rayon" params={{ rayon: "cabas-sacs" }} className="btn-soft mt-10">Voir les cabas & sacs</Link>
     </div>
   );
 }

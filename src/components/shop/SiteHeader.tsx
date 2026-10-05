@@ -10,9 +10,9 @@ function NavLinks({ className, active }: { className: string; active: string }) 
   return (
     <>
       <Link to="/personnalises" className={className} activeProps={a}>Personnalisés</Link>
-      <Link to="/rayon/$rayon" params={{ rayon: "rangement" }} className={className} activeProps={a}>Paniers</Link>
-      <Link to="/rayon/$rayon" params={{ rayon: "cabas" }} className={className} activeProps={a}>Cabas et sacs</Link>
-      <Link to="/atelier" className={className} activeProps={a}>L'atelier</Link>
+      <Link to="/rayon/$rayon" params={{ rayon: "cabas-sacs" }} className={className} activeProps={a}>Cabas & sacs</Link>
+      <Link to="/rayon/$rayon" params={{ rayon: "maison" }} className={className} activeProps={a}>La maison</Link>
+      <Link to="/rayon/$rayon" params={{ rayon: "petits-cadeaux" }} className={className} activeProps={a}>Petits cadeaux</Link>
     </>
   );
 }
@@ -51,6 +51,7 @@ export function SiteHeader() {
       </div>
       <nav className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 pb-2.5 text-[0.95rem] md:hidden">
         <NavLinks className="shrink-0 rounded-full border px-4 py-1.5 font-medium" active="bg-foreground text-background border-foreground" />
+        <Link to="/atelier" className="shrink-0 px-3 py-1.5 font-medium text-muted-foreground" activeProps={{ className: "underline" }}>L'atelier</Link>
       </nav>
     </header>
   );
