@@ -193,7 +193,7 @@ function Phone({ children, onClick, label }: { children: ReactNode; onClick?: ()
 // ---------- Duels ----------
 type Duel = { titre: string; regle: string; expl: string; a: () => ReactNode; b: () => ReactNode };
 
-const MiniProduit = ({ img, nom, prix, showPrix = true }: { img?: string; nom: string; prix: string; showPrix?: boolean }) => (
+const MiniProduit = ({ img, nom, prix, showPrix = true }: { img?: string | undefined; nom: string; prix: string; showPrix?: boolean }) => (
   <div>
     {img && <img src={img} alt={nom} className="aspect-square w-full rounded object-cover" />}
     <p style={{ fontSize: 8 }}>{nom}</p>
@@ -491,7 +491,7 @@ function StylePage() {
     try { localStorage.setItem(KEY, JSON.stringify(st)); } catch { /* ignore */ }
   }, [st]);
 
-  const plan = PLAN[st.step];
+  const plan = PLAN[Math.min(st.step, PLAN.length - 1)]!;
   const progress = Math.round(((st.step + 1) / PLAN.length) * 100);
   const score = DUELS.reduce((n, _, d) => n + (st.duelChoices[d] === "B" ? 1 : 0), 0);
 
