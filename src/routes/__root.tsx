@@ -89,7 +89,7 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   // /tri et /style : pages privées de l'atelier, sans menu ni pied de page
   const path = useRouterState({ select: (s) => s.location.pathname });
-  const bare = path.startsWith("/tri") || path.startsWith("/style");
+  const bare = path.startsWith("/tri") || path.startsWith("/style") || path.startsWith("/questions");
   return (
     <QueryClientProvider client={queryClient}>
       <CartProvider>
