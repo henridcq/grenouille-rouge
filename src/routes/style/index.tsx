@@ -516,8 +516,8 @@ function StylePage() {
         return false;
       });
     }
-    if (plan.k === "style" && STYLE_SCREENS[plan.s].key === "stylePhotos") return st.photos3.length !== 3;
-    if (plan.k === "style" && STYLE_SCREENS[plan.s].key === "logo" && st.sty.logo === "simplifier")
+    if (plan.k === "style" && STYLE_SCREENS[plan.s]!.key === "stylePhotos") return st.photos3.length !== 3;
+    if (plan.k === "style" && STYLE_SCREENS[plan.s]!.key === "logo" && st.sty.logo === "simplifier")
       return !String(st.whys["logo_comment"] ?? "").trim();
     if (plan.k === "voila") return st.premium < 8 && words(st.manque) < 10;
     if (plan.k === "refs") return words(st.refs.beau) < 10;
@@ -632,7 +632,7 @@ function StylePage() {
       </div>
     );
   } else if (plan.k === "duel") {
-    const d = DUELS[plan.d];
+    const d = DUELS[plan.d]!;
     const choice = st.duelChoices[plan.d];
     body = (
       <div>
@@ -664,7 +664,7 @@ function StylePage() {
       </div>
     );
   } else if (plan.k === "expl") {
-    const d = DUELS[plan.d];
+    const d = DUELS[plan.d]!;
     const good = st.duelChoices[plan.d] === "B";
     body = (
       <div>
@@ -728,7 +728,7 @@ function StylePage() {
       </div>
     );
   } else if (plan.k === "style") {
-    const screen = STYLE_SCREENS[plan.s];
+    const screen = STYLE_SCREENS[plan.s]!;
     body = (
       <div>
         <h2 className="text-2xl font-bold">{screen.titre}</h2>
