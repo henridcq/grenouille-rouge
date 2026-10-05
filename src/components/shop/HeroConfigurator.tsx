@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { formatOf, palette, MAX } from "@/data/custom";
 import { BagPreview } from "./BagPreview";
@@ -6,19 +6,21 @@ import { BagPreview } from "./BagPreview";
 export function HeroConfigurator() {
   const [name, setName] = useState("Louise");
   const [color, setColor] = useState(palette.find((c) => c.name === "Bleu cobalt")!);
+  const row = useRef<HTMLDivElement>(null);
+  useEffect(() => { const el = row.current?.querySelector<HTMLElement>('[aria-checked="true"]'); if (el && row.current) row.current.scrollLeft = el.offsetLeft - 60; }, []);
   const price = formatOf("rond-xl").price;
 
   return (
     <section className="mx-auto grid max-w-6xl items-center gap-3 px-4 pt-3 md:grid-cols-2 md:gap-12 md:pt-10">
       <h1 className="text-[1.65rem] font-bold leading-[1.1] md:col-span-2 md:text-5xl">Des paniers en jute qui ont des choses à dire.</h1>
-      <BagPreview format="rond-xl" color={color} lines={[name]} className="mx-auto aspect-square w-full max-w-[min(100%,36svh)] rounded-3xl md:max-w-none" />
-      <div className="min-w-0 space-y-3">
+      <BagPreview format="rond-xl" color={color} lines={[name]} className="mx-auto aspect-square w-full max-w-[min(100%,32svh)] rounded-3xl md:max-w-none" />
+      <div className="min-w-0 space-y-2.5">
         <label className="block">
           <span className="text-sm font-semibold">Votre prénom</span>
           <input value={name} maxLength={MAX} onChange={(e) => setName(e.target.value)}
             className="font-stencil mt-1 h-12 w-full rounded-xl border bg-card px-4 text-xl uppercase" />
         </label>
-        <div role="radiogroup" aria-label="Couleur" className="-mx-4 flex snap-x gap-2 overflow-x-auto px-4 py-1.5 md:mx-0 md:flex-wrap md:px-0">
+        <div ref={row} role="radiogroup" aria-label="Couleur" className="-mx-4 flex snap-x gap-2 overflow-x-auto px-4 py-1.5 md:mx-0 md:flex-wrap md:px-0">
           {palette.map((c) => {
             const on = c.name === color.name;
             return (
