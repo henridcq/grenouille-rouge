@@ -15,6 +15,13 @@
       "when": 1791226142248,
       "tag": "0001_create_questions_reports",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791232757707,
+      "tag": "0002_create_textes_reports",
+      "breakpoints": true
     }
   ]
 }
