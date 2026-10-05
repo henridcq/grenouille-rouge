@@ -52,7 +52,7 @@ const QUESTIONS: Q[] = [
     { id: "q2_perso", label: "Personnalisable comme les autres ?", type: "choice", options: ["Oui", "Non"], show: (a) => a["q2_vend"] === "Je le vends toujours" },
   ] },
   { n: 3, title: "Ta gamme Luxe (Luxe BB Rond 64 €, Luxe Rond 78 €, Luxe Super Rond 94 €).", photos: ["https://grenouillerouge.com/img/p/2/4/3/5/2435.jpg"], fields: [
-    { id: "q3_diff", label: "En quoi elle est différente des personnalisés ?", type: "long", minWords: 15, help: "matière, finitions, anses, doublure…" },
+    { id: "q3_diff", label: "En quoi elle est différente des personnalisés ?", type: "long", help: "matière, finitions, anses, doublure… quelques mots suffisent" },
     { id: "q3_garde", label: "On la garde ?", type: "choice", options: ["Oui, telle quelle", "Oui, mais à changer", "Non"] },
     { id: "q3_quoi", label: "Quoi changer ?", type: "long", show: (a) => a["q3_garde"] === "Oui, mais à changer" },
   ] },
