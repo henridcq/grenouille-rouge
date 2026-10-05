@@ -130,3 +130,18 @@
 /* Bande « Ils l'ont fait » : seul mouvement autorisé, lent, en pause au toucher */
 .ticker { animation: marquee 70s linear infinite; }
 .ticker:hover, .ticker:active, .ticker-wrap:active .ticker { animation-play-state: paused; }
+
+/* Aperçu « site actuel » dans les pages cachées (ex. /textes) */
+.site-style {
+  --radius: 0rem;
+  --ff-display: "Bodoni Moda", Georgia, serif;
+  --ff-sans: "Jost", system-ui, sans-serif;
+  --background: #FBFAF7;
+  --card: #FFFFFF;
+  --sage: #1F2A44;
+  --sage-soft: #E9ECF2;
+  background: var(--background);
+  background-image: none;
+  font-family: var(--ff-sans);
+  color: var(--foreground);
+}
