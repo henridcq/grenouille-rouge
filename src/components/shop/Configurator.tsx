@@ -51,7 +51,7 @@ export function Configurator({ initial = "rond-xl", lockCabas = false, prenom, c
   const [handle, setHandle] = useState<Handle>("etoiles");
   const [color, setColor] = useState<Color>(palette.find((c) => c.name === couleur) ?? byName(palette, "Bleu cobalt"));
   const [cabasColor, setCabasColor] = useState<Color>(byName(paletteCabas, "Cognac"));
-  const [lines, setLines] = useState<string[]>(prenom ? [prenom.slice(0, MAX), "", ""] : ["Les trésors", "de Maëlle", ""]);
+  const [lines, setLines] = useState<string[]>(prenom ? [prenom.slice(0, MAX).toUpperCase(), "", ""] : ["LES TRÉSORS", "DE MAËLLE", ""]);
   const [checked, setChecked] = useState(false);
   const [small, setSmall] = useState(false);
 
@@ -71,7 +71,7 @@ export function Configurator({ initial = "rond-xl", lockCabas = false, prenom, c
     ? { format, textColor: cabasColor, festonColor: cabasColor, single: true, lines }
     : { format, handle, handleColor: handle === "corde" ? undefined : color, textColor: color, festonColor: color, lines };
 
-  const setLine = (i: number, v: string) => { setChecked(false); setLines((ls) => ls.map((l, j) => (j === i ? v : l))); };
+  const setLine = (i: number, v: string) => { setChecked(false); setLines((ls) => ls.map((l, j) => (j === i ? v.toUpperCase() : l))); };
 
   const preview = (
     <figure>
@@ -141,10 +141,10 @@ export function Configurator({ initial = "rond-xl", lockCabas = false, prenom, c
           </Step>
         )}
 
-        <Step n={isCabas ? (lockCabas ? 2 : 3) : 4} title="Qu'est-ce qu'on écrit ?" help="Majuscules ou minuscules, accents compris. On respecte votre orthographe, même créative.">
+        <Step n={isCabas ? (lockCabas ? 2 : 3) : 4} title="Qu'est-ce qu'on écrit ?" help="En majuscules, accents compris. On respecte votre orthographe, même créative.">
           <div className="flex flex-wrap gap-2">
             {models.map((m) => (
-              <button key={m.label} type="button" onClick={() => { setChecked(false); setLines(m.lines); }} className="rounded-full border bg-card px-3 py-1.5 text-[0.95rem] font-medium hover:border-foreground">
+              <button key={m.label} type="button" onClick={() => { setChecked(false); setLines(m.lines.map((l) => l.toUpperCase())); }} className="rounded-full border bg-card px-3 py-1.5 text-[0.95rem] font-medium hover:border-foreground">
                 {m.label}
               </button>
             ))}
@@ -155,7 +155,7 @@ export function Configurator({ initial = "rond-xl", lockCabas = false, prenom, c
               <label key={i} className="block">
                 <div className="flex items-center gap-2">
                   <input value={l} onChange={(e) => setLine(i, e.target.value)} aria-label={`Ligne ${i + 1}`}
-                    className={`font-stencil h-13 w-full rounded-xl border bg-card px-4 text-xl ${l.length > MAX ? "border-primary" : ""}`} />
+                    className={`font-stencil h-13 w-full rounded-xl border bg-card px-4 text-xl uppercase ${l.length > MAX ? "border-primary" : ""}`} />
                 </div>
                 <span className={`mt-0.5 block text-sm ${l.length > MAX ? "font-semibold text-primary" : "text-muted-foreground"}`}>Ligne {i + 1} : {l.length}/{MAX}</span>
               </label>

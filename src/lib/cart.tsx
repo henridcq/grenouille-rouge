@@ -3,8 +3,8 @@ import { toast } from "sonner";
 import { bySlug, type Product } from "@/data/products";
 import type { CustomConfig } from "@/data/custom";
 
-type Line = { key: string; slug: string; qty: number; custom?: CustomConfig | undefined };
-export type CartLine = Line & { product: Product };
+type Line = { key: string; slug: string; qty: number; custom?: CustomConfig | undefined; variant?: string | undefined; unit?: number | undefined };
+export type CartLine = Line & { product: Product; price: number };
 type Ctx = {
   lines: CartLine[];
   count: number;
@@ -16,7 +16,7 @@ type Ctx = {
   setGift: (g: boolean) => void;
   note: string;
   setNote: (n: string) => void;
-  add: (slug: string, custom?: CustomConfig) => void;
+  add: (slug: string, custom?: CustomConfig, variant?: { label: string; price: number }) => void;
   setQty: (key: string, qty: number) => void;
   clear: () => void;
 };
@@ -34,20 +34,20 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const value = useMemo<Ctx>(() => {
     const lines = raw.flatMap((l) => {
       const product = bySlug(l.slug);
-      return product ? [{ ...l, product }] : [];
+      return product ? [{ ...l, product, price: l.unit ?? product.price }] : [];
     });
     return {
       lines,
       count: lines.reduce((s, l) => s + l.qty, 0),
-      total: lines.reduce((s, l) => s + l.qty * l.product.price, 0),
+      total: lines.reduce((s, l) => s + l.qty * l.price, 0),
       open, setOpen, bump, gift, setGift, note, setNote,
-      add: (slug, custom) => {
+      add: (slug, custom, variant) => {
         setRaw((prev) => {
           if (!custom) {
-            const f = prev.find((l) => l.slug === slug && !l.custom);
+            const f = prev.find((l) => l.slug === slug && !l.custom && l.variant === variant?.label);
             if (f) return prev.map((l) => (l === f ? { ...l, qty: l.qty + 1 } : l));
           }
-          return [...prev, { key: `${slug}-${++n}`, slug, qty: 1, custom }];
+          return [...prev, { key: `${slug}-${++n}`, slug, qty: 1, custom, variant: variant?.label, unit: variant?.price }];
         });
         setBump((b) => b + 1);
         toast("Ajouté !", {

@@ -11,6 +11,7 @@ export function SiteFooter() {
           <p>Instagram @grenouille.rouge</p>
         </div>
         <ul className="flex flex-wrap gap-x-5 gap-y-2 sm:justify-end">
+          <li><Link to="/atelier" className="underline">L'atelier</Link></li>
           <li><Link to="/livraison" className="underline">Livraison</Link></li>
           <li><Link to="/livraison" hash="retours" className="underline">Retours</Link></li>
           <li><Link to="/legal/$page" params={{ page: "cgv" }} className="underline">CGV</Link></li>

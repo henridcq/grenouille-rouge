@@ -26,7 +26,7 @@ export function CartDrawer() {
         {lines.length === 0 ? (
           <div className="flex flex-1 flex-col items-center justify-center gap-4 p-8 text-center">
             <p className="text-lg">Il est vide, mais pas pour longtemps. Les Minis commencent à 19 €.</p>
-            <Link to="/rayon/$rayon" params={{ rayon: "minis" }} onClick={() => setOpen(false)} className="btn-soft">Voir les Minis</Link>
+            <Link to="/rayon/$rayon" params={{ rayon: "petits-cadeaux" }} onClick={() => setOpen(false)} className="btn-soft">Voir les petits cadeaux</Link>
           </div>
         ) : (
           <>
@@ -46,13 +46,14 @@ export function CartDrawer() {
                     <div className="flex min-w-0 flex-1 flex-col">
                       <p className="font-semibold leading-tight">{l.product.name}</p>
                       {l.custom && <CustomDetails c={l.custom} />}
+                      {l.variant && <p className="text-sm text-muted-foreground">{l.variant}</p>}
                       <div className="mt-2 flex items-center gap-2">
                         <button aria-label="Retirer un" onClick={() => setQty(l.key, l.qty - 1)} className="grid h-9 w-9 place-items-center rounded-full border">
                           {l.qty === 1 ? <Trash2 className="h-4 w-4" /> : <Minus className="h-4 w-4" />}
                         </button>
                         <span className="w-6 text-center font-semibold">{l.qty}</span>
                         <button aria-label="Ajouter un" onClick={() => setQty(l.key, l.qty + 1)} className="grid h-9 w-9 place-items-center rounded-full border"><Plus className="h-4 w-4" /></button>
-                        <span className="ml-auto font-semibold text-primary">{euro(l.qty * l.product.price)}</span>
+                        <span className="ml-auto font-semibold text-primary">{euro(l.qty * l.price)}</span>
                       </div>
                     </div>
                   </li>

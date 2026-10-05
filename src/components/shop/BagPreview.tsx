@@ -10,6 +10,7 @@ const GEO: Record<FormatId, { rim: number; x0: number; x1: number; bottom: numbe
   "bb-rond": { rim: 27, x0: 20, x1: 75.5, bottom: 87 },
   rond: { rim: 24.6, x0: 15, x1: 81.5, bottom: 93 },
   "rond-xl": { rim: 23, x0: 12, x1: 83.5, bottom: 94 },
+  "bb-carre": { rim: 24, x0: 14, x1: 86, bottom: 90 },
   carre: { rim: 24.2, x0: 10.5, x1: 89.5, bottom: 91 },
   "carre-xxl": { rim: 23.6, x0: 8, x1: 95, bottom: 91 },
   "vide-poches": { rim: 22, x0: 16.5, x1: 94, bottom: 92 },

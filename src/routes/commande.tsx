@@ -24,8 +24,9 @@ function Recap({ lines, shipPrice, grand, gift, note }: { lines: CartLine[]; shi
       <ul className="mt-3 divide-y">
         {lines.map((l) => (
           <li key={l.key} className="py-2">
-            <div className="flex justify-between gap-3 font-medium"><span>{l.qty} × {l.product.name}</span><span>{euro(l.qty * l.product.price)}</span></div>
+            <div className="flex justify-between gap-3 font-medium"><span>{l.qty} × {l.product.name}</span><span>{euro(l.qty * l.price)}</span></div>
             {l.custom && <div className="mt-1 rounded-lg bg-muted p-2"><CustomDetails c={l.custom} /></div>}
+            {l.variant && <p className="text-sm">{l.variant}</p>}
             <p className="text-sm text-muted-foreground">{l.custom ? "peint pour vous, part sous 8 jours" : "part sous 48 h"}</p>
           </li>
         ))}
@@ -59,7 +60,7 @@ function Commande() {
     return (
       <section className="mx-auto max-w-lg px-4 py-20 text-center">
         <p className="text-xl">Il est vide, mais pas pour longtemps. Les Minis commencent à 19 €.</p>
-        <Link to="/rayon/$rayon" params={{ rayon: "minis" }} className="btn-soft mt-6">Voir les Minis</Link>
+        <Link to="/rayon/$rayon" params={{ rayon: "petits-cadeaux" }} className="btn-soft mt-6">Voir les petits cadeaux</Link>
       </section>
     );
 

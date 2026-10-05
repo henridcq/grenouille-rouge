@@ -4,7 +4,7 @@ import { formatOf, palette, MAX } from "@/data/custom";
 import { BagPreview } from "./BagPreview";
 
 export function HeroConfigurator() {
-  const [name, setName] = useState("Louise");
+  const [name, setName] = useState("LOUISE");
   const [color, setColor] = useState(palette.find((c) => c.name === "Bleu cobalt")!);
   const row = useRef<HTMLDivElement>(null);
   useEffect(() => { const el = row.current?.querySelector<HTMLElement>('[aria-checked="true"]'); if (el && row.current) row.current.scrollLeft = el.offsetLeft - 60; }, []);
@@ -17,7 +17,7 @@ export function HeroConfigurator() {
       <div className="min-w-0 space-y-2.5">
         <label className="block">
           <span className="text-sm font-semibold">Votre prénom</span>
-          <input value={name} maxLength={MAX} onChange={(e) => setName(e.target.value)}
+          <input value={name} maxLength={MAX} onChange={(e) => setName(e.target.value.toUpperCase())}
             className="font-stencil mt-1 h-12 w-full rounded-xl border bg-card px-4 text-xl uppercase" />
         </label>
         <div ref={row} role="radiogroup" aria-label="Couleur" className="-mx-4 flex snap-x gap-2 overflow-x-auto px-4 py-1.5 md:mx-0 md:flex-wrap md:px-0">
