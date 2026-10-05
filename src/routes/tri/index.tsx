@@ -6,7 +6,7 @@ import { ph } from "@/data/photos";
 import { ProductImage } from "@/components/shop/ProductImage";
 import { saveTriReport } from "@/lib/tri.functions";
 
-export const Route = createFileRoute("/tri")({
+export const Route = createFileRoute("/tri/")({
   head: () => ({
     meta: [
       { title: "Tri des produits · Grenouille Rouge" },
