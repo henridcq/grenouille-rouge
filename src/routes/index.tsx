@@ -3,7 +3,6 @@ import { Star } from "lucide-react";
 import { bySlug, PHOTOS, type Product } from "@/data/products";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { ProductImage } from "@/components/shop/ProductImage";
-import { Reveal } from "@/components/shop/Reveal";
 
 const HERO = PHOTOS.hero;
 
