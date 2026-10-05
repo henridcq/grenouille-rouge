@@ -13,12 +13,12 @@ export function HeroConfigurator() {
   return (
     <section className="mx-auto grid max-w-6xl items-center gap-3 px-4 pt-3 md:grid-cols-2 md:gap-12 md:pt-10">
       <h1 className="text-[1.65rem] font-bold leading-[1.1] md:col-span-2 md:text-5xl">Des paniers en jute qui ont des choses à dire.</h1>
-      <BagPreview format="rond-xl" color={color} lines={[name]} className="mx-auto aspect-square w-full max-w-[min(100%,32svh)] rounded-3xl md:max-w-none" />
+      <BagPreview format="rond-xl" color={color} lines={[name]} className="mx-auto aspect-square w-full max-w-[min(100%,32svh)] rounded-none md:max-w-none" />
       <div className="min-w-0 space-y-2.5">
         <label className="block">
           <span className="text-sm font-semibold">Votre prénom</span>
           <input value={name} maxLength={MAX} onChange={(e) => setName(e.target.value.toUpperCase())}
-            className="font-stencil mt-1 h-12 w-full rounded-xl border bg-card px-4 text-xl uppercase" />
+            className="font-stencil mt-1 h-12 w-full rounded-none border bg-card px-4 text-xl uppercase" />
         </label>
         <div ref={row} role="radiogroup" aria-label="Couleur" className="-mx-4 flex snap-x gap-2 overflow-x-auto px-4 py-1.5 md:mx-0 md:flex-wrap md:px-0">
           {palette.map((c) => {

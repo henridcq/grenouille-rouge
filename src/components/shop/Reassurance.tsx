@@ -37,7 +37,7 @@ export const faq: [string, string][] = [
 
 export function Faq() {
   return (
-    <Accordion type="single" collapsible className="rounded-2xl border bg-card px-4">
+    <Accordion type="single" collapsible className="rounded-none border bg-card px-4">
       {faq.map(([q, a]) => (
         <AccordionItem key={q} value={q}>
           <AccordionTrigger className="text-left text-base font-semibold">{q}</AccordionTrigger>

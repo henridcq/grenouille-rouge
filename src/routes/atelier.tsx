@@ -34,15 +34,15 @@ function Atelier() {
     <div className="mx-auto max-w-3xl px-4 pt-8">
       <h1 className="text-4xl font-bold leading-tight md:text-5xl">Un atelier au milieu des champs, et deux paires de mains.</h1>
       <p className="mt-4 text-xl">Grenouille Rouge, c'est un atelier à Grémonville, dans le pays de Caux, entre Rouen et la mer. On y coupe, on y coud, on y peint. Depuis 2000.</p>
-      <ProductImage src={PHOTOS.atelier} name="Marie-Isabel et Bénédicte à l'atelier" alt="Marie-Isabel et Bénédicte dans l'atelier de Grémonville" className="mt-8 aspect-[4/3] w-full rounded-3xl" />
+      <ProductImage src={PHOTOS.atelier} name="Marie-Isabel et Bénédicte à l'atelier" alt="Marie-Isabel et Bénédicte dans l'atelier de Grémonville" className="mt-8 aspect-[4/3] w-full rounded-none" />
       {sections.map(([t, b], i) => (
         <Reveal key={t} className="mt-12">
           <h2 className="text-3xl font-bold">{t}</h2>
           <p className="mt-3 text-lg">{b}</p>
-          {i === 2 && <ProductImage src={imgs[1]} name="Le travail de la toile de jute" alt="Toile de jute travaillée à l'atelier" className="mt-6 aspect-[4/3] w-full rounded-3xl" />}
-          {i === 3 && <ProductImage src={PHOTOS.cuirs} name="Les cuirs de l'atelier" alt="Lanières de cuir bleu, rose, vert et cognac sur la toile de jute" className="mt-6 aspect-[4/3] w-full rounded-3xl" />}
-          {i === 5 && <ProductImage src={PHOTOS.etiquette} name="Étiquette Made in France" alt="Étiquette Grenouille Rouge fabriqué en France cousue sur un panier" className="mt-6 aspect-[4/3] w-full rounded-3xl" />}
-          {i === 4 && <ProductImage src={imgs[2]} name="Sacs et cabas de l'atelier" alt="Sacs et cabas Grenouille Rouge à l'atelier" className="mt-6 aspect-[4/3] w-full rounded-3xl" />}
+          {i === 2 && <ProductImage src={imgs[1]} name="Le travail de la toile de jute" alt="Toile de jute travaillée à l'atelier" className="mt-6 aspect-[4/3] w-full rounded-none" />}
+          {i === 3 && <ProductImage src={PHOTOS.cuirs} name="Les cuirs de l'atelier" alt="Lanières de cuir bleu, rose, vert et cognac sur la toile de jute" className="mt-6 aspect-[4/3] w-full rounded-none" />}
+          {i === 5 && <ProductImage src={PHOTOS.etiquette} name="Étiquette Made in France" alt="Étiquette Grenouille Rouge fabriqué en France cousue sur un panier" className="mt-6 aspect-[4/3] w-full rounded-none" />}
+          {i === 4 && <ProductImage src={imgs[2]} name="Sacs et cabas de l'atelier" alt="Sacs et cabas Grenouille Rouge à l'atelier" className="mt-6 aspect-[4/3] w-full rounded-none" />}
         </Reveal>
       ))}
       <Link to="/rayon/$rayon" params={{ rayon: "cabas-sacs" }} className="btn-soft mt-10">Voir les cabas & sacs</Link>

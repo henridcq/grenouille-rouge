@@ -47,7 +47,7 @@ function Index() {
       <HeroConfigurator />
 
       <Reveal className="mx-auto max-w-6xl px-4 pt-16">
-        <div className="grid overflow-hidden rounded-3xl bg-card md:grid-cols-2">
+        <div className="grid overflow-hidden rounded-none bg-card md:grid-cols-2">
           <ProductImage src={HERO} name="Les jouets de Léo" alt="Panier Rond XL « Les jouets de Léo » peint à la main, dans un salon" className="aspect-square w-full" />
           <div className="flex flex-col justify-center gap-4 p-6 md:p-10">
             <h2 className="text-3xl font-bold md:text-4xl">À votre prénom, à votre mot, à votre idée.</h2>
@@ -62,7 +62,7 @@ function Index() {
         <div id="best" className="scroll-mt-32">
           <h2 className="text-3xl font-bold md:text-4xl">Ceux qu'on nous redemande.</h2>
           <p className="mt-2 text-lg text-muted-foreground">Les paniers, cabas et sacs que nos clientes offrent, puis rachètent pour elles.</p>
-          <ProductImage src={PHOTOS.trio} name="Paniers à message" alt="Trois paniers à message (Bar à bazar, Pause littéraire, Barda de famille) sur un canapé vert" className="mt-6 aspect-[16/9] w-full rounded-3xl" />
+          <ProductImage src={PHOTOS.trio} name="Paniers à message" alt="Trois paniers à message (Bar à bazar, Pause littéraire, Barda de famille) sur un canapé vert" className="mt-6 aspect-[16/9] w-full rounded-none" />
           <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-5 lg:grid-cols-4">
             {best.map((p) => <ProductCard key={p.slug} product={p} />)}
           </div>
@@ -70,7 +70,7 @@ function Index() {
       </Reveal>
 
       <Reveal className="mx-auto grid max-w-6xl items-center gap-6 px-4 pt-20 md:grid-cols-2 md:gap-12">
-        <ProductImage src={PHOTOS.cuirs} name="Les cuirs de l'atelier" alt="Lanières de cuir bleu, rose, vert et cognac posées sur la toile de jute" className="aspect-square w-full rounded-3xl" />
+        <ProductImage src={PHOTOS.cuirs} name="Les cuirs de l'atelier" alt="Lanières de cuir bleu, rose, vert et cognac posées sur la toile de jute" className="aspect-square w-full rounded-none" />
         <div>
           <h2 className="text-3xl font-bold md:text-4xl">Ici, rien n'est laissé au hasard.</h2>
           <p className="mt-4 text-lg">La toile de jute vient du Tissage du Ronchay, à vingt minutes de l'atelier. Les anses sont en cuir au tannage végétal. Chaque lettre est posée au pochoir et peinte à la main. Deux mains, parfois quatre, et beaucoup d'audace.</p>
@@ -79,7 +79,7 @@ function Index() {
       </Reveal>
 
       <Reveal className="mx-auto grid max-w-6xl items-center gap-6 px-4 pt-20 md:grid-cols-2 md:gap-12">
-        <ProductImage src={PHOTOS.parisiennePortee} name="La Parisienne" alt="La Parisienne kaki portée à l'épaule devant une porte bleue" className="aspect-square w-full rounded-3xl md:order-2" />
+        <ProductImage src={PHOTOS.parisiennePortee} name="La Parisienne" alt="La Parisienne kaki portée à l'épaule devant une porte bleue" className="aspect-square w-full rounded-none md:order-2" />
         <div>
           <h2 className="text-3xl font-bold md:text-4xl">Le lin, le cuir, et des lignes qu'on ne voit nulle part ailleurs.</h2>
           <p className="mt-4 text-lg">Le Loom, la Parisienne, Titi, Midinette : des sacs en série limitée, cousus à Grémonville, pensés pour durer et se patiner avec vous.</p>
@@ -88,7 +88,7 @@ function Index() {
       </Reveal>
 
       <Reveal className="mx-auto max-w-6xl px-4 pt-20">
-        <Link to={s.rayon === "personnalises" ? "/personnalises" : "/rayon/$rayon"} params={{ rayon: s.rayon }} className="group grid overflow-hidden rounded-3xl bg-sage-soft md:grid-cols-2">
+        <Link to={s.rayon === "personnalises" ? "/personnalises" : "/rayon/$rayon"} params={{ rayon: s.rayon }} className="group grid overflow-hidden rounded-none bg-sage-soft md:grid-cols-2">
           <ProductImage src={s.img} name={s.title} alt={s.alt} className="aspect-square w-full" />
           <div className="flex flex-col justify-center gap-3 p-6 md:p-10">
             <h2 className="text-3xl font-bold md:text-4xl">{s.title}</h2>
@@ -106,7 +106,7 @@ function Index() {
             const pr = bySlug(sl)!;
             return (
               <Link key={sl} to="/produit/$slug" params={{ slug: sl }}>
-                <ProductImage src={pr.images[0]} name={pr.name} alt={pr.alt} className="aspect-square w-full rounded-xl" />
+                <ProductImage src={pr.images[0]} name={pr.name} alt={pr.alt} className="aspect-square w-full rounded-none" />
               </Link>
             );
           })}
@@ -118,7 +118,7 @@ function Index() {
         <h2 className="text-3xl font-bold md:text-4xl">Elles en parlent mieux que nous.</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {reviews.map(([n, t]) => (
-            <blockquote key={n} className="rounded-2xl border bg-card p-5">
+            <blockquote key={n} className="rounded-none border bg-card p-5">
               <div className="flex gap-0.5 text-foreground">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}</div>
               <p className="mt-2 text-lg">« {t} »</p>
               <footer className="mt-2 text-muted-foreground"><strong className="text-foreground">{n}</strong>, avis Google</footer>
@@ -133,7 +133,7 @@ function Index() {
       </Reveal>
 
       <Reveal className="mx-auto grid max-w-6xl items-center gap-6 px-4 pt-20 md:grid-cols-2 md:gap-12">
-        <ProductImage src={PHOTOS.atelier} name="Marie-Isabel et Bénédicte à l'atelier" alt="Marie-Isabel et Bénédicte dans l'atelier de Grémonville" className="aspect-square w-full rounded-3xl" />
+        <ProductImage src={PHOTOS.atelier} name="Marie-Isabel et Bénédicte à l'atelier" alt="Marie-Isabel et Bénédicte dans l'atelier de Grémonville" className="aspect-square w-full rounded-none" />
         <div>
           <h2 className="text-3xl font-bold md:text-4xl">Marie-Isabel, Bénédicte, et la relève.</h2>
           <p className="mt-4 text-lg">Tapissière de métier, Marie-Isabel coud son premier sac en jute en 2000. Bénédicte rejoint l'atelier en 2018. Depuis, chaque pièce passe par leurs mains, à Grémonville, au milieu des champs. Et quand on vous demandera d'où vient votre sac, vous saurez quoi répondre.</p>
