@@ -33,7 +33,7 @@ function Recap({ lines, shipPrice, grand, gift, note }: { lines: CartLine[]; shi
       </ul>
       {gift && <p className="mt-2 text-sm">Cadeau : emballé, prix retiré{note ? ` · « ${note} »` : ""}</p>}
       <div className="mt-3 flex justify-between border-t pt-3"><span>Livraison</span><span>{shipPrice === 0 ? "Offerte" : euro(shipPrice)}</span></div>
-      <div className="mt-1 flex justify-between text-xl font-bold"><span>Total</span><span>{euro(grand)}</span></div>
+      <div className="mt-1 flex justify-between text-xl font-medium"><span>Total</span><span>{euro(grand)}</span></div>
     </>
   );
 }
@@ -49,7 +49,7 @@ function Commande() {
   if (done)
     return (
       <section className="mx-auto max-w-xl px-4 py-14">
-        <h1 className="text-5xl font-bold">Merci, c'est noté !</h1>
+        <h1 className="text-4xl font-medium">Merci, c'est noté !</h1>
         <p className="mt-4 text-lg">Votre commande n° 2451 est arrivée à l'atelier. Les pièces en stock partent sous 48 h ; les pièces à votre nom passent d'abord sous le pochoir. Vous recevrez un email avec le suivi dès que le colis est en route. En attendant, on vous montre ce qui se trame à l'atelier : <a href="https://www.instagram.com/grenouille.rouge/" target="_blank" rel="noreferrer" className="underline">Instagram @grenouille.rouge</a></p>
         <div className="mt-8 rounded-none border bg-card p-5"><Recap {...done} /></div>
         <Link to="/" className="btn-soft mt-8">Retour à l'accueil</Link>
@@ -66,16 +66,16 @@ function Commande() {
 
   return (
     <section className="mx-auto max-w-6xl px-4 pt-8">
-      <h1 className="text-4xl font-bold md:text-5xl">Plus que deux minutes.</h1>
+      <h1 className="text-3xl font-medium md:text-4xl">Plus que deux minutes.</h1>
       <div className="mt-6 grid gap-6 md:grid-cols-[1fr_1.3fr]">
         <aside className="h-fit rounded-none border bg-card p-5 md:sticky md:top-36">
-          <h2 className="text-2xl font-bold">Récapitulatif</h2>
+          <h2 className="text-2xl font-medium">Récapitulatif</h2>
           <Recap lines={lines} shipPrice={shipPrice} grand={grand} gift={gift} note={note} />
         </aside>
 
         <form onSubmit={(e) => { e.preventDefault(); setDone({ lines, shipPrice, grand, gift, note }); clear(); window.scrollTo(0, 0); }} className="space-y-7">
           <fieldset className="space-y-3">
-            <legend className="mb-2 font-display text-2xl font-bold">Vos coordonnées</legend>
+            <legend className="mb-2 font-display text-2xl font-medium">Vos coordonnées</legend>
             <input type="email" placeholder="Adresse e-mail" className={input} />
             <p className="text-sm text-muted-foreground">Votre email ne sert qu'à vous envoyer le suivi.</p>
             <div className="grid grid-cols-2 gap-3">
@@ -86,7 +86,7 @@ function Commande() {
           </fieldset>
 
           <fieldset className="space-y-2">
-            <legend className="mb-2 font-display text-2xl font-bold">Où livrer ?</legend>
+            <legend className="mb-2 font-display text-2xl font-medium">Où livrer ?</legend>
             {shippingOptions.map((o) => {
               const price = o.price(total);
               return (
@@ -105,7 +105,7 @@ function Commande() {
           </fieldset>
 
           <fieldset className="space-y-3">
-            <legend className="mb-2 font-display text-2xl font-bold">Paiement</legend>
+            <legend className="mb-2 font-display text-2xl font-medium">Paiement</legend>
             <div className="grid grid-cols-3 gap-2">
               <button type="button" className="btn-soft px-2">Apple Pay</button>
               <button type="button" className="btn-soft px-2">Google Pay</button>

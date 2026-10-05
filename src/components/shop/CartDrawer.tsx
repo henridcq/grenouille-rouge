@@ -34,8 +34,8 @@ export function CartDrawer() {
               <p className="text-[0.95rem] font-medium">
                 {left > 0 ? `Plus que ${euro(left).replace(",00", "")} pour la livraison offerte en point relais` : "Livraison en point relais offerte"}
               </p>
-              <div className="mt-2 h-2 overflow-hidden rounded-full bg-muted">
-                <div className="h-full rounded-full bg-sage " style={{ width: `${pct}%` }} />
+              <div className="mt-2 h-2 overflow-hidden bg-muted">
+                <div className="h-full bg-sage" style={{ width: `${pct}%` }} />
               </div>
             </div>
             <div className="flex-1 overflow-y-auto px-5 py-3">
@@ -70,9 +70,9 @@ export function CartDrawer() {
                         <p className="mt-1 leading-tight">{p.name}</p>
                         <p className="font-semibold">{p.price} €</p>
                         {p.rayon === "personnalises" ? (
-                          <Link to="/composer" search={{ forme: p.format }} onClick={() => setOpen(false)} aria-label={`Personnaliser ${p.name}`} className="absolute right-1 top-1 grid h-8 w-8 place-items-center rounded-full bg-background shadow"><Plus className="h-4 w-4" /></Link>
+                          <Link to="/composer" search={{ forme: p.format }} onClick={() => setOpen(false)} aria-label={`Personnaliser ${p.name}`} className="absolute right-1 top-1 grid h-8 w-8 place-items-center bg-background shadow"><Plus className="h-4 w-4" /></Link>
                         ) : (
-                          <button onClick={() => add(p.slug)} aria-label={`Ajouter ${p.name}`} className="absolute right-1 top-1 grid h-8 w-8 place-items-center rounded-full bg-background shadow"><Plus className="h-4 w-4" /></button>
+                          <button onClick={() => add(p.slug)} aria-label={`Ajouter ${p.name}`} className="absolute right-1 top-1 grid h-8 w-8 place-items-center bg-background shadow"><Plus className="h-4 w-4" /></button>
                         )}
                       </div>
                     ))}

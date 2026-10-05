@@ -14,7 +14,7 @@ export function ProductCard({ product }: { product: Product }) {
       <Link to="/produit/$slug" params={{ slug: product.slug }} className="relative block overflow-hidden rounded-none">
         <ProductImage src={product.images[0]} name={product.name} alt={product.alt} className="aspect-square w-full" />
         {product.bestseller && (
-          <span className="absolute left-2 top-2 rounded-full bg-background/90 px-2.5 py-0.5 text-xs font-semibold">Best-seller</span>
+          <span className="absolute left-2 top-2 rounded-none bg-background/90 px-2.5 py-0.5 text-xs font-semibold">Best-seller</span>
         )}
       </Link>
       <div className="flex flex-1 flex-col gap-1 pt-3">

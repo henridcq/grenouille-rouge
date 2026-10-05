@@ -99,11 +99,11 @@ function Fiche() {
         </div>
 
         <div>
-          <h1 className="text-4xl font-bold leading-tight md:text-5xl">{title}</h1>
+          <h1 className="text-3xl font-medium leading-tight md:text-4xl">{title}</h1>
           <p className="mt-3 text-lg">
             <strong>{price} €</strong> · {p.proof ?? "Cousu main"} · {delayOf(p)}{custom ? " · Livraison offerte en point relais" : ""}
           </p>
-          {stockLine && <p className="mt-2 inline-block rounded-full bg-sage-soft px-3 py-1 text-[0.95rem] font-medium text-sage">{stockLine}</p>}
+          {stockLine && <p className="mt-2 inline-block rounded-none bg-sage-soft px-3 py-1 text-[0.95rem] font-medium text-sage">{stockLine}</p>}
 
           {p.accroche && <p className="mt-5 text-xl font-semibold">{p.accroche}</p>}
           {p.body && <p className="mt-3 text-lg">{p.body}</p>}
@@ -128,7 +128,7 @@ function Fiche() {
                     </button>
                   ) : (
                     <button key={c.name} type="button" aria-pressed={on} onClick={pick}
-                      className={`min-h-11 rounded-full border-2 px-4 font-medium ${on ? "border-foreground bg-foreground text-background" : "bg-card"}`}>
+                      className={`min-h-11 rounded-none border-2 px-4 font-medium ${on ? "border-foreground bg-foreground text-background" : "bg-card"}`}>
                       {c.name}{c.price !== undefined ? ` · ${c.price} €` : ""}
                     </button>
                   );
@@ -175,13 +175,13 @@ function Fiche() {
 
       {custom && (
         <section className="mt-14 max-w-3xl">
-          <h2 className="mb-4 text-3xl font-bold">Questions fréquentes</h2>
+          <h2 className="mb-4 text-2xl font-medium">Questions fréquentes</h2>
           <Faq />
         </section>
       )}
 
       <section className="mt-14">
-        <h2 className="text-3xl font-bold">Pour compléter</h2>
+        <h2 className="text-2xl font-medium">Pour compléter</h2>
         <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-5 lg:grid-cols-4">
           {related.map((r) => <ProductCard key={r.slug} product={r} />)}
         </div>

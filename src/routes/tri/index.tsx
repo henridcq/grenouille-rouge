@@ -281,7 +281,7 @@ function TriPage() {
 
       {sc.k === "welcome" && (
         <div className="flex min-h-[70vh] flex-col justify-center gap-6 text-center">
-          <h1 className="text-4xl font-bold leading-tight">Maman, aide-moi à finir ton site.</h1>
+          <h1 className="text-3xl font-medium leading-tight">Maman, aide-moi à finir ton site.</h1>
           <p className="text-xl">2 étapes : 8 questions, puis le tri de tes produits. Tu peux t'arrêter quand tu veux, tout est gardé.</p>
           <button type="button" onClick={() => go(1)} className={`${big} bg-foreground text-background`}>C'est parti</button>
         </div>
@@ -292,7 +292,7 @@ function TriPage() {
           <div className={`grid gap-2 ${sc.q.photos.length > 1 ? "grid-cols-2" : ""}`}>
             {sc.q.photos.map((p, i) => <Photo key={i} src={p} name={sc.q.title} />)}
           </div>
-          <h1 className="text-3xl font-bold leading-tight">{sc.q.title}</h1>
+          <h1 className="text-2xl font-medium leading-tight">{sc.q.title}</h1>
           {visible(sc.q, st.a).map((f) => <FieldInput key={f.id} f={f} a={st.a} set={setA} />)}
           {nav()}
         </div>
@@ -315,7 +315,7 @@ function TriPage() {
               {p.ventes_24_mois >= 5 && <span className="absolute left-3 top-3 rounded-full bg-primary px-3 py-1 text-base font-bold text-primary-foreground">Best-seller</span>}
             </div>
             <div>
-              <h1 className="text-3xl font-bold leading-tight">{p.nom}</h1>
+              <h1 className="text-2xl font-medium leading-tight">{p.nom}</h1>
               <p className="mt-1 text-2xl font-semibold text-primary">{s.prix} €</p>
             </div>
             <div className="space-y-2">
@@ -343,7 +343,7 @@ function TriPage() {
             <p className="text-2xl font-semibold">Tout est gardé. Rouvre cette page quand tu veux, tu reprendras ici. ☕</p>
           ) : (
             <>
-              <h1 className="text-4xl font-bold">{sc.done} / {PRODUCTS.length}, tu avances bien !</h1>
+              <h1 className="text-3xl font-medium">{sc.done} / {PRODUCTS.length}, tu avances bien !</h1>
               <p className="text-2xl">Pause café ?</p>
             </>
           )}
@@ -356,7 +356,7 @@ function TriPage() {
         <div className="space-y-6 pt-4">
           {!st.sent && (
             <div className="space-y-3 print:hidden">
-              <h1 className="text-3xl font-bold">Tu as tout fini, bravo !</h1>
+              <h1 className="text-2xl font-medium">Tu as tout fini, bravo !</h1>
               <button type="button" disabled={sending === "busy"} onClick={doSend} className={`${big} bg-primary text-primary-foreground disabled:opacity-60`}>
                 {sending === "busy" ? "Envoi en cours…" : sending === "fail" ? "Réessayer" : "Ça y est, mission accomplie ! 🎉"}
               </button>
@@ -374,7 +374,7 @@ function TriPage() {
           )}
           {st.sent && (
             <div className="space-y-5">
-              <h1 className="text-4xl font-bold">Tes photos à faire</h1>
+              <h1 className="text-3xl font-medium">Tes photos à faire</h1>
               <ul className="list-disc space-y-1 pl-6 text-lg">
                 <li>Fond blanc ou crème, à la lumière du jour près d'une fenêtre.</li>
                 <li>Téléphone à hauteur du produit, de face.</li>
@@ -388,7 +388,7 @@ function TriPage() {
                   </li>
                 ))}
               </ul>
-              <h2 className="text-2xl font-bold">Et ces photos qui manquent au site</h2>
+              <h2 className="text-2xl font-medium">Et ces photos qui manquent au site</h2>
               <ul className="list-disc space-y-2 pl-6">{EXTRA_PHOTOS.map((e) => <li key={e}>{e}</li>)}</ul>
               <button type="button" onClick={() => window.print()} className={`${big} border-2 bg-card print:hidden`}>Imprimer ma liste</button>
             </div>

@@ -38,7 +38,7 @@ function TriResultats() {
 
   return (
     <div className="mx-auto max-w-xl px-4 py-8 text-lg">
-      <h1 className="text-3xl font-bold">Récaps de tri reçus</h1>
+      <h1 className="text-2xl font-medium">Récaps de tri reçus</h1>
       <p className="mt-2 text-muted-foreground">Chaque fois que le bouton « Mission accomplie » est pressé, le récap arrive ici.</p>
       {error && <p role="alert" className="mt-4 rounded-2xl bg-muted px-4 py-3 font-semibold">Impossible de charger la liste : {error}</p>}
       {reports && reports.length === 0 && <p className="mt-6 text-xl">Rien pour l'instant — le tri n'a pas encore été envoyé.</p>}

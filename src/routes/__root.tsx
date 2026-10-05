@@ -23,7 +23,7 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-[60vh] items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-5xl font-bold">Page introuvable</h1>
+        <h1 className="text-4xl font-medium">Page introuvable</h1>
         <p className="mt-3 text-muted-foreground">Cette page n'existe pas ou a été déplacée.</p>
         <Link to="/" className="btn-soft mt-6">Retour à l'accueil</Link>
       </div>

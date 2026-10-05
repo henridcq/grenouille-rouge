@@ -24,7 +24,7 @@ function Perso() {
   return (
     <div className="mx-auto max-w-6xl px-4 pt-8">
       <ProductImage src={PHOTOS.trioRonds} name="Nos paniers personnalisables" alt="Trois paniers ronds vierges de tailles différentes : BB Rond, Rond et Rond XL" className="mb-6 aspect-[16/9] w-full rounded-none md:aspect-[3/1]" />
-      <h1 className="max-w-3xl text-4xl font-bold leading-tight md:text-5xl">Un prénom, un mot, une phrase. Peints à la main sur de la jute normande.</h1>
+      <h1 className="max-w-3xl text-3xl font-medium leading-tight md:text-4xl">Un prénom, un mot, une phrase. Peints à la main sur de la jute normande.</h1>
       <div className="mt-4 max-w-3xl space-y-3 text-lg">
         <p>À vous de jouer : choisissez la forme, l'anse et la couleur, puis écrivez ce qui vous ressemble. Nous posons le pochoir, nous peignons, nous cousons. Huit jours plus tard, c'est dans votre boîte aux lettres. Ou dans celle de la personne qui a de la chance.</p>
         <p className="text-muted-foreground">Les trésors de Louise. Le bazar de Jules. Barda de Papa. Doudous & Cie. Les chaussettes orphelines. Depuis 2000, nos clientes ont écrit plus de 1 700 messages différents sur nos paniers. On n'a pas encore vu deux fois le même.</p>
@@ -37,7 +37,7 @@ function Perso() {
               <Link to="/produit/$slug" params={{ slug: p.slug }}>
                 <ProductImage src={p.images[0]} name={p.name} alt={p.alt} className="aspect-square w-full rounded-none" />
               </Link>
-              <h2 className="mt-3 text-2xl font-bold">{p.name}</h2>
+              <h2 className="mt-3 text-2xl font-medium">{p.name}</h2>
               <p className="mt-1 text-[0.95rem]">{p.accroche}</p>
               <p className="mt-1 text-sm text-muted-foreground">{p.tech}</p>
               <p className="mt-2 text-lg font-semibold">{p.price} €</p>
@@ -49,7 +49,7 @@ function Perso() {
 
       <ProductImage src={PHOTOS.princesse} name="Les trésors de princesse" alt="Panier Rond « Les trésors de princesse » peint à la main dans une chambre" className="mt-16 aspect-[16/9] w-full rounded-none md:aspect-[3/1]" />
       <section className="mt-16 max-w-3xl">
-        <h2 className="mb-4 text-3xl font-bold">Questions fréquentes</h2>
+        <h2 className="mb-4 text-2xl font-medium">Questions fréquentes</h2>
         <Faq />
       </section>
     </div>

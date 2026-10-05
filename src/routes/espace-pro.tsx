@@ -11,7 +11,7 @@ export const Route = createFileRoute("/espace-pro")({
   }),
   component: () => (
     <div className="mx-auto max-w-2xl px-4 pt-12">
-      <h1 className="text-4xl font-bold md:text-5xl">Boutiques, hôtels, entreprises</h1>
+      <h1 className="text-3xl font-medium md:text-4xl">Boutiques, hôtels, entreprises</h1>
       <p className="mt-5 text-lg">
         Depuis plus de vingt ans, nous cousons et peignons aussi pour les professionnels : séries pour les boutiques indépendantes, cadeaux d'entreprise à votre logo, paniers au nom de votre hôtel ou de votre maison. Même atelier, mêmes mains, même jute normande. Un espace dédié, avec le catalogue revendeur et les devis en ligne, arrive bientôt. En attendant, écrivez-nous à <a href="mailto:contact@grenouillerouge.com" className="underline">contact@grenouillerouge.com</a> : on vous répond sous 48 h.
       </p>
