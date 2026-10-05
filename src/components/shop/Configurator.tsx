@@ -8,6 +8,7 @@ import {
 } from "@/data/custom";
 import { useCart } from "@/lib/cart";
 import { ProductImage } from "./ProductImage";
+import { BagPreview } from "./BagPreview";
 
 function Swatches({ colors, value, onChange, label }: { colors: Color[]; value: Color; onChange: (c: Color) => void; label: string }) {
   return (
@@ -44,15 +45,13 @@ function Step({ n, title, help, children }: { n: number; title: string; help?: s
 
 const byName = (list: Color[], n: string) => list.find((c) => c.name === n)!;
 
-export function Configurator({ initial = "rond-xl", lockCabas = false }: { initial?: FormatId; lockCabas?: boolean }) {
+export function Configurator({ initial = "rond-xl", lockCabas = false, prenom, couleur }: { initial?: FormatId; lockCabas?: boolean; prenom?: string | undefined; couleur?: string | undefined }) {
   const { add } = useCart();
   const [format, setFormat] = useState<FormatId>(lockCabas ? "cabas" : initial);
   const [handle, setHandle] = useState<Handle>("etoiles");
-  const [handleColor, setHandleColor] = useState<Color>(byName(palette, "Rouge"));
-  const [textColor, setTextColor] = useState<Color>(byName(palette, "Bleu cobalt"));
-  const [festonColor, setFestonColor] = useState<Color>(byName(palette, "Bleu jean"));
+  const [color, setColor] = useState<Color>(palette.find((c) => c.name === couleur) ?? byName(palette, "Bleu cobalt"));
   const [cabasColor, setCabasColor] = useState<Color>(byName(paletteCabas, "Cognac"));
-  const [lines, setLines] = useState<string[]>(["Les trésors", "de Maëlle", ""]);
+  const [lines, setLines] = useState<string[]>(prenom ? [prenom.slice(0, MAX), "", ""] : ["Les trésors", "de Maëlle", ""]);
   const [checked, setChecked] = useState(false);
   const [small, setSmall] = useState(false);
 
@@ -67,32 +66,17 @@ export function Configurator({ initial = "rond-xl", lockCabas = false }: { initi
   const f = formatOf(format);
   const isCabas = format === "cabas";
   const err = textError(lines);
-  const tColor = isCabas ? cabasColor : textColor;
-  const fColor = isCabas ? cabasColor : festonColor;
+  const tColor = isCabas ? cabasColor : color;
   const config: CustomConfig = isCabas
     ? { format, textColor: cabasColor, festonColor: cabasColor, single: true, lines }
-    : { format, handle, handleColor: handle === "corde" ? undefined : handleColor, textColor, festonColor, lines };
+    : { format, handle, handleColor: handle === "corde" ? undefined : color, textColor: color, festonColor: color, lines };
 
   const setLine = (i: number, v: string) => { setChecked(false); setLines((ls) => ls.map((l, j) => (j === i ? v : l))); };
-  const shown = lines.filter((l) => l.trim());
 
   const preview = (
     <figure>
-      <div className={`relative mx-auto overflow-hidden rounded-3xl bg-card transition-all duration-300 ${small ? "h-36 w-36 md:h-auto md:w-full" : "aspect-square w-full max-w-[22rem] md:max-w-none"}`}>
-        <ProductImage key={f.image} src={f.image} name={f.label} alt={`Aperçu : ${f.label} en jute avec votre texte peint en ${tColor.name.toLowerCase()}`} className="absolute inset-0 h-full w-full" />
-        {/* Feston : petits traits cousus le long du bord supérieur */}
-        <svg className="absolute inset-x-[8%] top-[9%] h-3 w-[84%]" viewBox="0 0 100 4" preserveAspectRatio="none" aria-hidden="true">
-          <line x1="0" y1="2" x2="100" y2="2" stroke={fColor.hex} strokeWidth="1.6" strokeDasharray="2.2 1.6" />
-        </svg>
-        <div className="absolute inset-x-[10%] top-[30%] bottom-[22%] grid place-items-center">
-          <div
-            className="font-stencil text-center leading-[1.05] transition-colors"
-            style={{ color: tColor.hex, fontSize: small ? "0.8rem" : "clamp(1.1rem, 6.2vw, 2.1rem)", textShadow: tColor.name === "Blanc" ? "0 0 2px rgba(0,0,0,.35)" : "none" }}
-          >
-            {shown.length ? shown.map((l, i) => <div key={i}>{l}</div>) : <span className="opacity-40">Votre texte</span>}
-          </div>
-        </div>
-      </div>
+      <BagPreview format={format} color={tColor} lines={lines} small={small}
+        className={`mx-auto rounded-3xl transition-all duration-300 ${small ? "h-36 w-36 md:aspect-square md:h-auto md:w-full" : "aspect-square w-full max-w-[22rem] md:max-w-none"}`} />
       <figcaption className={`mx-auto mt-2 max-w-md text-center text-sm italic text-muted-foreground ${small ? "hidden md:block" : ""}`}>
         Aperçu indicatif : la peinture à la main a ses humeurs, c'est ce qui fait qu'il n'y en aura pas deux pareils.
       </figcaption>
@@ -152,22 +136,8 @@ export function Configurator({ initial = "rond-xl", lockCabas = false }: { initi
             <Swatches colors={paletteCabas} value={cabasColor} onChange={setCabasColor} label="Couleur du cabas" />
           </Step>
         ) : (
-          <Step n={3} title="Quelles couleurs ?" help="Les trois couleurs sont indépendantes : assorties ou en contraste, c'est vous qui voyez.">
-            {handle !== "corde" && (
-              <div className="space-y-2">
-                <p className="font-semibold">Les pois ou les étoiles de l'anse <span className="font-normal text-muted-foreground">· {handleColor.name}</span></p>
-                <Swatches colors={palette} value={handleColor} onChange={setHandleColor} label="Couleur des pois ou des étoiles" />
-              </div>
-            )}
-            <div className="space-y-2 pt-3">
-              <p className="font-semibold">Le texte <span className="font-normal text-muted-foreground">· {textColor.name}</span></p>
-              <Swatches colors={palette} value={textColor} onChange={setTextColor} label="Couleur du texte" />
-            </div>
-            <div className="space-y-2 pt-3">
-              <p className="font-semibold">Le feston <span className="font-normal text-muted-foreground">· {festonColor.name}</span></p>
-              <Swatches colors={palette} value={festonColor} onChange={setFestonColor} label="Couleur du feston" />
-              <p className="text-sm italic text-muted-foreground">Le feston, c'est le point cousu à la main qui borde le haut du panier.</p>
-            </div>
+          <Step n={3} title="Quelle couleur ?" help="Une couleur pour tout le sac : le texte, le feston et les pois ou les étoiles de l'anse.">
+            <Swatches colors={palette} value={color} onChange={setColor} label="Couleur du sac" />
           </Step>
         )}
 
@@ -179,7 +149,7 @@ export function Configurator({ initial = "rond-xl", lockCabas = false }: { initi
               </button>
             ))}
           </div>
-          <p className="text-sm text-muted-foreground">Votre texte (3 lignes maximum, 13 caractères par ligne, espaces compris. Une seule police de pochoir, celle de l'atelier : pas de choix de police)</p>
+          <p className="text-sm text-muted-foreground">Votre texte : 3 lignes maximum, 13 caractères par ligne, espaces compris.</p>
           <div className="space-y-2">
             {lines.map((l, i) => (
               <label key={i} className="block">

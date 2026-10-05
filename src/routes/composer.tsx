@@ -6,7 +6,7 @@ import type { FormatId } from "@/data/products";
 const ids = ["bb-rond", "rond", "rond-xl", "carre", "carre-xxl", "cabas", "vide-poches"] as const;
 
 export const Route = createFileRoute("/composer")({
-  validateSearch: z.object({ forme: z.enum(ids).optional() }),
+  validateSearch: z.object({ forme: z.enum(ids).optional(), prenom: z.string().max(40).optional(), couleur: z.string().max(40).optional() }),
   head: () => ({
     meta: [
       { title: "Composez votre panier personnalisé · Grenouille Rouge" },
@@ -19,6 +19,6 @@ export const Route = createFileRoute("/composer")({
 });
 
 function Page() {
-  const { forme } = Route.useSearch();
-  return <Configurator initial={(forme ?? "rond-xl") as FormatId} />;
+  const { forme, prenom, couleur } = Route.useSearch();
+  return <Configurator initial={(forme ?? "rond-xl") as FormatId} prenom={prenom} couleur={couleur} />;
 }

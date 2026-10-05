@@ -76,8 +76,7 @@ export function recap(c: CustomConfig): string {
   if (c.single) parts.push(`couleur ${c.textColor.name.toLowerCase()} (cuir, texte et feston assortis)`);
   else {
     const h = handles.find((x) => x.id === c.handle)!;
-    parts.push(h.id === "corde" || !c.handleColor ? h.short : `${h.short} ${c.handleColor.name.toLowerCase()}`);
-    parts.push(`texte ${c.textColor.name.toLowerCase()}`, `feston ${c.festonColor.name.toLowerCase()}`);
+    parts.push(h.short, `couleur ${c.textColor.name.toLowerCase()}`);
   }
   parts.push(`« ${c.lines.filter((l) => l.trim()).join(" / ")} »`);
   return parts.join(" · ");
