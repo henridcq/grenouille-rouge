@@ -94,8 +94,8 @@ function VersionCards({ versions, value, onChange, labels }: { versions: string[
 /** Maquette téléphone au style ACTUEL du site. */
 function Phone({ children }: { children: ReactNode }) {
   return (
-    <div className="mx-auto w-full max-w-[300px] rounded-[2rem] border-[6px] border-foreground bg-foreground shadow-lg">
-      <div className="site-style max-h-[46svh] overflow-y-auto rounded-[1.6rem] text-[13px]">{children}</div>
+    <div className="mx-auto w-full max-w-[280px] rounded-[2rem] border-[6px] border-foreground bg-foreground shadow-lg">
+      <div className="site-style max-h-[34svh] overflow-y-auto rounded-[1.6rem] text-[13px]">{children}</div>
     </div>
   );
 }
