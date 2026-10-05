@@ -16,7 +16,7 @@ export const Route = createFileRoute("/commande")({
   component: Commande,
 });
 
-const input = "h-13 w-full rounded-xl border bg-card px-4 text-lg";
+const input = "h-13 w-full rounded-none border bg-card px-4 text-lg";
 
 function Recap({ lines, shipPrice, grand, gift, note }: { lines: CartLine[]; shipPrice: number; grand: number; gift: boolean; note: string }) {
   return (
@@ -25,7 +25,7 @@ function Recap({ lines, shipPrice, grand, gift, note }: { lines: CartLine[]; shi
         {lines.map((l) => (
           <li key={l.key} className="py-2">
             <div className="flex justify-between gap-3 font-medium"><span>{l.qty} × {l.product.name}</span><span>{euro(l.qty * l.price)}</span></div>
-            {l.custom && <div className="mt-1 rounded-lg bg-muted p-2"><CustomDetails c={l.custom} /></div>}
+            {l.custom && <div className="mt-1 rounded-none bg-muted p-2"><CustomDetails c={l.custom} /></div>}
             {l.variant && <p className="text-sm">{l.variant}</p>}
             <p className="text-sm text-muted-foreground">{l.custom ? "peint pour vous, part sous 8 jours" : "part sous 48 h"}</p>
           </li>
@@ -33,7 +33,7 @@ function Recap({ lines, shipPrice, grand, gift, note }: { lines: CartLine[]; shi
       </ul>
       {gift && <p className="mt-2 text-sm">Cadeau : emballé, prix retiré{note ? ` · « ${note} »` : ""}</p>}
       <div className="mt-3 flex justify-between border-t pt-3"><span>Livraison</span><span>{shipPrice === 0 ? "Offerte" : euro(shipPrice)}</span></div>
-      <div className="mt-1 flex justify-between text-xl font-bold"><span>Total</span><span className="text-primary">{euro(grand)}</span></div>
+      <div className="mt-1 flex justify-between text-xl font-bold"><span>Total</span><span>{euro(grand)}</span></div>
     </>
   );
 }
@@ -51,7 +51,7 @@ function Commande() {
       <section className="mx-auto max-w-xl px-4 py-14">
         <h1 className="text-5xl font-bold">Merci, c'est noté !</h1>
         <p className="mt-4 text-lg">Votre commande n° 2451 est arrivée à l'atelier. Les pièces en stock partent sous 48 h ; les pièces à votre nom passent d'abord sous le pochoir. Vous recevrez un email avec le suivi dès que le colis est en route. En attendant, on vous montre ce qui se trame à l'atelier : <a href="https://www.instagram.com/grenouille.rouge/" target="_blank" rel="noreferrer" className="underline">Instagram @grenouille.rouge</a></p>
-        <div className="mt-8 rounded-2xl border bg-card p-5"><Recap {...done} /></div>
+        <div className="mt-8 rounded-none border bg-card p-5"><Recap {...done} /></div>
         <Link to="/" className="btn-soft mt-8">Retour à l'accueil</Link>
       </section>
     );
@@ -68,7 +68,7 @@ function Commande() {
     <section className="mx-auto max-w-6xl px-4 pt-8">
       <h1 className="text-4xl font-bold md:text-5xl">Plus que deux minutes.</h1>
       <div className="mt-6 grid gap-6 md:grid-cols-[1fr_1.3fr]">
-        <aside className="h-fit rounded-2xl border bg-card p-5 md:sticky md:top-36">
+        <aside className="h-fit rounded-none border bg-card p-5 md:sticky md:top-36">
           <h2 className="text-2xl font-bold">Récapitulatif</h2>
           <Recap lines={lines} shipPrice={shipPrice} grand={grand} gift={gift} note={note} />
         </aside>
@@ -90,7 +90,7 @@ function Commande() {
             {shippingOptions.map((o) => {
               const price = o.price(total);
               return (
-                <label key={o.id} className={`flex cursor-pointer items-center gap-3 rounded-xl border-2 bg-card px-4 py-3 ${ship === o.id ? "border-foreground" : "border-transparent"}`}>
+                <label key={o.id} className={`flex cursor-pointer items-center gap-3 rounded-none border-2 bg-card px-4 py-3 ${ship === o.id ? "border-foreground" : "border-transparent"}`}>
                   <input type="radio" name="ship" checked={ship === o.id} onChange={() => setShip(o.id)} className="h-5 w-5 accent-[var(--foreground)]" />
                   <span className="flex-1">
                     <span className="block text-lg">{o.label}</span>

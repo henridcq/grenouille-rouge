@@ -18,7 +18,7 @@ function Swatches({ colors, value, onChange, label }: { colors: Color[]; value: 
         return (
           <button key={c.name} type="button" role="radio" aria-checked={on} onClick={() => onChange(c)} className="flex flex-col items-center gap-1 text-center">
             <span
-              className={`grid h-10 w-10 place-items-center rounded-full transition ${on ? "ring-2 ring-foreground ring-offset-2 ring-offset-background" : ""} ${c.name === "Blanc" ? "border border-foreground/40" : ""}`}
+              className={`grid h-10 w-10 place-items-center rounded-full ${on ? "ring-2 ring-foreground ring-offset-2 ring-offset-background" : ""} ${c.name === "Blanc" ? "border border-foreground/40" : ""}`}
               style={{ backgroundColor: c.hex }}
             >
               {on && <Check className="h-4 w-4" style={{ color: ["Blanc", "Bouton d'or", "Rose layette", "Ciel", "Gris", "Jaune"].includes(c.name) ? "#2B211B" : "#fff" }} />}
@@ -76,7 +76,7 @@ export function Configurator({ initial = "rond-xl", lockCabas = false, prenom, c
   const preview = (
     <figure>
       <BagPreview format={format} color={tColor} lines={lines} small={small}
-        className={`mx-auto rounded-3xl transition-all duration-300 ${small ? "h-36 w-36 md:aspect-square md:h-auto md:w-full" : "aspect-square w-full max-w-[22rem] md:max-w-none"}`} />
+        className={`mx-auto rounded-none ${small ? "h-36 w-36 md:aspect-square md:h-auto md:w-full" : "aspect-square w-full max-w-[22rem] md:max-w-none"}`} />
       <figcaption className={`mx-auto mt-2 max-w-md text-center text-sm italic text-muted-foreground ${small ? "hidden md:block" : ""}`}>
         Aperçu indicatif : la peinture à la main a ses humeurs, c'est ce qui fait qu'il n'y en aura pas deux pareils.
       </figcaption>
@@ -105,11 +105,11 @@ export function Configurator({ initial = "rond-xl", lockCabas = false, prenom, c
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
               {formats.map((x) => (
                 <button key={x.id} type="button" onClick={() => setFormat(x.id)} aria-pressed={format === x.id}
-                  className={`flex items-center gap-2 rounded-2xl border-2 bg-card p-2 text-left transition ${format === x.id ? "border-foreground" : "border-transparent"}`}>
-                  <ProductImage src={x.image} name={x.label} alt={`Panier ${x.label} en jute`} className="h-12 w-12 shrink-0 rounded-xl" />
+                  className={`flex items-center gap-2 rounded-none border-2 bg-card p-2 text-left ${format === x.id ? "border-foreground" : "border-transparent"}`}>
+                  <ProductImage src={x.image} name={x.label} alt={`Panier ${x.label} en jute`} className="h-12 w-12 shrink-0 rounded-none" />
                   <span className="min-w-0">
                     <span className="block font-semibold leading-tight">{x.label}</span>
-                    <span className="text-sm font-semibold text-primary">{x.price} €</span>
+                    <span className="text-sm font-semibold">{x.price} €</span>
                   </span>
                 </button>
               ))}
@@ -122,7 +122,7 @@ export function Configurator({ initial = "rond-xl", lockCabas = false, prenom, c
             <div className="grid grid-cols-3 gap-2">
               {handles.map((h) => (
                 <button key={h.id} type="button" onClick={() => setHandle(h.id)} aria-pressed={handle === h.id}
-                  className={`overflow-hidden rounded-2xl border-2 bg-card text-center transition ${handle === h.id ? "border-foreground" : "border-transparent"}`}>
+                  className={`overflow-hidden rounded-none border-2 bg-card text-center ${handle === h.id ? "border-foreground" : "border-transparent"}`}>
                   <ProductImage src={h.photo} name={h.label} alt={`Anse ${h.label.toLowerCase()}`} className="aspect-square w-full text-sm" />
                   <span className="block p-2 text-sm font-semibold leading-tight">{h.label}</span>
                 </button>
@@ -155,18 +155,18 @@ export function Configurator({ initial = "rond-xl", lockCabas = false, prenom, c
               <label key={i} className="block">
                 <div className="flex items-center gap-2">
                   <input value={l} onChange={(e) => setLine(i, e.target.value)} aria-label={`Ligne ${i + 1}`}
-                    className={`font-stencil h-13 w-full rounded-xl border bg-card px-4 text-xl uppercase ${l.length > MAX ? "border-primary" : ""}`} />
+                    className={`font-stencil h-13 w-full rounded-none border bg-card px-4 text-xl uppercase ${l.length > MAX ? "border-primary" : ""}`} />
                 </div>
                 <span className={`mt-0.5 block text-sm ${l.length > MAX ? "font-semibold text-primary" : "text-muted-foreground"}`}>Ligne {i + 1} : {l.length}/{MAX}</span>
               </label>
             ))}
           </div>
-          {err && <p role="alert" className="rounded-xl bg-muted px-4 py-3 font-medium">{err}</p>}
+          {err && <p role="alert" className="rounded-none bg-muted px-4 py-3 font-medium">{err}</p>}
         </Step>
 
-        <section className="space-y-4 rounded-2xl border bg-card p-5">
+        <section className="space-y-4 rounded-none border bg-card p-5">
           <p className="text-lg">
-            {recap(config)} · <strong className="text-primary">{f.price} €</strong> · expédié sous 8 jours ouvrés.
+            {recap(config)} · <strong>{f.price} €</strong> · expédié sous 8 jours ouvrés.
           </p>
           <label className="flex cursor-pointer items-start gap-3">
             <input type="checkbox" checked={checked} onChange={(e) => setChecked(e.target.checked)} className="mt-1 h-5 w-5 accent-[var(--foreground)]" />

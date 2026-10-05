@@ -73,7 +73,7 @@ function Fiche() {
       <div className="grid gap-6 md:grid-cols-2 md:gap-12">
         <div>
           {trousse ? (
-            <div className="relative overflow-hidden rounded-3xl [container-type:inline-size]">
+            <div className="relative overflow-hidden rounded-none [container-type:inline-size]">
               <ProductImage src={p.images[0]} name={p.name} alt={p.alt} className="aspect-square w-full" />
               <div className="pointer-events-none absolute inset-0 grid place-items-center">
                 <span style={{ fontFamily: '"Stardos Stencil", sans-serif', fontWeight: 700, fontSize: "13cqw", color: wColor.hex, opacity: 0.9, mixBlendMode: "multiply" }}>{word.trim() || "VOTRE MOT"}</span>
@@ -81,7 +81,7 @@ function Fiche() {
             </div>
           ) : images.length > 0 ? (
             <div
-              className="-mx-4 flex snap-x snap-mandatory overflow-x-auto md:mx-0 md:rounded-3xl"
+              className="-mx-4 flex snap-x snap-mandatory overflow-x-auto md:mx-0 md:rounded-none"
               onScroll={(e) => setIdx(Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth))}
             >
               {images.map((src, i) => (
@@ -89,11 +89,11 @@ function Fiche() {
               ))}
             </div>
           ) : (
-            <ProductImage name={p.name} alt={p.alt} className="aspect-square w-full rounded-3xl" />
+            <ProductImage name={p.name} alt={p.alt} className="aspect-square w-full rounded-none" />
           )}
           {!trousse && images.length > 1 && (
             <div className="mt-3 flex justify-center gap-1.5">
-              {images.map((_, i) => <span key={i} className={`h-2 rounded-full transition-all ${i === idx ? "w-5 bg-foreground" : "w-2 bg-border"}`} />)}
+              {images.map((_, i) => <span key={i} className={`h-2 rounded-full ${i === idx ? "w-5 bg-foreground" : "w-2 bg-border"}`} />)}
             </div>
           )}
         </div>
@@ -101,7 +101,7 @@ function Fiche() {
         <div>
           <h1 className="text-4xl font-bold leading-tight md:text-5xl">{title}</h1>
           <p className="mt-3 text-lg">
-            <strong className="text-primary">{price} €</strong> · {p.proof ?? "Cousu main"} · {delayOf(p)}{custom ? " · Livraison offerte en point relais" : ""}
+            <strong>{price} €</strong> · {p.proof ?? "Cousu main"} · {delayOf(p)}{custom ? " · Livraison offerte en point relais" : ""}
           </p>
           {stockLine && <p className="mt-2 inline-block rounded-full bg-sage-soft px-3 py-1 text-[0.95rem] font-medium text-sage">{stockLine}</p>}
 
@@ -137,11 +137,11 @@ function Fiche() {
             </fieldset>
           ))}
           {trousse && (
-            <div className="mt-5 space-y-4 rounded-2xl border bg-card p-4">
+            <div className="mt-5 space-y-4 rounded-none border bg-card p-4">
               <label className="block">
                 <span className="text-lg font-semibold">Votre mot</span>
                 <input value={word} maxLength={7} onChange={(e) => { setReread(false); setWord(e.target.value.toUpperCase().replace(/[^A-ZÀ-ÖØ-ÞŒÆ0-9 &'-]/g, "")); }}
-                  className="font-stencil mt-1 h-13 w-full rounded-xl border bg-background px-4 text-xl uppercase" />
+                  className="font-stencil mt-1 h-13 w-full rounded-none border bg-background px-4 text-xl uppercase" />
                 <span className="mt-1 block text-sm text-muted-foreground">7 lettres maximum, une ligne. En majuscules, accents compris. {word.length}/7</span>
               </label>
               <div>

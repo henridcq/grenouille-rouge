@@ -46,7 +46,7 @@ function Rayon() {
           </Link>
         ))}
       </nav>
-      {b && b[0] && <ProductImage src={b[0]} name={r.title} alt={b[1]} className="mb-6 aspect-[16/9] w-full rounded-3xl md:aspect-[3/1]" />}
+      {b && b[0] && <ProductImage src={b[0]} name={r.title} alt={b[1]} className="mb-6 aspect-[16/9] w-full rounded-none md:aspect-[3/1]" />}
       <h1 className="text-4xl font-bold md:text-5xl">{r.title}</h1>
       <p className="mt-3 max-w-2xl text-lg text-muted-foreground">{r.intro}</p>
       <Reveal className="mt-8 grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-5 lg:grid-cols-4">
