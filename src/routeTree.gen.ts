@@ -18,6 +18,7 @@ import { Route as EspaceProRouteImport } from './routes/espace-pro'
 import { Route as LivraisonRouteImport } from './routes/livraison'
 import { Route as PersonnalisesRouteImport } from './routes/personnalises'
 import { Route as RechercheRouteImport } from './routes/recherche'
+import { Route as TriRouteImport } from './routes/tri'
 import { Route as LegalPageRouteImport } from './routes/legal.$page'
 import { Route as ProduitSlugRouteImport } from './routes/produit.$slug'
 import { Route as RayonRayonRouteImport } from './routes/rayon.$rayon'
@@ -67,6 +68,11 @@ const RechercheRoute = RechercheRouteImport.update({
   path: '/recherche',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TriRoute = TriRouteImport.update({
+  id: '/tri',
+  path: '/tri',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LegalPageRoute = LegalPageRouteImport.update({
   id: '/legal/$page',
   path: '/legal/$page',
@@ -93,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/livraison': typeof LivraisonRoute
   '/personnalises': typeof PersonnalisesRoute
   '/recherche': typeof RechercheRoute
+  '/tri': typeof TriRoute
   '/legal/$page': typeof LegalPageRoute
   '/produit/$slug': typeof ProduitSlugRoute
   '/rayon/$rayon': typeof RayonRayonRoute
@@ -107,6 +114,7 @@ export interface FileRoutesByTo {
   '/livraison': typeof LivraisonRoute
   '/personnalises': typeof PersonnalisesRoute
   '/recherche': typeof RechercheRoute
+  '/tri': typeof TriRoute
   '/legal/$page': typeof LegalPageRoute
   '/produit/$slug': typeof ProduitSlugRoute
   '/rayon/$rayon': typeof RayonRayonRoute
@@ -122,6 +130,7 @@ export interface FileRoutesById {
   '/livraison': typeof LivraisonRoute
   '/personnalises': typeof PersonnalisesRoute
   '/recherche': typeof RechercheRoute
+  '/tri': typeof TriRoute
   '/legal/$page': typeof LegalPageRoute
   '/produit/$slug': typeof ProduitSlugRoute
   '/rayon/$rayon': typeof RayonRayonRoute
@@ -138,6 +147,7 @@ export interface FileRouteTypes {
     | '/livraison'
     | '/personnalises'
     | '/recherche'
+    | '/tri'
     | '/legal/$page'
     | '/produit/$slug'
     | '/rayon/$rayon'
@@ -152,6 +162,7 @@ export interface FileRouteTypes {
     | '/livraison'
     | '/personnalises'
     | '/recherche'
+    | '/tri'
     | '/legal/$page'
     | '/produit/$slug'
     | '/rayon/$rayon'
@@ -166,6 +177,7 @@ export interface FileRouteTypes {
     | '/livraison'
     | '/personnalises'
     | '/recherche'
+    | '/tri'
     | '/legal/$page'
     | '/produit/$slug'
     | '/rayon/$rayon'
@@ -181,6 +193,7 @@ export interface RootRouteChildren {
   LivraisonRoute: typeof LivraisonRoute
   PersonnalisesRoute: typeof PersonnalisesRoute
   RechercheRoute: typeof RechercheRoute
+  TriRoute: typeof TriRoute
   LegalPageRoute: typeof LegalPageRoute
   ProduitSlugRoute: typeof ProduitSlugRoute
   RayonRayonRoute: typeof RayonRayonRoute
@@ -251,6 +264,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RechercheRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tri': {
+      id: '/tri'
+      path: '/tri'
+      fullPath: '/tri'
+      preLoaderRoute: typeof TriRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/legal/$page': {
       id: '/legal/$page'
       path: '/legal/$page'
@@ -285,6 +305,7 @@ const rootRouteChildren: RootRouteChildren = {
   LivraisonRoute: LivraisonRoute,
   PersonnalisesRoute: PersonnalisesRoute,
   RechercheRoute: RechercheRoute,
+  TriRoute: TriRoute,
   LegalPageRoute: LegalPageRoute,
   ProduitSlugRoute: ProduitSlugRoute,
   RayonRayonRoute: RayonRayonRoute,
