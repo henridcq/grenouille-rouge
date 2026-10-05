@@ -496,20 +496,32 @@ function words(s: string) { return s.trim().split(/\s+/).filter(Boolean).length;
 // ---------- Page ----------
 function StylePage() {
   const save = useServerFn(saveStyleReport);
-  const [st, setSt] = useState<State>(() => {
+  const [st, setSt] = useState<State>(INITIAL);
+  const [restored, setRestored] = useState(false);
+
+  useEffect(() => {
     try {
       const raw = localStorage.getItem(KEY);
-      if (raw) return { ...INITIAL, ...JSON.parse(raw) };
+      if (raw) {
+        const saved = JSON.parse(raw) as Partial<State>;
+        setSt({
+          ...INITIAL,
+          ...saved,
+          sty: { ...INITIAL.sty, ...saved.sty },
+          refs: { ...INITIAL.refs, ...saved.refs },
+        });
+      }
     } catch { /* ignore */ }
-    return INITIAL;
-  });
+    setRestored(true);
+  }, []);
   const [zoom, setZoom] = useState<ReactNode | null>(null);
   const [sendState, setSendState] = useState<"idle" | "sending" | "error">("idle");
   const [returnToVoila, setReturnToVoila] = useState(false);
 
   useEffect(() => {
+    if (!restored) return;
     try { localStorage.setItem(KEY, JSON.stringify(st)); } catch { /* ignore */ }
-  }, [st]);
+  }, [restored, st]);
 
   const plan = PLAN[Math.min(st.step, PLAN.length - 1)]!;
   const progress = Math.round(((st.step + 1) / PLAN.length) * 100);
