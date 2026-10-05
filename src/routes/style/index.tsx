@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { ph } from "@/data/photos";
+import { bySlug, products, rayons } from "@/data/products";
 import { saveStyleReport } from "@/lib/style.functions";
 
 export const Route = createFileRoute("/style/")({
@@ -11,6 +11,8 @@ export const Route = createFileRoute("/style/")({
       { name: "description", content: "Page privée : le jeu des duels et le constructeur de style." },
       { property: "og:title", content: "Le style du site · Grenouille Rouge" },
       { property: "og:description", content: "Page privée : le jeu des duels et le constructeur de style." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex, nofollow" },
     ],
     links: [
@@ -26,20 +28,30 @@ export const Route = createFileRoute("/style/")({
 // ---------- Données ----------
 const KEY = "gr-style-v1";
 const LOGO = "https://grenouillerouge.com/img/grenouille-rouge-logo-1683816362.jpg";
+const rondXL = bySlug("le-rond-xl");
+const auCoinDuFeu = bySlug("au-coin-du-feu");
+const multiHomards = bySlug("multi-homards");
+const menuLabels = [rayons.personnalises.label, rayons["cabas-sacs"].label, rayons.maison.label, rayons["petits-cadeaux"].label];
 const IMG = {
-  leo: ph("ambiance-les-jouets-de-leo.jpg"),
-  rondxl: ph("rond-xl-vierge-recto-01.jpg"),
-  bazar: ph("bar-a-bazar-recto.jpg"),
-  peler: ph("on-va-pas-s-peler-recto.jpg"),
-  pelerDetail: ph("on-va-pas-s-peler-detail.jpg"),
-  portee: ph("parisienne-kaki-portee-01.jpg"),
+  leo: rondXL?.images[1] ?? rondXL?.images[0],
+  rondxl: rondXL?.images[0],
+  feu: auCoinDuFeu?.images[0],
+  homards: multiHomards?.images[0],
+  portee: bySlug("la-parisienne")?.images[0],
+  detail: bySlug("on-va-pas-s-peler")?.images[2] ?? bySlug("on-va-pas-s-peler")?.images[0],
 };
-const PHOTOS12 = [
+const LEGACY_PHOTO_IDS = [
   "ambiance-carre-salon.jpg", "ambiance-trio-canape.jpg", "ambiance-tresors-de-princesse.jpg",
   "ambiance-rangement-de-printemps.jpg", "ambiance-on-va-pas-s-peler-poele.jpg", "mini-vide-tes-poches-ambiance.jpg",
   "parisienne-moutarde-musee.jpg", "atelier-cuirs-couleurs.jpg", "trio-ronds-vierges-02.jpg",
   "sac-jute-bord-noir-jardin-01.jpg", "detail-etiquette-made-in-france.jpg", "barda-de-famille-orange-01.jpg",
 ];
+const photoProducts = products.filter((product) => !product.weakPhoto && Boolean(product.images[0])).slice(0, 12);
+const PHOTOS12 = photoProducts.map((product, index) => ({
+  id: LEGACY_PHOTO_IDS[index] ?? product.slug,
+  url: product.images[0] ?? "",
+  alt: product.name,
+}));
 
 type Style = {
   fond: string; policeTitres: string; policeTexte: string;
@@ -81,7 +93,7 @@ function MiniSite({ s, compact = false }: { s: Style; compact?: boolean }) {
   const priceColor = s.rouge === "partout" || s.rouge === "boutons-prix" ? ROUGE : text;
   const titleSize = s.tailleTitres === "discrete" ? 15 : s.tailleTitres === "grande" ? 24 : 19;
   const pad = s.espace === "aere" ? 18 : s.espace === "serre" ? 6 : 10;
-  const heroImg = s.stylePhotos === "studio" ? IMG.rondxl : s.stylePhotos === "porte" ? IMG.portee : s.stylePhotos === "matiere" ? IMG.pelerDetail : IMG.leo;
+  const heroImg = s.stylePhotos === "studio" ? IMG.rondxl : s.stylePhotos === "porte" ? IMG.portee : s.stylePhotos === "matiere" ? IMG.detail : IMG.leo;
   const heroRatio = s.formatPhotos === "vertical" ? "4/5" : s.formatPhotos === "carre" ? "1/1" : "5/4";
   const anim: CSSProperties = s.animations === "discret" ? { animation: "grFade 1.2s ease both" } : {};
   const btn: CSSProperties =
@@ -132,25 +144,30 @@ function MiniSite({ s, compact = false }: { s: Style; compact?: boolean }) {
         {s.entete === "logo-dessus" && (
           <div className="w-full text-center">
             <img src={LOGO} alt="" className="mx-auto h-5 w-5 rounded-full object-cover" />
-            <div className="mt-1 flex justify-center gap-2" style={{ fontSize: 7 }}>
-              <span>Personnalisés</span><span>Cabas & sacs</span><span>La maison</span><span>Petits cadeaux</span>
-            </div>
           </div>
         )}
       </div>
+      <div className="flex justify-center gap-2 overflow-hidden border-y px-1 py-1 whitespace-nowrap" style={{ ...bodyStyle, fontSize: 6.5 }}>
+        {menuLabels.map((label) => <span key={label}>{label}</span>)}
+      </div>
       {/* Héro */}
       <div style={{ padding: pad }}>
-        {heroImg && (
-          <img
-            src={heroImg}
-            alt="Panier Rond XL"
-            className={`w-full rounded object-cover ${s.animations === "present" ? "gr-zoom" : ""}`}
-            style={{ aspectRatio: heroRatio }}
-          />
-        )}
-        <h3 className="mt-2" style={titleStyle}>Son prénom, peint à la main</h3>
+        <div className="relative">
+          {heroImg && (
+            <img
+              src={heroImg}
+              alt={rondXL?.name ?? "Le Rond XL"}
+              className={`w-full rounded object-cover ${s.animations === "present" ? "gr-zoom" : ""}`}
+              style={{ aspectRatio: heroRatio }}
+            />
+          )}
+          <span className="font-stencil absolute inset-x-3 top-[48%] text-center font-bold uppercase" style={{ color: "#214E9A", fontSize: 11 }}>
+            LES JOUETS DE LÉO
+          </span>
+        </div>
+        <h3 className="mt-2" style={titleStyle}>{rondXL?.name ?? "Le Rond XL"}</h3>
         <p className="mt-0.5" style={{ ...bodyStyle, fontSize: 8, opacity: 0.75 }}>Le Rond XL · peint au pochoir à Grémonville</p>
-        <p className="mt-1 font-bold" style={{ ...bodyStyle, color: priceColor, fontSize: 13 }}>56 €</p>
+        <p className="mt-1 font-bold" style={{ ...bodyStyle, color: priceColor, fontSize: 13 }}>{rondXL?.price ?? 56} €</p>
         <button type="button" className="mt-1.5 w-full text-center" style={{ ...btn, fontSize: 10 }}>
           Créer mon Rond XL{s.boutons === "texte" ? " →" : ""}
         </button>
@@ -158,8 +175,8 @@ function MiniSite({ s, compact = false }: { s: Style; compact?: boolean }) {
       {/* 2 produits */}
       <div className="grid grid-cols-2" style={{ gap: pad, padding: `0 ${pad}px` }}>
         {[
-          { img: IMG.bazar, nom: "Bar à bazar", prix: "55 €" },
-          { img: IMG.peler, nom: "On va pas s'peler", prix: "49 €" },
+          { img: IMG.feu, nom: auCoinDuFeu?.name ?? "Au coin du feu", prix: `${auCoinDuFeu?.price ?? 76} €` },
+          { img: IMG.homards, nom: multiHomards?.name ?? "Multi homards", prix: `${multiHomards?.price ?? 54} €` },
         ].map((p) => (
           <div key={p.nom}>
             {p.img && <img src={p.img} alt={p.nom} className="w-full rounded object-cover" style={{ aspectRatio: heroRatio }} />}
@@ -253,16 +270,16 @@ const DUELS: Duel[] = [
     expl: "Une cliente qui ne voit pas le prix ne te le demande pas : elle part. Un prix clair, c'est rassurant, et c'est très chic.",
     a: () => (
       <div className="grid h-full grid-cols-2 gap-2 bg-[#F6F1E8] p-3">
-        <MiniProduit img={IMG.bazar} nom="Bar à bazar" prix="55 €" showPrix={false} />
-        <MiniProduit img={IMG.peler} nom="On va pas s'peler" prix="49 €" showPrix={false} />
+        <MiniProduit img={IMG.feu} nom="Au coin du feu" prix="76 €" showPrix={false} />
+        <MiniProduit img={IMG.homards} nom="Multi homards" prix="54 €" showPrix={false} />
         <MiniProduit img={IMG.rondxl} nom="Rond XL" prix="56 €" showPrix={false} />
         <MiniProduit img={IMG.portee} nom="Parisienne" prix="69 €" showPrix={false} />
       </div>
     ),
     b: () => (
       <div className="grid h-full grid-cols-2 gap-2 bg-[#F6F1E8] p-3">
-        <MiniProduit img={IMG.bazar} nom="Bar à bazar" prix="55 €" />
-        <MiniProduit img={IMG.peler} nom="On va pas s'peler" prix="49 €" />
+        <MiniProduit img={IMG.feu} nom="Au coin du feu" prix="76 €" />
+        <MiniProduit img={IMG.homards} nom="Multi homards" prix="54 €" />
         <MiniProduit img={IMG.rondxl} nom="Rond XL" prix="56 €" />
         <MiniProduit img={IMG.portee} nom="Parisienne" prix="69 €" />
       </div>
@@ -343,7 +360,7 @@ const DUELS: Duel[] = [
           <span>Accueil</span><span>Boutique</span><span>Atelier</span><span>Contact</span><span>Blog</span>
         </div>
         <div className="mt-1 grid grid-cols-4 gap-0.5">
-          {[IMG.bazar, IMG.peler, IMG.rondxl, IMG.portee, IMG.leo, IMG.pelerDetail, IMG.bazar, IMG.peler].map((img, i) => (
+          {[IMG.feu, IMG.homards, IMG.rondxl, IMG.portee, IMG.leo, IMG.detail, IMG.feu, IMG.homards].map((img, i) => (
             <div key={i}>{img && <img src={img} alt="" className="aspect-square w-full object-cover" />}</div>
           ))}
         </div>
@@ -353,8 +370,8 @@ const DUELS: Duel[] = [
     b: () => (
       <div className="h-full bg-[#F6F1E8] p-2">
         <div className="grid grid-cols-2 gap-2">
-          <MiniProduit img={IMG.bazar} nom="Bar à bazar" prix="55 €" />
-          <MiniProduit img={IMG.peler} nom="On va pas s'peler" prix="49 €" />
+          <MiniProduit img={IMG.feu} nom="Au coin du feu" prix="76 €" />
+          <MiniProduit img={IMG.homards} nom="Multi homards" prix="54 €" />
         </div>
         <div className="mt-2 rounded-xl py-2 text-center font-bold text-white" style={{ background: ROUGE, fontSize: 10 }}>
           Créer mon Rond XL · 56 €
@@ -375,7 +392,7 @@ const REGLES = [
 ];
 
 // ---------- Écrans de style (partie 2) ----------
-type Group = { key: keyof Style; label: string; options: { id: string; label: string }[] };
+type Group = { key: keyof Style; label: string; options: { id: string; label: string; help?: string }[] };
 type StyleScreen = { key: string; titre: string; groups: Group[] };
 
 const STYLE_SCREENS: StyleScreen[] = [
@@ -385,7 +402,7 @@ const STYLE_SCREENS: StyleScreen[] = [
   ] }] },
   { key: "policeTitres", titre: "La police des titres", groups: [{ key: "policeTitres", label: "Police des titres", options: [
     { id: "Fraunces", label: "Fraunces (actuelle)" }, { id: "Cormorant Garamond", label: "Cormorant Garamond" },
-    { id: "Playfair Display", label: "Playfair Display" }, { id: "Bodoni Moda", label: "Bodoni Moda" },
+    { id: "Playfair Display", label: "Playfair Display" }, { id: "Bodoni Moda", label: "Bodoni Moda", help: "De la même famille que la police de tes pochoirs" },
     { id: "Libre Caslon Display", label: "Libre Caslon Display" },
   ] }] },
   { key: "policeTexte", titre: "La police du texte", groups: [{ key: "policeTexte", label: "Police du texte", options: [
@@ -496,7 +513,7 @@ function StylePage() {
 
   const plan = PLAN[Math.min(st.step, PLAN.length - 1)]!;
   const progress = Math.round(((st.step + 1) / PLAN.length) * 100);
-  const score = DUELS.reduce((n, _, d) => n + (st.duelChoices[d] === "B" ? 1 : 0), 0);
+  const score = DUELS.reduce((n, duel, d) => n + (st.duelChoices[d] === duel.good ? 1 : 0), 0);
 
   const setSty = (key: keyof Style, value: string, screenLabel: string) => {
     setSt((p) => {
@@ -760,7 +777,10 @@ function StylePage() {
                         {o.label}
                       </span>
                     ) : g.key === "policeTitres" ? (
-                      <span style={{ fontFamily: TITLE_FONTS[o.id] }}>{o.label}</span>
+                      <span className="flex flex-col gap-1">
+                        <span style={{ fontFamily: TITLE_FONTS[o.id] }}>{o.label}</span>
+                        {o.help && <span className="text-xs font-normal leading-tight opacity-75">{o.help}</span>}
+                      </span>
                     ) : g.key === "policeTexte" ? (
                       <span style={{ fontFamily: BODY_FONTS[o.id] }}>{o.label}</span>
                     ) : (
@@ -786,22 +806,21 @@ function StylePage() {
           <div className="mt-4">
             <p className="text-lg font-semibold">Tes 3 photos préférées parmi celles-ci (exactement 3)</p>
             <div className="mt-2 grid grid-cols-3 gap-2">
-              {PHOTOS12.map((name) => {
-                const url = ph(name);
-                const on = st.photos3.includes(name);
+              {PHOTOS12.map((photo) => {
+                const on = st.photos3.includes(photo.id);
                 return (
                   <button
-                    key={name}
+                    key={photo.id}
                     type="button"
                     onClick={() =>
                       setSt((p) => ({
                         ...p,
-                        photos3: on ? p.photos3.filter((x) => x !== name) : p.photos3.length < 3 ? [...p.photos3, name] : p.photos3,
+                        photos3: on ? p.photos3.filter((x) => x !== photo.id) : p.photos3.length < 3 ? [...p.photos3, photo.id] : p.photos3,
                       }))
                     }
                     className={`overflow-hidden rounded-xl ${on ? "ring-4 ring-[#7D8F6A]" : ""}`}
                   >
-                    {url && <img src={url} alt={name} className="aspect-square w-full object-cover" />}
+                    <img src={photo.url} alt={photo.alt} className="aspect-square w-full object-cover" />
                   </button>
                 );
               })}
@@ -873,9 +892,9 @@ function StylePage() {
         <div className="mt-4">
           <label className="text-lg font-semibold">De 1 à 10, tu le trouves premium à combien ? {st.premium == null ? "— à toi de choisir —" : `${st.premium}/10`}</label>
           <input
-            type="range" min={1} max={10} value={st.premium ?? 5}
+            type="range" min={1} max={10} value={st.premium ?? 1}
             onChange={(e) => setSt((p) => ({ ...p, premium: Number(e.target.value) }))}
-            className="mt-2 w-full"
+            className={`mt-2 w-full ${st.premium == null ? "premium-empty" : ""}`}
           />
         </div>
         {st.premium != null && st.premium < 8 && (
@@ -950,6 +969,8 @@ function StylePage() {
         @keyframes grPulse { 0% { transform: scale(1); } 40% { transform: scale(1.03); } 100% { transform: scale(1); } }
         .gr-zoom { animation: grZoom 3s ease-in-out infinite; }
         .gr-pulse-once { animation: grPulse 1.2s ease 1; }
+        .premium-empty::-webkit-slider-thumb { opacity: 0; }
+        .premium-empty::-moz-range-thumb { opacity: 0; }
       `}</style>
       {/* Barre de progression */}
       <div className="sticky top-0 z-10 -mx-4 bg-background px-4 pb-2 pt-3">
