@@ -22,6 +22,7 @@ import { Route as TriRouteImport } from './routes/tri'
 import { Route as LegalPageRouteImport } from './routes/legal.$page'
 import { Route as ProduitSlugRouteImport } from './routes/produit.$slug'
 import { Route as RayonRayonRouteImport } from './routes/rayon.$rayon'
+import { Route as TriResultatsRouteImport } from './routes/tri/resultats'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -88,6 +89,11 @@ const RayonRayonRoute = RayonRayonRouteImport.update({
   path: '/rayon/$rayon',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TriResultatsRoute = TriResultatsRouteImport.update({
+  id: '/resultats',
+  path: '/resultats',
+  getParentRoute: () => TriRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -99,10 +105,11 @@ export interface FileRoutesByFullPath {
   '/livraison': typeof LivraisonRoute
   '/personnalises': typeof PersonnalisesRoute
   '/recherche': typeof RechercheRoute
-  '/tri': typeof TriRoute
+  '/tri': typeof TriRouteWithChildren
   '/legal/$page': typeof LegalPageRoute
   '/produit/$slug': typeof ProduitSlugRoute
   '/rayon/$rayon': typeof RayonRayonRoute
+  '/tri/resultats': typeof TriResultatsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -114,10 +121,11 @@ export interface FileRoutesByTo {
   '/livraison': typeof LivraisonRoute
   '/personnalises': typeof PersonnalisesRoute
   '/recherche': typeof RechercheRoute
-  '/tri': typeof TriRoute
+  '/tri': typeof TriRouteWithChildren
   '/legal/$page': typeof LegalPageRoute
   '/produit/$slug': typeof ProduitSlugRoute
   '/rayon/$rayon': typeof RayonRayonRoute
+  '/tri/resultats': typeof TriResultatsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -130,10 +138,11 @@ export interface FileRoutesById {
   '/livraison': typeof LivraisonRoute
   '/personnalises': typeof PersonnalisesRoute
   '/recherche': typeof RechercheRoute
-  '/tri': typeof TriRoute
+  '/tri': typeof TriRouteWithChildren
   '/legal/$page': typeof LegalPageRoute
   '/produit/$slug': typeof ProduitSlugRoute
   '/rayon/$rayon': typeof RayonRayonRoute
+  '/tri/resultats': typeof TriResultatsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -151,6 +160,7 @@ export interface FileRouteTypes {
     | '/legal/$page'
     | '/produit/$slug'
     | '/rayon/$rayon'
+    | '/tri/resultats'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
     | '/legal/$page'
     | '/produit/$slug'
     | '/rayon/$rayon'
+    | '/tri/resultats'
   id:
     | '__root__'
     | '/'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '/legal/$page'
     | '/produit/$slug'
     | '/rayon/$rayon'
+    | '/tri/resultats'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -193,7 +205,7 @@ export interface RootRouteChildren {
   LivraisonRoute: typeof LivraisonRoute
   PersonnalisesRoute: typeof PersonnalisesRoute
   RechercheRoute: typeof RechercheRoute
-  TriRoute: typeof TriRoute
+  TriRoute: typeof TriRouteWithChildren
   LegalPageRoute: typeof LegalPageRoute
   ProduitSlugRoute: typeof ProduitSlugRoute
   RayonRayonRoute: typeof RayonRayonRoute
@@ -292,8 +304,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RayonRayonRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tri/resultats': {
+      id: '/tri/resultats'
+      path: '/resultats'
+      fullPath: '/tri/resultats'
+      preLoaderRoute: typeof TriResultatsRouteImport
+      parentRoute: typeof TriRoute
+    }
   }
 }
+
+interface TriRouteChildren {
+  TriResultatsRoute: typeof TriResultatsRoute
+}
+
+const TriRouteChildren: TriRouteChildren = {
+  TriResultatsRoute: TriResultatsRoute,
+}
+
+const TriRouteWithChildren = TriRoute._addFileChildren(TriRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -305,7 +334,7 @@ const rootRouteChildren: RootRouteChildren = {
   LivraisonRoute: LivraisonRoute,
   PersonnalisesRoute: PersonnalisesRoute,
   RechercheRoute: RechercheRoute,
-  TriRoute: TriRoute,
+  TriRoute: TriRouteWithChildren,
   LegalPageRoute: LegalPageRoute,
   ProduitSlugRoute: ProduitSlugRoute,
   RayonRayonRoute: RayonRayonRoute,
