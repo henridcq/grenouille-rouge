@@ -93,7 +93,7 @@ function Fiche() {
           )}
           {!trousse && images.length > 1 && (
             <div className="mt-3 flex justify-center gap-1.5">
-              {images.map((_, i) => <span key={i} className={`h-2 rounded-full transition-all ${i === idx ? "w-5 bg-foreground" : "w-2 bg-border"}`} />)}
+              {images.map((_, i) => <span key={i} className={`h-2 rounded-full ${i === idx ? "w-5 bg-foreground" : "w-2 bg-border"}`} />)}
             </div>
           )}
         </div>

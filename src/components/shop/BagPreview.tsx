@@ -38,7 +38,7 @@ export function BagPreview({ format, color, lines, small = false, className = ""
       )}
       <div className="absolute grid place-items-center" style={{ left: `${g.x0}%`, right: `${100 - g.x1}%`, top: `${g.rim + 2}%`, bottom: `${100 - g.bottom}%` }}>
         <div
-          className="text-center uppercase transition-colors"
+          className="text-center uppercase"
           style={{
             fontFamily: '"Stardos Stencil", sans-serif', fontWeight: 700, lineHeight: 0.95,
             fontSize: `${fs}cqw`, color: color.hex, opacity: 0.9, mixBlendMode: "multiply",
