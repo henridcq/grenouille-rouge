@@ -191,7 +191,8 @@ function Phone({ children, onClick, label }: { children: ReactNode; onClick?: ()
 }
 
 // ---------- Duels ----------
-type Duel = { titre: string; regle: string; expl: string; a: () => ReactNode; b: () => ReactNode };
+// Dans chaque duel : a = la mauvaise version, b = la bonne version ; good = la position (A ou B) où s'affiche la bonne.
+type Duel = { titre: string; regle: string; expl: string; good: "A" | "B"; a: () => ReactNode; b: () => ReactNode };
 
 const MiniProduit = ({ img, nom, prix, showPrix = true }: { img?: string | undefined; nom: string; prix: string; showPrix?: boolean }) => (
   <div>
@@ -203,7 +204,7 @@ const MiniProduit = ({ img, nom, prix, showPrix = true }: { img?: string | undef
 
 const DUELS: Duel[] = [
   {
-    titre: "La photo",
+    titre: "La photo", good: "B",
     regle: "Des photos en grand.",
     expl: "En boutique, ta cliente touche le jute. En ligne, la photo, c'est sa seule main. Plus elle est grande, plus elle voit ton travail : le pochoir, le feston, la toile.",
     a: () => (
@@ -224,7 +225,7 @@ const DUELS: Duel[] = [
     ),
   },
   {
-    titre: "Le bouton",
+    titre: "Le bouton", good: "A",
     regle: "Un bouton d'achat visible sur chaque écran.",
     expl: "Sur ton site actuel, en 2 ans, 1 766 paniers ont été commencés et seulement 330 payés : 4 paniers sur 5 abandonnés. Chaque seconde où la cliente cherche le bouton, elle peut partir.",
     a: () => (
@@ -247,7 +248,7 @@ const DUELS: Duel[] = [
     ),
   },
   {
-    titre: "Le prix",
+    titre: "Le prix", good: "A",
     regle: "Des prix clairs, partout.",
     expl: "Une cliente qui ne voit pas le prix ne te le demande pas : elle part. Un prix clair, c'est rassurant, et c'est très chic.",
     a: () => (
@@ -268,7 +269,7 @@ const DUELS: Duel[] = [
     ),
   },
   {
-    titre: "L'accueil",
+    titre: "L'accueil", good: "B",
     regle: "Le configurateur dès l'accueil.",
     expl: "Ce qui se vend chez toi, c'est le prénom : un tiers de tes ventes en ligne, et le Rond XL est ton n°1 avec 38 vendus en 2 ans. Ta cliente doit pouvoir jouer avec dès la première seconde.",
     a: () => (
@@ -290,7 +291,7 @@ const DUELS: Duel[] = [
     ),
   },
   {
-    titre: "Le texte",
+    titre: "Le texte", good: "A",
     regle: "Peu de mots, et une preuve en image.",
     expl: "Sur téléphone, personne ne lit un long texte. Une photo de tes mains raconte ton savoir-faire en une seconde. Ton histoire reste sur la page L'atelier, pour celles qui veulent la lire.",
     a: () => (
@@ -312,7 +313,7 @@ const DUELS: Duel[] = [
     ),
   },
   {
-    titre: "Le menu",
+    titre: "Le menu", good: "B",
     regle: "4 onglets maximum.",
     expl: "Trop de choix, on ne choisit rien. Avec 4 onglets, ta cliente sait tout de suite où aller, et tous tes produits restent là.",
     a: () => (
@@ -333,7 +334,7 @@ const DUELS: Duel[] = [
     ),
   },
   {
-    titre: "Le téléphone",
+    titre: "Le téléphone", good: "A",
     regle: "Le téléphone d'abord.",
     expl: "Aujourd'hui, environ 3 visites sur 4 sur les boutiques en ligne se font sur un téléphone, et encore plus quand la cliente arrive d'Instagram. Si elle doit zoomer, elle s'en va.",
     a: () => (
@@ -362,6 +363,8 @@ const DUELS: Duel[] = [
     ),
   },
 ];
+
+const sideFor = (d: Duel, v: "A" | "B") => (d.good === v ? d.b() : d.a());
 
 const REGLES = [
   "Le téléphone d'abord.",
@@ -443,7 +446,7 @@ type State = {
   sty: Style;
   whys: Record<string, string>;
   photos3: string[];
-  premium: number;
+  premium: number | null;
   manque: string;
   refs: { beau: string; autre: string; cheap: string; mot: string };
   edits: string[];
@@ -451,7 +454,7 @@ type State = {
 };
 const INITIAL: State = {
   step: 0, duelChoices: {}, regles: {}, sty: DEFAULT_STYLE, whys: {}, photos3: [],
-  premium: 8, manque: "", refs: { beau: "", autre: "", cheap: "", mot: "" }, edits: [], done: false,
+  premium: null, manque: "", refs: { beau: "", autre: "", cheap: "", mot: "" }, edits: [], done: false,
 };
 
 // Plan des écrans
@@ -519,7 +522,7 @@ function StylePage() {
     if (plan.k === "style" && STYLE_SCREENS[plan.s]!.key === "stylePhotos") return st.photos3.length !== 3;
     if (plan.k === "style" && STYLE_SCREENS[plan.s]!.key === "logo" && st.sty.logo === "simplifier")
       return !String(st.whys["logo_comment"] ?? "").trim();
-    if (plan.k === "voila") return st.premium < 8 && words(st.manque) < 10;
+    if (plan.k === "voila") return st.premium == null || (st.premium < 8 && words(st.manque) < 10);
     if (plan.k === "refs") return words(st.refs.beau) < 10;
     return false;
   }, [plan, st]);
@@ -532,7 +535,7 @@ function StylePage() {
     L.push(`═══ JEU : score ${score}/7 ═══`);
     DUELS.forEach((d, i) => {
       const c = st.duelChoices[i];
-      L.push(`Duel ${i + 1} · ${d.titre} : choix ${c ?? "—"} ${c === "B" ? "(bonne réponse)" : "(mauvaise réponse)"}`);
+      L.push(`Duel ${i + 1} · ${d.titre} : choix ${c ?? "—"} ${c === d.good ? "(bonne réponse)" : "(mauvaise réponse)"}`);
     });
     L.push("", "═══ LES 5 RÈGLES ═══");
     REGLES.forEach((r, i) => {
@@ -554,8 +557,8 @@ function StylePage() {
     });
     if (st.whys["logo_comment"]?.trim()) L.push(`  Logo · Comment le simplifier : ${st.whys["logo_comment"].trim()}`);
     L.push("", "═══ SES 3 PHOTOS PRÉFÉRÉES ═══", ...st.photos3.map((p) => `- ${p}`));
-    L.push("", `═══ NOTE PREMIUM : ${st.premium}/10 ═══`);
-    if (st.premium < 8) L.push(`Ce qui manque : ${st.manque}`);
+    L.push("", `═══ NOTE PREMIUM : ${st.premium ?? "?"}/10 ═══`);
+    if (st.premium != null && st.premium < 8) L.push(`Ce qui manque : ${st.manque}`);
     L.push("", "═══ RÉFÉRENCES ═══");
     L.push(`Beau site/boutique : ${st.refs.beau}`);
     if (st.refs.autre.trim()) L.push(`Autre : ${st.refs.autre}`);
@@ -641,8 +644,8 @@ function StylePage() {
         <div className="mt-4 grid grid-cols-2 gap-3">
           {(["A", "B"] as const).map((v) => (
             <div key={v} className={choice === v ? "rounded-3xl ring-4 ring-green-700" : ""}>
-              <Phone label={`Maquette ${v} en grand`} onClick={() => setZoom(v === "A" ? d.a() : d.b())}>
-                {v === "A" ? d.a() : d.b()}
+              <Phone label={`Maquette ${v} en grand`} onClick={() => setZoom(sideFor(d, v))}>
+                {sideFor(d, v)}
               </Phone>
               <p className="mt-1 text-center text-lg font-bold">{v}</p>
             </div>
@@ -665,7 +668,7 @@ function StylePage() {
     );
   } else if (plan.k === "expl") {
     const d = DUELS[plan.d]!;
-    const good = st.duelChoices[plan.d] === "B";
+    const good = st.duelChoices[plan.d] === d.good;
     body = (
       <div>
         <p className={`text-2xl font-bold ${good ? "text-[#7D8F6A]" : ""}`}>{good ? "Bien vu !" : "Presque !"}</p>
@@ -868,14 +871,14 @@ function StylePage() {
           </ul>
         </details>
         <div className="mt-4">
-          <label className="text-lg font-semibold">De 1 à 10, tu le trouves premium à combien ? {st.premium}/10</label>
+          <label className="text-lg font-semibold">De 1 à 10, tu le trouves premium à combien ? {st.premium == null ? "— à toi de choisir —" : `${st.premium}/10`}</label>
           <input
-            type="range" min={1} max={10} value={st.premium}
+            type="range" min={1} max={10} value={st.premium ?? 5}
             onChange={(e) => setSt((p) => ({ ...p, premium: Number(e.target.value) }))}
             className="mt-2 w-full"
           />
         </div>
-        {st.premium < 8 && (
+        {st.premium != null && st.premium < 8 && (
           <textarea
             value={st.manque}
             onChange={(e) => setSt((p) => ({ ...p, manque: e.target.value }))}
