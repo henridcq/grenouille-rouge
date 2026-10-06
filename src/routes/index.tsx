@@ -3,6 +3,7 @@ import { Star } from "lucide-react";
 import { bySlug, PHOTOS, type Product } from "@/data/products";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { ProductImage } from "@/components/shop/ProductImage";
+import { PREMIER_SAC } from "@/data/site-texts";
 
 const HERO = PHOTOS.hero;
 
@@ -40,8 +41,6 @@ const ONGLETS = [
   { label: "La maison", rayon: "maison", img: PHOTOS.trio, alt: "Trois paniers à message sur un canapé vert" },
   { label: "Petits cadeaux", rayon: "petits-cadeaux", img: PHOTOS.miniAmbiance, alt: "Mini vide-poches peint à la main" },
 ];
-
-export const PREMIER_SAC = "En 2000, Marie-Isabel cherchait un joli sac de rangement pour ses enfants. À l'époque, elle ne trouvait que du plastique. Tapissière, elle a eu l'idée d'utiliser la toile de jute, cette belle matière naturelle habituellement cachée au cœur des fauteuils. Son premier sac était né.";
 
 const H2 = "text-3xl md:text-4xl";
 
