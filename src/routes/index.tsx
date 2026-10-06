@@ -41,6 +41,8 @@ const ONGLETS = [
   { label: "Petits cadeaux", rayon: "petits-cadeaux", img: PHOTOS.miniAmbiance, alt: "Mini vide-poches peint à la main" },
 ];
 
+export const PREMIER_SAC = "En 2000, Marie-Isabel cherchait un joli sac de rangement pour ses enfants. À l'époque, elle ne trouvait que du plastique. Tapissière, elle a eu l'idée d'utiliser la toile de jute, cette belle matière naturelle habituellement cachée au cœur des fauteuils. Son premier sac était né.";
+
 const H2 = "text-3xl md:text-4xl";
 
 function Index() {
@@ -58,9 +60,9 @@ function Index() {
         <ProductImage src={PHOTOS.musee} name="La Parisienne" alt="La Parisienne moutarde portée dans un musée" className="aspect-[4/3] max-h-[70vh] w-full md:aspect-[21/9]" />
         <div className="mx-auto max-w-6xl px-5 pt-6 md:pt-10">
           <h1 className="text-[1.75rem] leading-[1.15] md:text-4xl">Des paniers en jute qui ont des choses à dire.</h1>
-          <p className="mt-2 text-muted-foreground md:text-lg">Peint à la main à Grémonville · Expédié sous 8 jours · Livraison offerte dès 39 €</p>
+          <p className="mt-2 text-muted-foreground md:text-lg">Choisissez la forme et la couleur, écrivez votre texte : nous le peignons au pochoir, dans notre atelier en Normandie.</p>
           <div className="mt-5 grid grid-cols-2 gap-3 md:flex">
-            <Link to="/composer" className="btn-buy px-3">Créer le vôtre</Link>
+            <Link to="/composer" className="btn-buy px-3">Je personnalise</Link>
             <Link to="/atelier" className="btn-soft px-3">Découvrir l'atelier</Link>
           </div>
         </div>
@@ -73,7 +75,7 @@ function Index() {
             <span>{ticker}</span><span aria-hidden="true">{ticker}</span>
           </div>
         </div>
-        <p className="mx-auto max-w-6xl px-5 pt-4 text-center">Plus de 1 700 textes différents, tous peints à la main. Et le vôtre ? <Link to="/composer" className="font-medium text-sage underline underline-offset-4">Créer le vôtre →</Link></p>
+        <p className="mx-auto max-w-6xl px-5 pt-4 text-center">Plus de 1 700 textes différents, tous peints à la main. Et le vôtre ? <Link to="/composer" className="font-medium text-sage underline underline-offset-4">Je personnalise →</Link></p>
       </section>
 
       {/* c) Les 4 onglets */}
@@ -107,7 +109,7 @@ function Index() {
         <ProductImage src={PHOTOS.cuirs} name="Les cuirs de l'atelier" alt="Lanières de cuir bleu, rose, vert et cognac posées sur la toile de jute" className="aspect-[4/3] max-h-[70vh] w-full md:aspect-[21/9]" />
         <div className="mx-auto max-w-3xl px-5 pt-8">
           <h2 className={H2}>Marie-Isabel, Bénédicte, et la relève.</h2>
-          <p className="mt-4 text-lg">Tapissière de métier, Marie-Isabel coud son premier sac en jute en 2000. Bénédicte rejoint l'atelier en 2018. Depuis, chaque pièce passe par leurs mains, à Grémonville, au milieu des champs. Et quand on vous demandera d'où vient votre sac, vous saurez quoi répondre.</p>
+          <p className="mt-4 text-lg">{PREMIER_SAC}</p>
           <Link to="/atelier" className="btn-soft mt-6">Notre histoire</Link>
         </div>
       </section>

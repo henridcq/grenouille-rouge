@@ -22,10 +22,13 @@ export function Pictos() {
 }
 
 export const faq: [string, string][] = [
-  ["Le texte est-il brodé ou imprimé ?", "Ni l'un ni l'autre. Il est peint à la main, au pochoir, à la peinture textile, puis fixé à chaud. C'est ce qui lui donne ce grain, et c'est pour ça qu'il n'y en a pas deux pareils."],
-  ["Est-ce que la peinture tient ?", "Oui. Fixée à chaud, elle résiste aux années, aux enfants et aux chiens. Elle n'aime que la machine à laver : un coup d'éponge humide suffit."],
+  ["Le tissu est-il français ?", "Encore mieux : il est normand. Notre jute est tissée au Ronchay, à vingt minutes de l'atelier."],
+  ["Si je commande ce matin, je peux venir le chercher cet après-midi ?", "Non : chaque pièce personnalisée est confectionnée à la commande, pour qu'elle vous ressemble. Comptez 8 jours ouvrés, puis retrait gratuit à l'atelier sur rendez-vous."],
+  ["Peut-on choisir les anses ?", "Oui. Sur les paniers personnalisés : à pois, à étoiles ou en corde de chanvre. Sur le cabas personnalisable et le Petit classique : la couleur du cuir."],
+  ["Le texte est-il vraiment peint à la main ?", "Oui. Il est peint à la main, au pochoir, à la peinture textile, puis fixé à chaud. C'est ce qui lui donne ce grain, et c'est pour ça qu'il n'y en a pas deux pareils."],
+  ["Est-ce que la peinture tient ?", "Oui. Fixée à chaud, elle résiste aux années, aux enfants et aux chiens. Pour l'entretien : un coup de brosse ou d'éponge humide. Pas de machine."],
   ["Combien de lettres je peux mettre ?", "Jusqu'à trois lignes de 13 caractères, espaces compris. Le configurateur vous le montre en direct."],
-  ["C'est quoi, le feston ?", "Le point cousu à la main qui borde le haut du panier. Vous choisissez sa couleur, comme celle du texte et des motifs de l'anse."],
+  ["C'est quoi, le feston ?", "Le point cousu à la main qui borde le haut du panier. Il est de la même couleur que le texte et les motifs de l'anse : une seule couleur pour tout le sac, parmi 19."],
   ["Je peux choisir la police ?", "Non : une seule police de pochoir, celle de l'atelier. C'est elle qui fait qu'on reconnaît un panier Grenouille Rouge."],
   ["Je peux écrire ce que je veux ?", "Prénoms, surnoms, phrases, blagues, noms de chien : oui. En majuscules, accents compris. On respecte votre orthographe."],
   ["Le panier tient-il debout ?", "Oui, même vide. La toile est doublée et surpiquée : il garde sa forme."],

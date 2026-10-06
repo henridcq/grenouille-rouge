@@ -22,6 +22,9 @@ export type Product = {
   images: string[];
   alt: string;
   accroche?: string;
+  /** Fiches personnalisables : paragraphe « Ce que vous choisissez » et fiche technique complète validés. */
+  choose?: string;
+  techLine?: string;
   body?: string;
   tech?: string;
   proof?: string;
@@ -108,26 +111,32 @@ const perso = (format: FormatId, accroche: string, tech: string, alt: string, mo
 
 const EXTRA: Record<string, Extra> = {
   "le-rond-xl": { ...perso("rond-xl", "Notre préféré, et le vôtre. Jouets, linge, plaids, bûches : il avale tout.", "H 40 · Ø 40 cm", "Grand panier rond XL en jute, prêt à recevoir votre texte peint à la main", ["ambiance-les-jouets-de-leo.jpg", "rond-xl-vierge-recto-01.jpg", "rond-xl-vierge-profil-01.jpg"]),
-    body: "Quarante centimètres de haut, quarante de large : le Rond XL est notre panier le plus demandé, et de loin. Les jouets de Léo, les trésors de Solveig, le barda de Papa, le linge de toute la famille. En toile de jute tissée au Ronchay, doublé, surpiqué et peint au pochoir dans notre atelier de Grémonville. Il tient debout tout seul, même vide. Et il tiendra des années.",
+    body: "Quarante centimètres de haut, quarante de large : le Rond XL est notre panier le plus demandé, et de loin. Les jouets de Léo, les trésors de Solveig, le barda de Papa, le linge de toute la famille. En toile de jute tissée au Ronchay, doublé, surpiqué et peint au pochoir dans notre atelier de Grémonville.",
+    choose: "l'anse (à pois, à étoiles ou en corde de chanvre), une seule couleur pour tout le panier parmi les 19 proposées (le texte, le feston et les motifs de l'anse), et votre texte : jusqu'à 3 lignes de 13 caractères, en majuscules.",
+    techLine: "H 40 · Ø 40 cm · jute, doublure jute · un coup de brosse, pas de machine.",
     seo: { title: "Le Rond XL : grand panier en jute personnalisé à votre prénom", description: "Notre panier le plus demandé. 40 cm, jute normande, texte peint à la main. Jouets, linge, plaids. 56 €, livraison offerte en point relais." } },
   "le-bb-rond": perso("bb-rond", "Pour les petites choses qui comptent : chaussettes, doudous, télécommandes.", "H 30 · Ø 30 cm", "Petit panier rond BB en jute, à personnaliser", ["bb-rond-vierge-recto-01.jpg", "bb-rond-vierge-profil-01.jpg"]),
   "le-rond": perso("rond", "Le format qui va partout : entrée, salle de bain, bureau.", "H 35 · Ø 35 cm", "Panier rond en jute, à personnaliser", ["rond-vierge-recto-01.jpg", "ambiance-tresors-de-princesse.jpg", "rond-vierge-profil-01.jpg", "rond-vierge-anses-01.jpg"]),
   "le-bb-carre": perso("bb-carre", "Le petit carré : il range sans prendre de place.", "35 × 35 × 35 cm", "Panier BB Carré en jute, à personnaliser", []),
   "le-carre": perso("carre", "Des angles nets, des pompons, et de la place.", "H 38 · 40 × 40 cm", "Panier carré en jute à pompons, à personnaliser", ["carre-vierge-recto.jpg", "ambiance-carre-salon.jpg", "carre-vierge-profil.jpg", "carre-vierge-anses.jpg"]),
   "le-carre-xxl": perso("carre-xxl", "Le coffre à jouets qu'on n'a pas honte de laisser au salon.", "H 40 · 45 × 45 cm", "Grand panier carré XXL en jute, à personnaliser", ["carre-xxl-vierge-recto.jpg", "carre-xxl-vierge-profil.jpg"]),
-  "le-cabas-personnalisable": perso("cabas", "Pour le marché, la plage, l'école. Avec votre mot dessus, et des anses en cuir assorties.", "H 36 · L 40 · P 15 cm · anses 42 cm", "Cabas en jute avec anses en cuir, à personnaliser", ["config-cabas-vierge.jpg"]),
+  "le-cabas-personnalisable": { ...perso("cabas", "Pour le marché, la plage, l'école. Avec votre mot dessus, et des anses en cuir assorties.", "H 36 · L 40 · P 15 cm · anses 42 cm", "Cabas en jute avec anses en cuir, à personnaliser", ["config-cabas-vierge.jpg"]),
+    accroche: "Pour le marché, la plage, l'école. Avec votre mot dessus.",
+    body: "Toile de jute tissée en Normandie, anses en cuir au tannage végétal, peint au pochoir et cousu dans notre atelier de Grémonville.",
+    choose: "une couleur parmi 8 (noir, rouge, fuchsia, bleu jean, orange, jaune, cognac, chocolat) ; le cuir des anses, le texte et le feston sont assortis. Et votre texte : jusqu'à 3 lignes de 13 caractères, en majuscules.",
+    techLine: "H 36 · L 40 · P 15 cm · anses 42 cm · jute, cuir · un coup de brosse pour l'entretien." },
   "le-petit-panier-vide-poches": perso("vide-poches", "Clés, lunettes, monnaie. Le petit cadeau qui reste.", "H 16 · Ø 15 cm", "Petit panier vide-poches en jute, à personnaliser", ["vide-poches-vierge-recto.jpg"]),
 
   "le-loom": { images: ["sac-jute-bord-noir-porte-01.jpg", "sac-jute-bord-noir-porte-02.jpg", "sac-jute-bord-noir-porte-03.jpg", "sac-jute-bord-noir-porte-04.jpg", "sac-jute-bord-noir-jardin-01.jpg", "sac-jute-bord-noir-jardin-02.jpg"].map(P),
     alt: "Le Loom, sac à main en jute bordé de noir, porté", proof: "Cousu à Grémonville", stockLine: "Fait à la commande",
     accroche: "Le sac à main qui n'a pas besoin d'en faire trop.",
-    body: "Toile de jute bordée de noir, anses en cuir au tannage végétal : le Loom se porte à l'épaule ou à la main, du bureau au marché, sans jamais détonner. Cousu à la commande dans notre atelier de Grémonville.",
-    tech: "30 × 27 × 16 cm · jute, cuir · éponge humide.",
+    body: "Toile de jute naturelle bordée de noir, anses en cuir au tannage végétal : le Loom se porte à l'épaule ou à la main, du bureau au marché, sans jamais détonner. Cousu dans notre atelier de Grémonville, à la commande. Il fait partie de ces sacs qu'on finit par porter tous les jours sans l'avoir décidé.",
+    tech: "30 × 27 × 16 cm · jute, chevron laine, cuir.",
     seo: { title: "Le Loom : sac à main en jute bordé de noir, cousu en Normandie", description: "Toile de jute bordée de noir, anses en cuir au tannage végétal. Cousu à la commande à Grémonville. 68 €." } },
   "l-elegant": { body: "Le même sac que le Loom, avec la jute à l'intérieur.", proof: "Cousu à Grémonville" },
   "la-parisienne": { more: ["parisienne-kaki-portee-03.jpg", "parisienne-kaki-portee-01.jpg", "parisienne-moutarde-musee.jpg"].map(P), proof: "Cousue à Grémonville",
     accroche: "Un grand cabas en lin enduit, réversible, cousu en Normandie. Le reste est une question d'allure.",
-    body: "Deux anses en cuir chocolat au tannage végétal, interchangeables. Lin enduit d'un côté, lin naturel de l'autre : retournez-le selon l'humeur. Fabriquée en série limitée à l'atelier.",
+    body: "Quarante centimètres de haut, cinquante de large, et deux anses en cuir chocolat au tannage végétal, interchangeables. Lin enduit d'un côté, lin naturel de l'autre : retournez-le selon l'humeur. Fabriquée en série limitée à l'atelier. Au travail, à la plage ou en week-end, c'est une valeur sûre.",
     tech: "40 × 50 × 11 cm · lin enduit, lin, cuir · éponge humide." },
   titi: { proof: "Cousu à Grémonville", accroche: "Le lin enduit, les anses en cuir, et une poche zippée pour ce qu'on ne veut pas perdre.",
     body: "Un sac à main en lin enduit, doublé de lin naturel, avec deux anses en cuir au tannage végétal qu'on change à volonté. Cousu à Grémonville.", tech: "40 × 35 × 12 cm · lin enduit, lin, cuir." },
@@ -152,10 +161,10 @@ const EXTRA: Record<string, Extra> = {
   "cabas-raye": { body: "La nouvelle gamme de rentrée, en toiles recyclées." },
 
   "au-coin-du-feu": { proof: "Peint à la main", accroche: "Le classique de l'atelier, celui que les boutiques nous redemandent chaque automne.",
-    body: "Toile épaisse, sangle de tapissier qui fait tout le tour, message peint au pochoir. Il transporte les bûches, puis les plaids, les jouets, les magazines.", tech: "H 40 · fond 40 × 60 cm · jute, sangle, ficelle." },
+    body: "Même toile, même sangle, même solidité que Chauffe Marcel, avec son message peint en orange, en blanc, en vert ou en violet. Il transporte les bûches, puis les plaids, les jouets, les magazines. Un sac pour la cheminée, qui finit souvent dans le salon.", tech: "H 40 · fond 40 × 60 cm · jute, sangle, ficelle · non traité contre le feu : à tenir éloigné des flammes." },
   "chauffe-marcel": { proof: "Peint à la main", accroche: "Un sac à bûches qui a du chien.",
-    body: "Toile de jute épaisse, doublée, surpiquée à la ficelle, une sangle de tapissier qui fait tout le tour pour porter lourd sans broncher. « Chauffe Marcel » peint au pochoir, à la main.",
-    tech: "H 40 · fond 40 × 60 cm · jute, sangle, ficelle · pas de traitement anti-feu : on le tient à distance des flammes." },
+    body: "Toile de jute épaisse, doublée, surpiquée de coton, une sangle de tapissier qui fait tout le tour pour porter lourd sans broncher. « Chauffe Marcel » peint au pochoir, à la main. Il porte le bois et il fait sourire tout l'hiver.",
+    tech: "H 40 · fond 40 × 60 cm · jute, sangle, ficelle · non traité contre le feu : à tenir éloigné des flammes." },
   "on-va-pas-s-peler": { more: ["ambiance-on-va-pas-s-peler-poele.jpg", "on-va-pas-s-peler-recto.jpg", "on-va-pas-s-peler-detail.jpg", "on-va-pas-s-peler-anse.jpg", "on-va-pas-s-peler-profil.jpg"].map(P), proof: "Peint à la main",
     accroche: "Le sac à granulés qui dit tout haut ce que vous pensez en décembre.", body: "Un grand rond en jute doublée, anses en cuir noir, message peint au pochoir. Il avale un sac de granulés entier et reste beau à côté du poêle.", tech: "H 40 · Ø 40 cm · jute, cuir." },
   "barda-de-famille": { more: [P("barda-de-famille-orange-01.jpg"), P("barda-de-famille-gris-recto.jpg")], proof: "Peint à la main" },
