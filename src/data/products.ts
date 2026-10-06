@@ -44,6 +44,7 @@ export const cms = (f: string) => `https://grenouillerouge.com/img/cms/${f}`;
 export const LOGO = "https://grenouillerouge.com/img/grenouille-rouge-logo-1683816362.jpg";
 
 export const PHOTOS = {
+  accueil: P("accueil-hero.jpg"),
   atelier: cms("Grenouille-Rouge-2.jpg"),
   cuirs: P("atelier-cuirs-couleurs.jpg"),
   etiquette: P("detail-etiquette-made-in-france.jpg"),
