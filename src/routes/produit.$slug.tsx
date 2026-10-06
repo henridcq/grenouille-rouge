@@ -109,9 +109,11 @@ function Fiche() {
           {p.body && <p className="mt-3 text-lg">{p.body}</p>}
           {custom && (
             <div className="mt-4 space-y-3 text-lg">
-              <p><strong>Ce que vous choisissez :</strong> {p.format === "cabas" ? "une couleur parmi 8 (le cuir des anses, le texte et le feston sont assortis), et votre texte : jusqu'à 3 lignes de 13 caractères." : "l'anse (à pois, à étoiles ou en corde de chanvre), la couleur des pois ou des étoiles, la couleur du texte, la couleur du feston cousu main qui borde le panier, et votre texte : jusqu'à 3 lignes de 13 caractères."}</p>
+              <p><strong>Ce que vous choisissez :</strong> {p.choose ?? (p.format === "cabas" ? "une couleur parmi 8 (le cuir des anses, le texte et le feston sont assortis), et votre texte : jusqu'à 3 lignes de 13 caractères." : "l'anse (à pois, à étoiles ou en corde de chanvre), la couleur des pois ou des étoiles, la couleur du texte, la couleur du feston cousu main qui borde le panier, et votre texte : jusqu'à 3 lignes de 13 caractères.")}</p>
               <p><strong>Ce qu'on fait :</strong> on découpe le pochoir, on peint à la main à la peinture textile, on fixe à chaud, on coud, on pose le feston à la main, on vérifie, on emballe.</p>
-              <p><strong>Dimensions :</strong> {p.tech}. <strong>Matières :</strong> toile de jute 100 % naturelle, doublure coton, anses en sangle de jute ou corde de chanvre. <strong>Entretien :</strong> un coup d'éponge humide. Pas de machine.</p>
+              {p.techLine
+                ? <p className="text-[0.95rem] italic text-muted-foreground">{p.techLine}</p>
+                : <p><strong>Dimensions :</strong> {p.tech}. <strong>Matières :</strong> toile de jute 100 % naturelle, doublure coton, anses en sangle de jute ou corde de chanvre. <strong>Entretien :</strong> un coup de brosse ou d'éponge humide. Pas de machine.</p>}
             </div>
           )}
           {(p.options ?? []).map((o) => (

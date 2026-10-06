@@ -6,6 +6,7 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 text-[0.95rem] sm:grid-cols-2">
         <div className="space-y-1">
           <p className="font-display text-xl font-medium">Grenouille Rouge</p>
+          <p className="font-display text-lg">Votre singularité, notre savoir-faire.</p>
           <p>Atelier à Grémonville, Normandie</p>
           <p><a href="mailto:contact@grenouillerouge.com" className="underline">contact@grenouillerouge.com</a></p>
           <p>Instagram @grenouille.rouge</p>
@@ -20,7 +21,7 @@ export function SiteFooter() {
           <li><Link to="/espace-pro" className="underline">Espace pro</Link></li>
         </ul>
       </div>
-      <p className="px-4 pb-6 text-center text-sm text-muted-foreground">© 2026 Grenouille Rouge. Chez nous la grenouille, on ne la mange pas, on la protège.</p>
+      <p className="px-4 pb-6 text-center text-sm text-muted-foreground">© 2026 Grenouille Rouge. Chez nous, la grenouille, on ne la mange pas, on la protège.</p>
     </footer>
   );
 }
