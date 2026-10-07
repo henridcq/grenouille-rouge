@@ -242,7 +242,7 @@ function Apprendre() {
     <div className="mx-auto max-w-xl px-5 pb-32 pt-8 text-[17px] leading-relaxed">
       {s.open === null ? (
         done === MISSIONS.length ? (
-          <End />
+          <><End /><div className="mt-10"><Home s={s} done={done} onOpen={(i) => setS((p) => ({ ...p, open: i }))} /></div></>
         ) : (
           <Home s={s} done={done} onOpen={(i) => { setS((p) => ({ ...p, open: i })); window.scrollTo(0, 0); }} />
         )
@@ -255,13 +255,6 @@ function Apprendre() {
           onFinish={() => finish(s.open!)}
         />
       )}
-      {done === MISSIONS.length && s.open === null && (
-        <button type="button" className={`${btnGhost} mt-6`} onClick={() => setS((p) => ({ ...p, open: null, missions: p.missions }))}>
-          {/* liste visible sous l'écran final */}
-          {done}/10 missions terminées
-        </button>
-      )}
-
       <div className="fixed inset-x-0 bottom-0 border-t bg-background p-3">
         <button type="button" onClick={() => setRules(true)} className="mx-auto block min-h-12 w-full max-w-xl border border-accent px-4 font-medium text-accent">
           Mes 5 règles
