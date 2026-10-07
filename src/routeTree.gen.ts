@@ -16,6 +16,7 @@ import { Route as CommandeRouteImport } from './routes/commande'
 import { Route as ComposerRouteImport } from './routes/composer'
 import { Route as EspaceProRouteImport } from './routes/espace-pro'
 import { Route as LivraisonRouteImport } from './routes/livraison'
+import { Route as MarieRouteRouteImport } from './routes/marie/route'
 import { Route as PersonnalisesRouteImport } from './routes/personnalises'
 import { Route as RechercheRouteImport } from './routes/recherche'
 import { Route as ApprendreIndexRouteImport } from './routes/apprendre/index'
@@ -23,6 +24,9 @@ import { Route as ApprendreResultatsRouteImport } from './routes/apprendre/resul
 import { Route as BackofficeQuestionsIndexRouteImport } from './routes/backoffice-questions/index'
 import { Route as BackofficeQuestionsResultatsRouteImport } from './routes/backoffice-questions/resultats'
 import { Route as LegalPageRouteImport } from './routes/legal.$page'
+import { Route as MarieIndexRouteImport } from './routes/marie/index'
+import { Route as MarieReglagesRouteImport } from './routes/marie/reglages'
+import { Route as MarieTermineesRouteImport } from './routes/marie/terminees'
 import { Route as ProduitSlugRouteImport } from './routes/produit.$slug'
 import { Route as QuestionsIndexRouteImport } from './routes/questions/index'
 import { Route as QuestionsResultatsRouteImport } from './routes/questions/resultats'
@@ -33,6 +37,7 @@ import { Route as TextesIndexRouteImport } from './routes/textes/index'
 import { Route as TextesResultatsRouteImport } from './routes/textes/resultats'
 import { Route as TriIndexRouteImport } from './routes/tri/index'
 import { Route as TriResultatsRouteImport } from './routes/tri/resultats'
+import { Route as MarieCommandeIdRouteImport } from './routes/marie/commande.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -67,6 +72,11 @@ const EspaceProRoute = EspaceProRouteImport.update({
 const LivraisonRoute = LivraisonRouteImport.update({
   id: '/livraison',
   path: '/livraison',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarieRouteRoute = MarieRouteRouteImport.update({
+  id: '/marie',
+  path: '/marie',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PersonnalisesRoute = PersonnalisesRouteImport.update({
@@ -105,6 +115,21 @@ const LegalPageRoute = LegalPageRouteImport.update({
   id: '/legal/$page',
   path: '/legal/$page',
   getParentRoute: () => rootRouteImport,
+} as any)
+const MarieIndexRoute = MarieIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MarieRouteRoute,
+} as any)
+const MarieReglagesRoute = MarieReglagesRouteImport.update({
+  id: '/reglages',
+  path: '/reglages',
+  getParentRoute: () => MarieRouteRoute,
+} as any)
+const MarieTermineesRoute = MarieTermineesRouteImport.update({
+  id: '/terminees',
+  path: '/terminees',
+  getParentRoute: () => MarieRouteRoute,
 } as any)
 const ProduitSlugRoute = ProduitSlugRouteImport.update({
   id: '/produit/$slug',
@@ -156,9 +181,15 @@ const TriResultatsRoute = TriResultatsRouteImport.update({
   path: '/tri/resultats',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MarieCommandeIdRoute = MarieCommandeIdRouteImport.update({
+  id: '/commande/$id',
+  path: '/commande/$id',
+  getParentRoute: () => MarieRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/marie': typeof MarieRouteRouteWithChildren
   '/atelier': typeof AtelierRoute
   '/cabas-personnalise': typeof CabasPersonnaliseRoute
   '/commande': typeof CommandeRoute
@@ -170,6 +201,8 @@ export interface FileRoutesByFullPath {
   '/apprendre/resultats': typeof ApprendreResultatsRoute
   '/backoffice-questions/resultats': typeof BackofficeQuestionsResultatsRoute
   '/legal/$page': typeof LegalPageRoute
+  '/marie/reglages': typeof MarieReglagesRoute
+  '/marie/terminees': typeof MarieTermineesRoute
   '/produit/$slug': typeof ProduitSlugRoute
   '/questions/resultats': typeof QuestionsResultatsRoute
   '/rayon/$rayon': typeof RayonRayonRoute
@@ -178,10 +211,12 @@ export interface FileRoutesByFullPath {
   '/tri/resultats': typeof TriResultatsRoute
   '/apprendre/': typeof ApprendreIndexRoute
   '/backoffice-questions/': typeof BackofficeQuestionsIndexRoute
+  '/marie/': typeof MarieIndexRoute
   '/questions/': typeof QuestionsIndexRoute
   '/style/': typeof StyleIndexRoute
   '/textes/': typeof TextesIndexRoute
   '/tri/': typeof TriIndexRoute
+  '/marie/commande/$id': typeof MarieCommandeIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -196,6 +231,8 @@ export interface FileRoutesByTo {
   '/apprendre/resultats': typeof ApprendreResultatsRoute
   '/backoffice-questions/resultats': typeof BackofficeQuestionsResultatsRoute
   '/legal/$page': typeof LegalPageRoute
+  '/marie/reglages': typeof MarieReglagesRoute
+  '/marie/terminees': typeof MarieTermineesRoute
   '/produit/$slug': typeof ProduitSlugRoute
   '/questions/resultats': typeof QuestionsResultatsRoute
   '/rayon/$rayon': typeof RayonRayonRoute
@@ -204,14 +241,17 @@ export interface FileRoutesByTo {
   '/tri/resultats': typeof TriResultatsRoute
   '/apprendre': typeof ApprendreIndexRoute
   '/backoffice-questions': typeof BackofficeQuestionsIndexRoute
+  '/marie': typeof MarieIndexRoute
   '/questions': typeof QuestionsIndexRoute
   '/style': typeof StyleIndexRoute
   '/textes': typeof TextesIndexRoute
   '/tri': typeof TriIndexRoute
+  '/marie/commande/$id': typeof MarieCommandeIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/marie': typeof MarieRouteRouteWithChildren
   '/atelier': typeof AtelierRoute
   '/cabas-personnalise': typeof CabasPersonnaliseRoute
   '/commande': typeof CommandeRoute
@@ -223,6 +263,8 @@ export interface FileRoutesById {
   '/apprendre/resultats': typeof ApprendreResultatsRoute
   '/backoffice-questions/resultats': typeof BackofficeQuestionsResultatsRoute
   '/legal/$page': typeof LegalPageRoute
+  '/marie/reglages': typeof MarieReglagesRoute
+  '/marie/terminees': typeof MarieTermineesRoute
   '/produit/$slug': typeof ProduitSlugRoute
   '/questions/resultats': typeof QuestionsResultatsRoute
   '/rayon/$rayon': typeof RayonRayonRoute
@@ -231,15 +273,18 @@ export interface FileRoutesById {
   '/tri/resultats': typeof TriResultatsRoute
   '/apprendre/': typeof ApprendreIndexRoute
   '/backoffice-questions/': typeof BackofficeQuestionsIndexRoute
+  '/marie/': typeof MarieIndexRoute
   '/questions/': typeof QuestionsIndexRoute
   '/style/': typeof StyleIndexRoute
   '/textes/': typeof TextesIndexRoute
   '/tri/': typeof TriIndexRoute
+  '/marie/commande/$id': typeof MarieCommandeIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/marie'
     | '/atelier'
     | '/cabas-personnalise'
     | '/commande'
@@ -251,6 +296,8 @@ export interface FileRouteTypes {
     | '/apprendre/resultats'
     | '/backoffice-questions/resultats'
     | '/legal/$page'
+    | '/marie/reglages'
+    | '/marie/terminees'
     | '/produit/$slug'
     | '/questions/resultats'
     | '/rayon/$rayon'
@@ -259,10 +306,12 @@ export interface FileRouteTypes {
     | '/tri/resultats'
     | '/apprendre/'
     | '/backoffice-questions/'
+    | '/marie/'
     | '/questions/'
     | '/style/'
     | '/textes/'
     | '/tri/'
+    | '/marie/commande/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -277,6 +326,8 @@ export interface FileRouteTypes {
     | '/apprendre/resultats'
     | '/backoffice-questions/resultats'
     | '/legal/$page'
+    | '/marie/reglages'
+    | '/marie/terminees'
     | '/produit/$slug'
     | '/questions/resultats'
     | '/rayon/$rayon'
@@ -285,13 +336,16 @@ export interface FileRouteTypes {
     | '/tri/resultats'
     | '/apprendre'
     | '/backoffice-questions'
+    | '/marie'
     | '/questions'
     | '/style'
     | '/textes'
     | '/tri'
+    | '/marie/commande/$id'
   id:
     | '__root__'
     | '/'
+    | '/marie'
     | '/atelier'
     | '/cabas-personnalise'
     | '/commande'
@@ -303,6 +357,8 @@ export interface FileRouteTypes {
     | '/apprendre/resultats'
     | '/backoffice-questions/resultats'
     | '/legal/$page'
+    | '/marie/reglages'
+    | '/marie/terminees'
     | '/produit/$slug'
     | '/questions/resultats'
     | '/rayon/$rayon'
@@ -311,14 +367,17 @@ export interface FileRouteTypes {
     | '/tri/resultats'
     | '/apprendre/'
     | '/backoffice-questions/'
+    | '/marie/'
     | '/questions/'
     | '/style/'
     | '/textes/'
     | '/tri/'
+    | '/marie/commande/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MarieRouteRoute: typeof MarieRouteRouteWithChildren
   AtelierRoute: typeof AtelierRoute
   CabasPersonnaliseRoute: typeof CabasPersonnaliseRoute
   CommandeRoute: typeof CommandeRoute
@@ -395,6 +454,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LivraisonRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/marie': {
+      id: '/marie'
+      path: '/marie'
+      fullPath: '/marie'
+      preLoaderRoute: typeof MarieRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/personnalises': {
       id: '/personnalises'
       path: '/personnalises'
@@ -443,6 +509,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/legal/$page'
       preLoaderRoute: typeof LegalPageRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/marie/': {
+      id: '/marie/'
+      path: '/'
+      fullPath: '/marie/'
+      preLoaderRoute: typeof MarieIndexRouteImport
+      parentRoute: typeof MarieRouteRoute
+    }
+    '/marie/reglages': {
+      id: '/marie/reglages'
+      path: '/reglages'
+      fullPath: '/marie/reglages'
+      preLoaderRoute: typeof MarieReglagesRouteImport
+      parentRoute: typeof MarieRouteRoute
+    }
+    '/marie/terminees': {
+      id: '/marie/terminees'
+      path: '/terminees'
+      fullPath: '/marie/terminees'
+      preLoaderRoute: typeof MarieTermineesRouteImport
+      parentRoute: typeof MarieRouteRoute
     }
     '/produit/$slug': {
       id: '/produit/$slug'
@@ -514,11 +601,37 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TriResultatsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/marie/commande/$id': {
+      id: '/marie/commande/$id'
+      path: '/commande/$id'
+      fullPath: '/marie/commande/$id'
+      preLoaderRoute: typeof MarieCommandeIdRouteImport
+      parentRoute: typeof MarieRouteRoute
+    }
   }
 }
 
+interface MarieRouteRouteChildren {
+  MarieReglagesRoute: typeof MarieReglagesRoute
+  MarieTermineesRoute: typeof MarieTermineesRoute
+  MarieIndexRoute: typeof MarieIndexRoute
+  MarieCommandeIdRoute: typeof MarieCommandeIdRoute
+}
+
+const MarieRouteRouteChildren: MarieRouteRouteChildren = {
+  MarieReglagesRoute: MarieReglagesRoute,
+  MarieTermineesRoute: MarieTermineesRoute,
+  MarieIndexRoute: MarieIndexRoute,
+  MarieCommandeIdRoute: MarieCommandeIdRoute,
+}
+
+const MarieRouteRouteWithChildren = MarieRouteRoute._addFileChildren(
+  MarieRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MarieRouteRoute: MarieRouteRouteWithChildren,
   AtelierRoute: AtelierRoute,
   CabasPersonnaliseRoute: CabasPersonnaliseRoute,
   CommandeRoute: CommandeRoute,

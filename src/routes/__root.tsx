@@ -90,7 +90,7 @@ function RootComponent() {
   // /tri et /style : pages privées de l'atelier, sans menu ni pied de page
   const path = useRouterState({ select: (s) => s.location.pathname });
   const bare = path.startsWith("/tri") || path.startsWith("/style") || path.startsWith("/questions") || path.startsWith("/backoffice-questions") || path.startsWith("/textes") || path.startsWith("/apprendre") || path.startsWith("/marie");
-  const legacy = bare && !path.startsWith("/apprendre") || path.startsWith("/marie");
+  const legacy = bare && !path.startsWith("/apprendre") && !path.startsWith("/marie");
   return (
     <QueryClientProvider client={queryClient}>
       <CartProvider>
