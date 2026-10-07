@@ -18,6 +18,8 @@ import { Route as EspaceProRouteImport } from './routes/espace-pro'
 import { Route as LivraisonRouteImport } from './routes/livraison'
 import { Route as PersonnalisesRouteImport } from './routes/personnalises'
 import { Route as RechercheRouteImport } from './routes/recherche'
+import { Route as BackofficeQuestionsIndexRouteImport } from './routes/backoffice-questions/index'
+import { Route as BackofficeQuestionsResultatsRouteImport } from './routes/backoffice-questions/resultats'
 import { Route as LegalPageRouteImport } from './routes/legal.$page'
 import { Route as ProduitSlugRouteImport } from './routes/produit.$slug'
 import { Route as QuestionsIndexRouteImport } from './routes/questions/index'
@@ -75,6 +77,18 @@ const RechercheRoute = RechercheRouteImport.update({
   path: '/recherche',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BackofficeQuestionsIndexRoute =
+  BackofficeQuestionsIndexRouteImport.update({
+    id: '/backoffice-questions/',
+    path: '/backoffice-questions/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BackofficeQuestionsResultatsRoute =
+  BackofficeQuestionsResultatsRouteImport.update({
+    id: '/backoffice-questions/resultats',
+    path: '/backoffice-questions/resultats',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LegalPageRoute = LegalPageRouteImport.update({
   id: '/legal/$page',
   path: '/legal/$page',
@@ -141,6 +155,7 @@ export interface FileRoutesByFullPath {
   '/livraison': typeof LivraisonRoute
   '/personnalises': typeof PersonnalisesRoute
   '/recherche': typeof RechercheRoute
+  '/backoffice-questions/resultats': typeof BackofficeQuestionsResultatsRoute
   '/legal/$page': typeof LegalPageRoute
   '/produit/$slug': typeof ProduitSlugRoute
   '/questions/resultats': typeof QuestionsResultatsRoute
@@ -148,6 +163,7 @@ export interface FileRoutesByFullPath {
   '/style/resultats': typeof StyleResultatsRoute
   '/textes/resultats': typeof TextesResultatsRoute
   '/tri/resultats': typeof TriResultatsRoute
+  '/backoffice-questions/': typeof BackofficeQuestionsIndexRoute
   '/questions/': typeof QuestionsIndexRoute
   '/style/': typeof StyleIndexRoute
   '/textes/': typeof TextesIndexRoute
@@ -163,6 +179,7 @@ export interface FileRoutesByTo {
   '/livraison': typeof LivraisonRoute
   '/personnalises': typeof PersonnalisesRoute
   '/recherche': typeof RechercheRoute
+  '/backoffice-questions/resultats': typeof BackofficeQuestionsResultatsRoute
   '/legal/$page': typeof LegalPageRoute
   '/produit/$slug': typeof ProduitSlugRoute
   '/questions/resultats': typeof QuestionsResultatsRoute
@@ -170,6 +187,7 @@ export interface FileRoutesByTo {
   '/style/resultats': typeof StyleResultatsRoute
   '/textes/resultats': typeof TextesResultatsRoute
   '/tri/resultats': typeof TriResultatsRoute
+  '/backoffice-questions': typeof BackofficeQuestionsIndexRoute
   '/questions': typeof QuestionsIndexRoute
   '/style': typeof StyleIndexRoute
   '/textes': typeof TextesIndexRoute
@@ -186,6 +204,7 @@ export interface FileRoutesById {
   '/livraison': typeof LivraisonRoute
   '/personnalises': typeof PersonnalisesRoute
   '/recherche': typeof RechercheRoute
+  '/backoffice-questions/resultats': typeof BackofficeQuestionsResultatsRoute
   '/legal/$page': typeof LegalPageRoute
   '/produit/$slug': typeof ProduitSlugRoute
   '/questions/resultats': typeof QuestionsResultatsRoute
@@ -193,6 +212,7 @@ export interface FileRoutesById {
   '/style/resultats': typeof StyleResultatsRoute
   '/textes/resultats': typeof TextesResultatsRoute
   '/tri/resultats': typeof TriResultatsRoute
+  '/backoffice-questions/': typeof BackofficeQuestionsIndexRoute
   '/questions/': typeof QuestionsIndexRoute
   '/style/': typeof StyleIndexRoute
   '/textes/': typeof TextesIndexRoute
@@ -210,6 +230,7 @@ export interface FileRouteTypes {
     | '/livraison'
     | '/personnalises'
     | '/recherche'
+    | '/backoffice-questions/resultats'
     | '/legal/$page'
     | '/produit/$slug'
     | '/questions/resultats'
@@ -217,6 +238,7 @@ export interface FileRouteTypes {
     | '/style/resultats'
     | '/textes/resultats'
     | '/tri/resultats'
+    | '/backoffice-questions/'
     | '/questions/'
     | '/style/'
     | '/textes/'
@@ -232,6 +254,7 @@ export interface FileRouteTypes {
     | '/livraison'
     | '/personnalises'
     | '/recherche'
+    | '/backoffice-questions/resultats'
     | '/legal/$page'
     | '/produit/$slug'
     | '/questions/resultats'
@@ -239,6 +262,7 @@ export interface FileRouteTypes {
     | '/style/resultats'
     | '/textes/resultats'
     | '/tri/resultats'
+    | '/backoffice-questions'
     | '/questions'
     | '/style'
     | '/textes'
@@ -254,6 +278,7 @@ export interface FileRouteTypes {
     | '/livraison'
     | '/personnalises'
     | '/recherche'
+    | '/backoffice-questions/resultats'
     | '/legal/$page'
     | '/produit/$slug'
     | '/questions/resultats'
@@ -261,6 +286,7 @@ export interface FileRouteTypes {
     | '/style/resultats'
     | '/textes/resultats'
     | '/tri/resultats'
+    | '/backoffice-questions/'
     | '/questions/'
     | '/style/'
     | '/textes/'
@@ -277,6 +303,7 @@ export interface RootRouteChildren {
   LivraisonRoute: typeof LivraisonRoute
   PersonnalisesRoute: typeof PersonnalisesRoute
   RechercheRoute: typeof RechercheRoute
+  BackofficeQuestionsResultatsRoute: typeof BackofficeQuestionsResultatsRoute
   LegalPageRoute: typeof LegalPageRoute
   ProduitSlugRoute: typeof ProduitSlugRoute
   QuestionsResultatsRoute: typeof QuestionsResultatsRoute
@@ -284,6 +311,7 @@ export interface RootRouteChildren {
   StyleResultatsRoute: typeof StyleResultatsRoute
   TextesResultatsRoute: typeof TextesResultatsRoute
   TriResultatsRoute: typeof TriResultatsRoute
+  BackofficeQuestionsIndexRoute: typeof BackofficeQuestionsIndexRoute
   QuestionsIndexRoute: typeof QuestionsIndexRoute
   StyleIndexRoute: typeof StyleIndexRoute
   TextesIndexRoute: typeof TextesIndexRoute
@@ -353,6 +381,20 @@ declare module '@tanstack/react-router' {
       path: '/recherche'
       fullPath: '/recherche'
       preLoaderRoute: typeof RechercheRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/backoffice-questions/': {
+      id: '/backoffice-questions/'
+      path: '/backoffice-questions'
+      fullPath: '/backoffice-questions/'
+      preLoaderRoute: typeof BackofficeQuestionsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/backoffice-questions/resultats': {
+      id: '/backoffice-questions/resultats'
+      path: '/backoffice-questions/resultats'
+      fullPath: '/backoffice-questions/resultats'
+      preLoaderRoute: typeof BackofficeQuestionsResultatsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/legal/$page': {
@@ -445,6 +487,7 @@ const rootRouteChildren: RootRouteChildren = {
   LivraisonRoute: LivraisonRoute,
   PersonnalisesRoute: PersonnalisesRoute,
   RechercheRoute: RechercheRoute,
+  BackofficeQuestionsResultatsRoute: BackofficeQuestionsResultatsRoute,
   LegalPageRoute: LegalPageRoute,
   ProduitSlugRoute: ProduitSlugRoute,
   QuestionsResultatsRoute: QuestionsResultatsRoute,
@@ -452,6 +495,7 @@ const rootRouteChildren: RootRouteChildren = {
   StyleResultatsRoute: StyleResultatsRoute,
   TextesResultatsRoute: TextesResultatsRoute,
   TriResultatsRoute: TriResultatsRoute,
+  BackofficeQuestionsIndexRoute: BackofficeQuestionsIndexRoute,
   QuestionsIndexRoute: QuestionsIndexRoute,
   StyleIndexRoute: StyleIndexRoute,
   TextesIndexRoute: TextesIndexRoute,
