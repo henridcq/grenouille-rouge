@@ -152,3 +152,5 @@
   font-family: var(--ff-sans);
   color: var(--foreground);
 }
+
+@media print { @page { size: A5; margin: 10mm; } }

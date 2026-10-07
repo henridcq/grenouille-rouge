@@ -6,3 +6,5 @@
 - [x] Lot 5 paniers à message
 - [ ] Page /tri : envoi auto de l'email à Henri — attend un domaine d'envoi vérifié
 - [x] Mettre /style en phase avec le catalogue 1.0 sans effacer les réponses existantes
+- [x] Maquette back-office /marie (commandes de test dans le navigateur)
+- [ ] Back-office réel : connexion, base, e-mails, notifications — en attente du domaine et de l'e-mail de Marie-Isabel
