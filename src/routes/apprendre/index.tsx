@@ -256,7 +256,7 @@ function Apprendre() {
         />
       )}
       <div className="fixed inset-x-0 bottom-0 border-t bg-background p-3">
-        <button type="button" onClick={() => setRules(true)} className="mx-auto block min-h-12 w-full max-w-xl border border-accent px-4 font-medium text-accent">
+        <button type="button" onClick={() => setRules(true)} className="mx-auto block min-h-12 w-full max-w-xl border border-sage px-4 font-medium text-sage">
           Mes 5 règles
         </button>
       </div>
@@ -278,7 +278,7 @@ function RulesCard() {
       <h2 className="text-2xl">Mes 5 règles</h2>
       <ol className="mt-4 space-y-3">
         {RULES.map((r, i) => (
-          <li key={r} className="flex gap-3"><span className="font-display text-accent">{i + 1}.</span><span>{r}</span></li>
+          <li key={r} className="flex gap-3"><span className="font-display text-sage">{i + 1}.</span><span>{r}</span></li>
         ))}
       </ol>
     </div>
@@ -294,7 +294,7 @@ function Home({ s, done, onOpen }: { s: State; done: number; onOpen: (i: number)
       </p>
       <div className="mt-6">
         <div className="flex justify-between text-sm"><span>Progression</span><span>{done}/10</span></div>
-        <div className="mt-1 h-2 bg-muted"><div className="h-2 bg-accent" style={{ width: `${done * 10}%` }} /></div>
+        <div className="mt-1 h-2 bg-muted"><div className="h-2 bg-sage" style={{ width: `${done * 10}%` }} /></div>
       </div>
       <ul className="mt-8 space-y-3">
         {MISSIONS.map((m, i) => {
@@ -305,10 +305,10 @@ function Home({ s, done, onOpen }: { s: State; done: number; onOpen: (i: number)
             <li key={m.title}>
               <button
                 type="button" disabled={locked} onClick={() => onOpen(i)}
-                className={`flex w-full items-center justify-between border p-4 text-left ${locked ? "opacity-40" : ""} ${st.doneAt ? "border-accent" : ""}`}
+                className={`flex w-full items-center justify-between border p-4 text-left ${locked ? "opacity-40" : ""} ${st.doneAt ? "border-sage" : ""}`}
               >
                 <span><span className="block text-sm text-muted-foreground">Mission {i + 1}</span><span className="font-display text-lg">{m.title}</span></span>
-                <span className={`shrink-0 px-2 py-1 text-xs ${st.doneAt ? "bg-accent text-accent-foreground" : "border"}`}>{label}</span>
+                <span className={`shrink-0 px-2 py-1 text-xs ${st.doneAt ? "bg-sage text-background" : "border"}`}>{label}</span>
               </button>
             </li>
           );
@@ -322,7 +322,7 @@ function End() {
   return (
     <>
       <h1 className="text-3xl">Bravo, ton site est entre tes mains.</h1>
-      <div className="mt-8 border border-accent p-5"><RulesCard /></div>
+      <div className="mt-8 border border-sage p-5"><RulesCard /></div>
       <p className="mt-6 font-display text-xl">Une petite amélioration par semaine.</p>
     </>
   );
@@ -336,7 +336,7 @@ function Checks({ prefix, items, m, upd }: { prefix: string; items: string[]; m:
         return (
           <li key={k}>
             <label className="flex min-h-12 cursor-pointer items-center gap-3 border p-3">
-              <input type="checkbox" className="size-5 accent-[var(--accent)]" checked={!!m.checks[k]}
+              <input type="checkbox" className="size-5 accent-[var(--sage)]" checked={!!m.checks[k]}
                 onChange={(e) => upd((x) => ({ ...x, checks: { ...x.checks, [k]: e.target.checked } }))} />
               <span>{c}</span>
             </label>
@@ -376,7 +376,7 @@ function PromptStep({ st, m, upd, title }: { st: Extract<Step, { k: "prompt" }>;
         ))}
       </div>
       <p className="mt-5 text-sm font-medium">Ton prompt :</p>
-      <p className="mt-1 border-l-2 border-accent bg-muted p-3">{text}</p>
+      <p className="mt-1 border-l-2 border-sage bg-muted p-3">{text}</p>
       <button type="button" className={`${btn} mt-4`} onClick={() => {
         navigator.clipboard?.writeText(text).catch(() => {});
         setOk(true);
@@ -399,9 +399,9 @@ function MissionView({ i, m, upd, onBack, onFinish }: { i: number; m: MState; up
 
   return (
     <>
-      <button type="button" onClick={onBack} className="text-accent underline">← Toutes les missions</button>
+      <button type="button" onClick={onBack} className="text-sage underline">← Toutes les missions</button>
       <p className="mt-4 text-sm text-muted-foreground">{head} — étape {m.step + 1}/{total}</p>
-      <div className="mt-1 h-1 bg-muted"><div className="h-1 bg-accent" style={{ width: `${((m.step + 1) / total) * 100}%` }} /></div>
+      <div className="mt-1 h-1 bg-muted"><div className="h-1 bg-sage" style={{ width: `${((m.step + 1) / total) * 100}%` }} /></div>
 
       <div className="mt-6">
         {st?.k === "why" && (<><h2 className="text-2xl">Pourquoi</h2><p className="mt-3 text-xl">{st.text}</p></>)}
@@ -409,7 +409,7 @@ function MissionView({ i, m, upd, onBack, onFinish }: { i: number; m: MState; up
           <>
             <h2 className="text-2xl">Regarde</h2>
             {st.title && <p className="mt-2">{st.title}</p>}
-            {st.link && <a href={st.link} target="_blank" rel="noreferrer" className="mt-3 inline-block text-accent underline">{st.linkLabel} ↗</a>}
+            {st.link && <a href={st.link} target="_blank" rel="noreferrer" className="mt-3 inline-block text-sage underline">{st.linkLabel} ↗</a>}
             <Checks prefix={`s${m.step}`} items={st.checks} m={m} upd={upd} />
             <Note label={st.note ?? "Ce que j'ai remarqué"} m={m} upd={upd} />
           </>
@@ -433,7 +433,7 @@ function MissionView({ i, m, upd, onBack, onFinish }: { i: number; m: MState; up
             <div className="mt-4 space-y-2">
               {BILANS.map((b) => (
                 <button key={b} type="button" onClick={() => upd((x) => ({ ...x, bilan: b }))}
-                  className={`min-h-12 w-full border px-4 text-left ${m.bilan === b ? "border-accent bg-accent text-accent-foreground" : ""}`}>{b}</button>
+                  className={`min-h-12 w-full border px-4 text-left ${m.bilan === b ? "border-sage bg-sage text-background" : ""}`}>{b}</button>
               ))}
             </div>
             {m.bilan === BILANS[2] && (
