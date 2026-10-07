@@ -40,7 +40,7 @@ function ApprendreResultats() {
     <div className="mx-auto max-w-xl px-4 py-8 text-lg">
       <h1 className="text-2xl font-medium">Parcours « Apprendre » reçus</h1>
       <p className="mt-2 text-muted-foreground">À chaque mission terminée, le récap arrive ici.</p>
-      {error && <p role="alert" className="mt-4 rounded-2xl bg-muted px-4 py-3 font-semibold">Impossible de charger la liste : {error}</p>}
+      {error && <p role="alert" className="mt-4 bg-muted px-4 py-3 font-semibold">Impossible de charger la liste : {error}</p>}
       {reports && reports.length === 0 && <p className="mt-6 text-xl">Rien pour l'instant — aucune mission terminée.</p>}
       <ul className="mt-6 space-y-4">
         {reports?.map((r) => (
@@ -50,12 +50,12 @@ function ApprendreResultats() {
               {new Date(r.created_at).toLocaleString("fr-FR", { dateStyle: "long", timeStyle: "short" })}
             </p>
             <div className="mt-3 flex gap-3">
-              <button type="button" onClick={() => download(r)} className="min-h-12 flex-1 rounded-2xl bg-foreground px-4 font-semibold text-background">
+              <button type="button" onClick={() => download(r)} className="min-h-12 flex-1 bg-foreground px-4 font-semibold text-background">
                 Télécharger le récap
               </button>
               <details className="flex-1">
-                <summary className="grid min-h-12 cursor-pointer place-items-center rounded-2xl border-2 px-4 font-semibold">Voir</summary>
-                <pre className="mt-3 max-h-96 overflow-auto whitespace-pre-wrap rounded-xl bg-muted p-3 text-sm">{r.body.split("DONNÉES BRUTES")[0]}</pre>
+                <summary className="grid min-h-12 cursor-pointer place-items-center border-2 px-4 font-semibold">Voir</summary>
+                <pre className="mt-3 max-h-96 overflow-auto whitespace-pre-wrap bg-muted p-3 text-sm">{r.body.split("DONNÉES BRUTES")[0]}</pre>
               </details>
             </div>
           </li>
