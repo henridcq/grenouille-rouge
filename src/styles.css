@@ -41,7 +41,8 @@
 
 :root {
   --radius: 0rem;
-  --ff-display: "Bodoni Moda", Georgia, serif;
+  --ff-display: "Libre Bodoni", Georgia, serif;
+  --display-weight: 700;
   --ff-sans: "Jost", system-ui, sans-serif;
   --background: #FBFAF7;                     /* blanc cassé */
   --foreground: oklch(0.255 0.018 50);       /* #2B211B brun */
@@ -97,6 +98,12 @@
   h1, h2, h3 { font-family: var(--ff-display); font-weight: 500; letter-spacing: 0; }
   /* Aucune animation sur la boutique : panneaux et menus s'ouvrent instantanément */
   body:not(:has(.legacy-style)) [data-state] { animation-duration: 0s !important; transition-duration: 0s !important; }
+}
+
+@layer utilities {
+  body:not(:has(.legacy-style)) :is(h1, h2, h3, .font-display) {
+    font-weight: var(--display-weight);
+  }
 }
 
 @utility jute-block {
