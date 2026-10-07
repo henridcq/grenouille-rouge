@@ -32,7 +32,7 @@ function Fiche() {
   const advance = () => {
     if (!next) return;
     if (next === "expediee" && !asking) return setAsking(true);
-    setStatus(o, next, next === "expediee" ? { tracking: tracking.trim() || undefined } : {});
+    setStatus(o, next, next === "expediee" && tracking.trim() ? { tracking: tracking.trim() } : {});
     setAsking(false);
   };
   const customs = o.lines.filter((l) => l.custom);
