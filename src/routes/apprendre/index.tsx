@@ -40,7 +40,7 @@ const MISSIONS: Mission[] = [
       {
         k: "prompt", id: "p1",
         template: 'Dans le bandeau rouge tout en haut du site, remplace "[ancien texte]" par "[nouveau texte]". Ne touche à rien d\'autre.',
-        defaults: { "nouveau texte": "Livraison offerte en point relais dès 39 € · Peint à la main en Normandie" },
+        defaults: { "ancien texte": "Livraison offerte en point relais dès 39 €", "nouveau texte": "Livraison offerte en point relais dès 39 € · Peint à la main en Normandie" },
       },
       { k: "verify", checks: ["Le nouveau texte apparaît"] },
       {
