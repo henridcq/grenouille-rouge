@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      apprendre_reports: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          subject: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          subject: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          subject?: string
+        }
+        Relationships: []
+      }
       backoffice_reports: {
         Row: {
           body: string

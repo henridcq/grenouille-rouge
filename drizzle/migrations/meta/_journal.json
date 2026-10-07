@@ -29,6 +29,13 @@
       "when": 1791354608771,
       "tag": "0003_create_backoffice_reports",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791355709410,
+      "tag": "0004_create_apprendre_reports",
+      "breakpoints": true
     }
   ]
 }
