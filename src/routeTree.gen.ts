@@ -18,6 +18,7 @@ import { Route as EspaceProRouteImport } from './routes/espace-pro'
 import { Route as LivraisonRouteImport } from './routes/livraison'
 import { Route as PersonnalisesRouteImport } from './routes/personnalises'
 import { Route as RechercheRouteImport } from './routes/recherche'
+import { Route as BackofficeQuestionsIndexRouteImport } from './routes/backoffice-questions/index'
 import { Route as BackofficeQuestionsResultatsRouteImport } from './routes/backoffice-questions/resultats'
 import { Route as LegalPageRouteImport } from './routes/legal.$page'
 import { Route as ProduitSlugRouteImport } from './routes/produit.$slug'
@@ -76,6 +77,12 @@ const RechercheRoute = RechercheRouteImport.update({
   path: '/recherche',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BackofficeQuestionsIndexRoute =
+  BackofficeQuestionsIndexRouteImport.update({
+    id: '/backoffice-questions/',
+    path: '/backoffice-questions/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BackofficeQuestionsResultatsRoute =
   BackofficeQuestionsResultatsRouteImport.update({
     id: '/backoffice-questions/resultats',
@@ -156,6 +163,7 @@ export interface FileRoutesByFullPath {
   '/style/resultats': typeof StyleResultatsRoute
   '/textes/resultats': typeof TextesResultatsRoute
   '/tri/resultats': typeof TriResultatsRoute
+  '/backoffice-questions/': typeof BackofficeQuestionsIndexRoute
   '/questions/': typeof QuestionsIndexRoute
   '/style/': typeof StyleIndexRoute
   '/textes/': typeof TextesIndexRoute
@@ -179,6 +187,7 @@ export interface FileRoutesByTo {
   '/style/resultats': typeof StyleResultatsRoute
   '/textes/resultats': typeof TextesResultatsRoute
   '/tri/resultats': typeof TriResultatsRoute
+  '/backoffice-questions': typeof BackofficeQuestionsIndexRoute
   '/questions': typeof QuestionsIndexRoute
   '/style': typeof StyleIndexRoute
   '/textes': typeof TextesIndexRoute
@@ -203,6 +212,7 @@ export interface FileRoutesById {
   '/style/resultats': typeof StyleResultatsRoute
   '/textes/resultats': typeof TextesResultatsRoute
   '/tri/resultats': typeof TriResultatsRoute
+  '/backoffice-questions/': typeof BackofficeQuestionsIndexRoute
   '/questions/': typeof QuestionsIndexRoute
   '/style/': typeof StyleIndexRoute
   '/textes/': typeof TextesIndexRoute
@@ -228,6 +238,7 @@ export interface FileRouteTypes {
     | '/style/resultats'
     | '/textes/resultats'
     | '/tri/resultats'
+    | '/backoffice-questions/'
     | '/questions/'
     | '/style/'
     | '/textes/'
@@ -251,6 +262,7 @@ export interface FileRouteTypes {
     | '/style/resultats'
     | '/textes/resultats'
     | '/tri/resultats'
+    | '/backoffice-questions'
     | '/questions'
     | '/style'
     | '/textes'
@@ -274,6 +286,7 @@ export interface FileRouteTypes {
     | '/style/resultats'
     | '/textes/resultats'
     | '/tri/resultats'
+    | '/backoffice-questions/'
     | '/questions/'
     | '/style/'
     | '/textes/'
@@ -298,6 +311,7 @@ export interface RootRouteChildren {
   StyleResultatsRoute: typeof StyleResultatsRoute
   TextesResultatsRoute: typeof TextesResultatsRoute
   TriResultatsRoute: typeof TriResultatsRoute
+  BackofficeQuestionsIndexRoute: typeof BackofficeQuestionsIndexRoute
   QuestionsIndexRoute: typeof QuestionsIndexRoute
   StyleIndexRoute: typeof StyleIndexRoute
   TextesIndexRoute: typeof TextesIndexRoute
@@ -367,6 +381,13 @@ declare module '@tanstack/react-router' {
       path: '/recherche'
       fullPath: '/recherche'
       preLoaderRoute: typeof RechercheRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/backoffice-questions/': {
+      id: '/backoffice-questions/'
+      path: '/backoffice-questions'
+      fullPath: '/backoffice-questions/'
+      preLoaderRoute: typeof BackofficeQuestionsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/backoffice-questions/resultats': {
@@ -474,6 +495,7 @@ const rootRouteChildren: RootRouteChildren = {
   StyleResultatsRoute: StyleResultatsRoute,
   TextesResultatsRoute: TextesResultatsRoute,
   TriResultatsRoute: TriResultatsRoute,
+  BackofficeQuestionsIndexRoute: BackofficeQuestionsIndexRoute,
   QuestionsIndexRoute: QuestionsIndexRoute,
   StyleIndexRoute: StyleIndexRoute,
   TextesIndexRoute: TextesIndexRoute,
