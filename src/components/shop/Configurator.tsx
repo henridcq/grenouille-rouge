@@ -79,6 +79,7 @@ export function Configurator({ initial = "rond-xl", lockCabas = false, prenom, c
         className={`mx-auto rounded-none ${small ? "h-36 w-36 md:aspect-square md:h-auto md:w-full" : "aspect-square w-full max-w-[22rem] md:max-w-none"}`} />
       <figcaption className={`mx-auto mt-2 max-w-md text-center text-sm italic text-muted-foreground ${small ? "hidden md:block" : ""}`}>
         Aperçu indicatif : la peinture à la main a ses humeurs, c'est ce qui fait qu'il n'y en aura pas deux pareils.
+        <span className="mt-1 block not-italic">les coutures seront de la couleur de la peinture</span>
       </figcaption>
     </figure>
   );
