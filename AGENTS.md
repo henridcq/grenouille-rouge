@@ -13,4 +13,4 @@
 - Front-only mockup: cart is in-memory React context (src/lib/cart.tsx); no backend, payments or tracking — by explicit brief.
 - Product catalogue comes from src/data/catalogue-1-0.json (single source of truth); src/data/products.ts only cleans names and adds texts/extra photos keyed by generated slug — never hand-add products elsewhere.
 - Store storefront display typography in global CSS tokens and enforce its weight for headings and font-display elements; exclude legacy questionnaire pages to preserve their presentation.
-- Use separate recoloured photo assets for configurator previews, preserving original catalogue photos; never simulate seams with a straight overlay bar.
+- Configurator previews use original photos without recolouring or added seam/feston overlays; convey the matching seam colour through the caption only.
