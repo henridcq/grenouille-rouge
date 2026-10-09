@@ -25,17 +25,10 @@ export function BagPreview({ format, color, lines, small = false, className = ""
   const bw = g.x1 - g.x0;
   // ~60 % de la largeur du panier ; une majuscule Stardos fait environ 0,62 em
   const fs = Math.min((0.6 * bw) / (longest * 0.48), 15);
-  const isCabas = format === "cabas";
 
   return (
     <div className={`relative overflow-hidden bg-card [container-type:inline-size] ${className}`}>
       <ProductImage key={f.image} src={f.image} name={f.label} alt={`Aperçu : ${f.label} en jute avec votre texte peint en ${color.name.toLowerCase()}`} className="absolute inset-0 h-full w-full" />
-      {!isCabas && (
-        <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          <line x1={g.x0} x2={g.x1} y1={g.rim} y2={g.rim} stroke="var(--jute-deep)" strokeWidth="3.4" />
-          <line x1={g.x0} x2={g.x1} y1={g.rim} y2={g.rim} stroke={color.hex} strokeWidth="3.2" strokeDasharray="0.5 0.22" />
-        </svg>
-      )}
       <div className="absolute grid place-items-center" style={{ left: `${g.x0}%`, right: `${100 - g.x1}%`, top: `${g.rim + 2}%`, bottom: `${100 - g.bottom}%` }}>
         <div
           className="text-center uppercase"
