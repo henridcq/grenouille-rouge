@@ -135,10 +135,12 @@ export function Configurator({ initial = "rond-xl", lockCabas = false, prenom, c
         {isCabas ? (
           <Step n={lockCabas ? 1 : 2} title="Quelle couleur ?" help="Une couleur, et on s'occupe du reste : le cuir des anses, le texte et le feston seront assortis.">
             <Swatches colors={paletteCabas} value={cabasColor} onChange={setCabasColor} label="Couleur du cabas" />
+            <p className="text-sm text-muted-foreground">Feston et coutures assortis à la peinture.</p>
           </Step>
         ) : (
           <Step n={3} title="Quelle couleur ?" help="Une couleur pour tout le sac : le texte, le feston et les pois ou les étoiles de l'anse.">
             <Swatches colors={palette} value={color} onChange={setColor} label="Couleur du sac" />
+            <p className="text-sm text-muted-foreground">Feston et coutures assortis à la peinture.</p>
           </Step>
         )}
 
